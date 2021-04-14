@@ -131,11 +131,12 @@ sound_get_length(index)
 These functions operate on all sounds by kind. That's how you change background
 music volume without having to go through each one, for example.
 
-sound_kind_pause(index)
-sound_kind_resume(index)
-sound_kind_volume(index,value)
-sound_kind_pan(index,value)
-sound_kind_pitch(index,value)
+sound_kind_pause(kind)
+sound_kind_resume(kind)
+sound_kind_volume(kind,volume)
+sound_kind_pan(kind,pan)
+sound_kind_pitch(kind,pitch)
+sound_kind_stop(kind)
 
 
 [microphone functions]
