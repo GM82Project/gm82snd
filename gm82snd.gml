@@ -184,7 +184,6 @@
     
 
 #define __gm82snd_update
-//()
     //this is to avoid getting deactivated by game logic
     x=view_xview[0]+view_wview[0]/2
     y=view_yview[0]+view_hview[0]/2
@@ -203,7 +202,6 @@
 
 
 #define __gm82snd_update3d
-//()
     var list3d,j,spd,spdmax,name,key,list,s,i,sx,sy,sz,mindist,maxdist,dir,vol,anglein,angleout,conevol;
     
     //speed of sound is 343 m/s
@@ -251,6 +249,7 @@
         }
     }
 
+
 #define sound_3d_set_sound_cone
 //(snd,x,y,z,anglein,angleout,voloutside) 
     var name,load,mindist,maxdist;
@@ -275,7 +274,7 @@
 
 
 #define sound_3d_set_sound_distance
-//sound_3d_set_sound_distance(snd,mindist,maxdist)
+//(snd,mindist,maxdist)
     var name,load,mindist,maxdist;
     name=string(argument0)
     load=__gm82snd_isloaded(name)
@@ -292,7 +291,7 @@
     
 
 #define sound_3d_set_sound_position
-//sound_3d_set_sound_position(snd,x,y,z)
+//(snd,x,y,z)
     var name,load,sx,sy,sz;
     name=string(argument0)
     load=__gm82snd_isloaded(name)
@@ -310,7 +309,7 @@
     
 
 #define sound_3d_set_sound_velocity
-//sound_3d_set_sound_velocity(snd,x,y,z)
+//(snd,x,y,z)
     var name,load,sx,sy,sz;
     name=string(argument0)
     load=__gm82snd_isloaded(name)
@@ -327,7 +326,7 @@
     }
 
 #define sound_add
-//sound_add(fname,kind,preload)
+//(fname,kind,preload)
     var snd,name,kind;
     
     kind=median(0,round(argument1),3)
@@ -399,7 +398,7 @@
 //todo
 
 #define sound_background_tempo
-//sound_background_tempo(factor)
+//(factor)
     var pitch;
 
     pitch=median(0.01,argument0,100)
@@ -408,7 +407,7 @@
 
 
 #define sound_delete
-//sound_delete(index)
+//(index)
     var snd,name,loaded;
     name=string(argument0)
     
@@ -447,7 +446,7 @@
 
 
 #define sound_discard
-//sound_discard(index)
+//(index)
     var snd,name,loaded;
     name=string(argument0)
     
@@ -468,7 +467,7 @@
 
 
 #define sound_encrypt
-//sound_encrypt(fname,newfname)
+//(fname,newfname)
     var pass;
     pass=__gm82snd_map("__passw")
     if (file_exists(argument0)) {
@@ -479,17 +478,17 @@
 
 
 #define sound_exists
-//sound_exists(index)
+//(index)
     return (__gm82snd_isloaded(argument0)!=0)
 
 
 #define sound_fade
-//sound_fade(index,value,time)
+//(index,value,time)
     //todo: uugghhhg more internal state
 
 
 #define sound_get_kind
-//sound_get_kind(ind)
+//(ind)
     var snd,name;
     name=string(argument0)
     
@@ -506,7 +505,7 @@
 
 
 #define sound_get_length
-//sound_get_name(index)
+//(index)
     var snd;    
     
     if (is_real(argument0)) snd=__gm82snd_call("FMODInstanceGetSound",argument0)
@@ -520,7 +519,7 @@
 
 
 #define sound_get_name
-//sound_get_name(index)
+//(index)
     var snd,name; 
     
     if (is_real(argument0)) {
@@ -541,7 +540,7 @@
     
 
 #define sound_get_preload
-//sound_get_preload(index)
+//(index)
     var snd;
     
     if (is_real(argument0)) {
@@ -557,7 +556,7 @@
 
 
 #define sound_get_pos
-//sound_get_pos(index)
+//(index)
     var snd;
     
     if (is_real(argument0)) {
@@ -569,7 +568,7 @@
     return 0
 
 #define sound_set_pos
-//sound_set_pos(index,pos)
+//(index,pos)
     var snd;
     
     if (is_real(argument0)) {
@@ -582,12 +581,12 @@
     
 
 #define sound_global_volume
-//sound_global_volume(value)
+//(value)
     __gm82snd_call("FMODMasterSetVolume",median(0,argument0,1))
 
 
 #define sound_isplaying
-//sound_isplaying(index)
+//(index)
     var snd;  
     
     if (is_real(argument0)) return __gm82snd_call("FMODInstanceIsPlaying",argument0)
@@ -675,17 +674,17 @@
 
 
 #define sound_loop
-//sound_loop(index)
+//(index)
     return __gm82snd_instantiate(argument0,"FMODSoundLoop",0)
 
 
 #define sound_loop_paused
-//sound_loop_paused(index)
+//(index)
     return __gm82snd_instantiate(argument0,"FMODSoundLoop",1)
 
 
 #define sound_pan
-//sound_pan(index,value)
+//(index,value)
     var snd,name,pan;
     name=string(argument0)
     pan=median(-1,argument1,1)
@@ -705,13 +704,13 @@
 
 
 #define sound_password
-//sound_password(string)
+//(string)
     __gm82snd_map("__passw",string(argument0))
     __gm82snd_call("FMODSetPassword",string(argument0))
 
 
 #define sound_pause
-//sound_pause(index)
+//(index)
     var snd,name,list,s,i;
     name=string(argument0)
     
@@ -750,7 +749,7 @@
 
 
 #define sound_pitch
-//sound_pitch(index,value)
+//(index,value)
     var snd,name,loaded;
     name=string(argument0)
     
@@ -769,12 +768,12 @@
 
 
 #define sound_play
-//sound_play(index)
+//(index)
     return __gm82snd_instantiate(argument0,"FMODSoundPlay",0)
 
 
 #define sound_play_paused
-//sound_play_paused(index)
+//(index)
     return __gm82snd_instantiate(argument0,"FMODSoundPlay",1)
 
 #define sound_replace
@@ -820,7 +819,7 @@
 
 
 #define sound_restore
-//sound_restore(index)
+//(index)
     var snd,name,loaded;
     name=string(argument0)
     
@@ -845,7 +844,7 @@
 
 
 #define sound_resume
-//sound_pause(index)
+//(index)
     var snd,name,list,s,i;
     name=string(argument0)
     
@@ -890,7 +889,7 @@
     
 
 #define sound_stop
-//sound_stop(index)
+//(index)
     var snd,name;
     name=string(argument0)
     
@@ -911,7 +910,7 @@
 
 
 #define sound_stop_all
-//sound_stop_all(index)
+//(index)
     var key;
     __gm82snd_call("FMODAllStop")
     key=ds_map_find_first(__gm82snd_mapid)
@@ -923,7 +922,7 @@
 
 
 #define sound_volume
-//sound_volume(index,value)
+//(index,value)
     var vol,name,loaded;
     name=string(argument0)
     vol=median(0,argument1,1)
