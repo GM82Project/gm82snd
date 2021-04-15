@@ -60,6 +60,11 @@
     __gm82snd_define("FMODCreateSoundFromMicInput")
     __gm82snd_define("FMODRecordStart",ty_real)
     __gm82snd_define("FMODRecordStop")
+    
+    __gm82snd_define("FMODInstanceAddEffect",ty_real,ty_real)
+    __gm82snd_define("FMODGroupAddEffect",ty_real,ty_real)
+    __gm82snd_define("FMODEffectFree",ty_real)
+    __gm82snd_define("FMODEffectSetParamValue",ty_real,ty_real,ty_real)
 
     __gm82snd_define("FMODGroupStop",ty_real)
     __gm82snd_define("FMODGroupSetVolume",ty_real,ty_real)
@@ -776,6 +781,27 @@
 //(index)
     return __gm82snd_instantiate(argument0,"FMODSoundPlay",1)
 
+
+#define sound_play_single
+    var inst,name;
+    name=string(argument0)
+    inst=__gm82snd_map(name+"__single")
+    if (inst) __gm82snd_call("FMODInstanceStop",inst) 
+    inst=__gm82snd_instantiate(name,"FMODSoundPlay",0)
+    __gm82snd_map(name+"__single",inst)
+    return inst
+
+
+#define sound_loop_single
+    var inst,name;
+    name=string(argument0)
+    inst=__gm82snd_map(name+"__single")
+    if (inst) __gm82snd_call("FMODInstanceStop",inst) 
+    inst=__gm82snd_instantiate(name,"FMODSoundLoop",0)
+    __gm82snd_map(name+"__single",inst)
+    return inst
+
+
 #define sound_replace
 //sound_replace(index,fname,kind,preload)
     var name,loaded,snd,kind,list;
@@ -942,5 +968,101 @@
     return 0
 
 
-#define __gm82snd_nop
-//do nothing
+#define sound_effect_set
+//(sndinst,effect)
+    /*var name,loaded,ef;
+    name=string(argument0)
+    loaded=__gm82snd_isloaded(name)
+    
+    if (loaded!=0) {
+        //sound id
+        show_error("Error in function sound_effect_set("+name+"): Sound effects can only be applied to sound instances.",0)
+        return 0
+    } else if (is_real(argument0)) {
+        ef=0
+        switch (argument1) {
+            case 1: ef=12 break
+            case 2: ef=6 break
+            case 3: ef=3 break
+            case 4: ef=7 break
+            case 5: ef=5 break
+            case 6: ef=9 break
+            case 7: ef=11 break
+            case 8: ef=8 break
+            case 16: ef=18 break
+            case 32: ef=17 break
+            case 64: ef=10 break
+        }
+        if (ef) {
+            return __gm82snd_call("FMODInstanceAddEffect",argument0,ef)
+        } else show_error("Error in function sound_effect_set("+name+"): invalid effect number "+string(argument0),0)
+        return 0
+    }
+    
+    show_error("Sound does not exist: "+name,0)*/
+    return 0
+
+
+#define sound_kind_effect
+//(kind,effect)
+    var kind,group,ef;
+    kind=argument0
+
+    if (kind=1)   group=1 //music
+    if (kind=3)   group=2 //mmplay
+    if (kind=2)   group=3 //3d
+    if (kind=0)   group=4 //regular sfx
+    if (kind=all) group=0 //all
+    
+    ef=0
+    switch (argument1) {
+        case 1: ef=12 break //se_chorus
+        case 2: ef=6 break  //se_echo
+        case 3: ef=18 break //se_lowpass
+        case 4: ef=7 break  //se_flanger
+        case 5: ef=5 break  //se_highpass
+        case 6: ef=9 break  //se_normalize
+        case 7: ef=11 break //se_pitchshift
+        case 8: ef=8 break  //se_gargle
+        case 16: ef=17 break//se_reverb
+        case 32: ef=16 break//se_compressor
+        case 64: ef=10 break//se_equalizer
+    }
+    if (ef) {
+        i=__gm82snd_call("FMODGroupAddEffect",group,ef)
+        //reverb's defaults are barely audible
+        if (ef=17) sound_effect_options(i,1,0.7)
+        return i
+    } else show_error("Error in function sound_kind_effect("+name+"): invalid effect number "+string(argument0),0)
+    return 0
+
+
+#define sound_effect_options
+//(sfxinst,option,value)
+    __gm82snd_call("FMODEffectSetParamValue",argument0,argument1,argument2)
+
+#define sound_effect_destroy
+//(effect)
+    if (argument0) {
+        __gm82snd_call("FMODEffectFree",argument0)
+        return 1
+    }
+    return 0
+
+
+#define sound_effect_chorus
+    show_error("Error in function sound_effect_chorus: Please use sound_effect_set() instead!",0)
+#define sound_effect_echo
+    show_error("Error in function sound_effect_echo: Please use sound_effect_set() instead!",0)
+#define sound_effect_flanger
+    show_error("Error in function sound_effect_flanger: Please use sound_effect_set() instead!",0)
+#define sound_effect_gargle
+    show_error("Error in function sound_effect_gargle: Please use sound_effect_set() instead!",0)
+#define sound_effect_reverb
+    show_error("Error in function sound_effect_reverb: Please use sound_effect_set() instead!",0)
+#define sound_effect_compressor
+    show_error("Error in function sound_effect_compressor: Please use sound_effect_set() instead!",0)
+#define sound_effect_equalizer
+    show_error("Error in function sound_effect_equalizer: Please use sound_effect_set() instead!",0)
+#define sound_set_search_directory
+    //nop

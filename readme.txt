@@ -29,7 +29,7 @@ When a sound is loaded, the kind you pick determines how it'll behave.
 
 kind = 0 (normal) is not streamed and can have multiple instances
 kind = 1 (background) is streamed from disk and can only have one instance
-kind = 2 (3d) is treated identically to kind = 0 (normal)
+kind = 2 (3d) is treated identically to kind = 0 (normal) but with spatial 3d
 kind = 3 (mmplayer) is streamed from disk but can also have multiple instances
 
 Streamed sounds are decoded from disk - meaning, they take a bit more cpu to
@@ -42,16 +42,6 @@ without streaming can take several seconds.
 
 So bottom line - you can load short oggs as normal type if you need, but use
 mmplayer type for things like long voice lines that need to be streamed.
-
-
-[effects]
-
-Game Maker's sound effects were handled by DirectSound itself. Our engine uses
-FmodEx which means we can't make 1:1 recreations of the effects, and it would
-be too much effort to make imitations using the Fmod effect system.
-
-In the future, I plan to implement FmodEx' own effect contructors, so let me
-know if you need them for your project so I can give that some attention.
 
 
 [vanilla function list]
@@ -86,10 +76,6 @@ sound_volume
 
 [adding sounds]
 
-note: after loading a sound, you should give the sound engine some time to
-process, so if your sounds don't play, try giving it a few milliseconds.
-this is an fmodex bug that i'm currently investigating.
-
 sound_add_included(fname,kind,preload)
     Adds a sound from one of the included files.
     
@@ -107,7 +93,7 @@ sound_encrypt(source,dest)
     correct password. Useful for important game spoilers!
 
 
-[sound options]
+[new functions]
 
 sound_pitch(index,pitch)
     Changes the pitch of a sound between 0.01 and 100 (default is 1).
@@ -118,12 +104,57 @@ sound_play_paused(index)
 sound_loop_paused(index)
     Creates a paused looped instance so you can set its parameters before play.
     
+sound_play_single(index)
+    Plays a single instance of the sound. Will only stop older instances that
+    were created with one of the _single functions.
+    
+sound_loop_single(index)
+    Loops a single instance of the sound. Will only stop older instances that
+    were created with one of the _single functions.
+    
 sound_set_loop(index,loopstart,loopend)
     Sets the loop points of a sound (between 0 and 1). Use sound_get_length()
     if you need to use seconds for measurement.
 
 sound_get_length(index)
     Returns the length of the sound in seconds.
+
+
+[effects]
+
+Game Maker's sound effects were handled by DirectSound itself. Our engine uses
+FmodEx which means we can't make 1:1 recreations of the effects, but we provide
+an effect constructor so that you can use FmodEx sound effects.
+
+Currently, we only support applying effects to sound kinds due to memory leaks
+that would require manual upkeeping - do let me know if you require the ability
+to apply effects to sounds or instances.
+
+sound_kind_effect(kind,effect)
+    Adds an effect to a sound kind and returns its id.
+    
+    You can also specify "all" to apply the effect to all kinds at once.
+    
+    Effect is one of the following:
+    
+    se_chorus
+    se_echo
+    se_flanger
+    se_gargle
+    se_reverb
+    se_compressor
+    se_equalizer
+    se_lowpass
+    se_highpass
+    se_normalize
+    se_pitchshift
+
+sound_effect_options(sfxinst,option,value)
+    Changes an effect's options. Check the GMFMODSimple demo for how to use
+    these (they are called effect parameters in fmod).
+    
+sound_effect_destroy(effect)
+    Stops using the effect.
 
 
 [kind functions]
@@ -137,6 +168,7 @@ sound_kind_volume(kind,volume)
 sound_kind_pan(kind,pan)
 sound_kind_pitch(kind,pitch)
 sound_kind_stop(kind)
+sound_kind_effect(kind,effect)
 
 
 [microphone functions]
@@ -156,10 +188,6 @@ sound_mic_stop()
 
 [deprecated functions]
 
-These functions did specific things with the builtin audio engine and simply
-do nothing when the extension is installed. If you need effects, consider using
-the effect constructor (note: the effect contructor isn't implemented yet).
-
 sound_effect_chorus(...)
 sound_effect_compressor(...)
 sound_effect_echo(...)
@@ -168,7 +196,11 @@ sound_effect_flanger(...)
 sound_effect_gargle(...)
 sound_effect_reverb(...)
 sound_effect_set(...)
+    These functions changed the parameters for DirectSound effects.
+    To use effects, check the [Effects] section for more instructions.
+    
 sound_set_search_directory(...)
+    This function isn't needed.
 
 
 [notes]
