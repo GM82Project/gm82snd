@@ -191,6 +191,7 @@
         __gm82snd_call("FMODInstanceStop",ds_list_find_value(list,i))
     }
     ds_list_clear(list)
+    __gm82snd_update2d()
     
 
 #define __gm82snd_update
@@ -200,8 +201,10 @@
 
     __gm82snd_call("FMODUpdate")
     __gm82snd_update3d()
+    __gm82snd_update2d()    
+    
 
-    //ok what if instead i had a global instance list    
+#define __gm82snd_update2d
     var list,i,l,inst,il,snd;
     
     list=__gm82snd_map("__globlist")
@@ -218,7 +221,7 @@
             l-=2
         }
     }
-    
+
 
 #define __gm82snd_update3d
     var list3d,j,spd,spdmax,name,key,list,s,i,sx,sy,sz,mindist,maxdist,dir,vol,anglein,angleout,conevol;
