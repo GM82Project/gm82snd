@@ -90,11 +90,12 @@
     __gm82snd_map("__bgtempo",1)
     __gm82snd_map("__passw","")
     __gm82snd_map("__3dlist",ds_list_create())
+    __gm82snd_map("__globlist",ds_list_create())
 
 
 #define __gm82snd_instantiate
 //(index,loop)
-    var snd,kind,inst,pitch,pan,vol,flags,name;
+    var snd,kind,inst,pitch,pan,vol,flags,name,list,list2;
     name=string(argument0)
     snd=__gm82snd_fmodid(name)
     if (!snd) {
@@ -135,7 +136,11 @@
             inst=__gm82snd_call(argument1,snd,argument2)
         }
 
-        ds_list_add(__gm82snd_instlist(name),inst)
+        list=__gm82snd_instlist(name)
+        ds_list_add(list,inst)
+        list2=__gm82snd_map("__globlist")
+        ds_list_add(list2,inst)
+        ds_list_add(list2,list)
         if (kind==1) __gm82snd_map("__bginst",inst)
         return inst
     }
@@ -196,15 +201,24 @@
     __gm82snd_call("FMODUpdate")
     __gm82snd_update3d()
 
-    //run through instances and clean them up as they finish playing
-    //todo
-    /*key=ds_map_find_first(__gm82snd_mapid)
-    repeat (ds_map_size(__gm82snd_mapid)) {
-        if (string_pos("__instlist",key))
-            ds_list_clear(ds_map_find_value(__gm82snd_mapid,key))
-        key=ds_map_find_next(__gm82snd_mapid,key)
-    }*/
-
+    //ok what if instead i had a global instance list    
+    var list,i,l,inst,il,snd;
+    
+    list=__gm82snd_map("__globlist")
+    l=ds_list_size(list)
+    for (i=0;i<l;i+=2) {
+        inst=ds_list_find_value(list,i)
+        if (!__gm82snd_call("FMODInstanceIsPlaying",inst)) {
+            __gm82snd_call("FMODInstanceStop",inst)
+            ds_list_delete(list,i)
+            il=ds_list_find_value(list,i)
+            ds_list_delete(list,i)
+            ds_list_delete(il,ds_list_find_index(il,inst))
+            i-=2
+            l-=2
+        }
+    }
+    
 
 #define __gm82snd_update3d
     var list3d,j,spd,spdmax,name,key,list,s,i,sx,sy,sz,mindist,maxdist,dir,vol,anglein,angleout,conevol;
@@ -723,7 +737,7 @@
     
     if (loaded!=0) {
         if (loaded) {
-            list=__gm82snd_instlist(argument0)
+            list=__gm82snd_instlist(name)
             s=ds_list_size(list)
             for (i=0;i<s;i+=1) {
                 __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(list,i),1)
@@ -945,6 +959,7 @@
             ds_list_clear(ds_map_find_value(__gm82snd_mapid,key))
         key=ds_map_find_next(__gm82snd_mapid,key)
     }
+    ds_list_clear(__gm82snd_map("__globlist"))
 
 
 #define sound_volume
