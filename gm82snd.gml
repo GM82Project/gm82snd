@@ -598,7 +598,7 @@
     
     snd=__gm82snd_fmodid(argument0)    
     if (snd) 
-        return !ds_list_empty(__gm82snd_instlist(snd))
+        return !ds_list_empty(__gm82snd_instlist(argument0))
 
 
 #define sound_kind_pan
@@ -723,7 +723,7 @@
     
     if (loaded!=0) {
         if (loaded) {
-            list=__gm82snd_instlist(snd)
+            list=__gm82snd_instlist(argument0)
             s=ds_list_size(list)
             for (i=0;i<s;i+=1) {
                 __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(list,i),1)
@@ -878,7 +878,7 @@
     
     if (loaded!=0) {
         if (loaded) {
-            list=__gm82snd_instlist(snd)
+            list=__gm82snd_instlist(name)
             s=ds_list_size(list)
             for (i=0;i<s;i+=1) {
                 __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(list,i),0)
@@ -1033,7 +1033,7 @@
         //reverb's defaults are barely audible
         if (ef=17) sound_effect_options(i,1,0.7)
         return i
-    } else show_error("Error in function sound_kind_effect("+name+"): invalid effect number "+string(argument0),0)
+    } else show_error("Error in function sound_kind_effect("+string(argument0)+"): invalid effect number "+string(argument1),0)
     return 0
 
 
