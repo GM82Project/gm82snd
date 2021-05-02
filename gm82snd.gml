@@ -33,13 +33,21 @@
 
 
 #define __gm82snd_init
+    var p,dir;
     object_event_add(__gm82core_object,ev_step,ev_step_end,"__gm82snd_update()")
 
-    directory_create(temp_directory+"\gm82\sound") 
+    //move gmfmod to a common location so that it doesn't leave a million copies behind
+    directory_create(temp_directory+"\gm82\sound")     
+    p=string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))    
+    dir=string_copy(temp_directory,1,p+19)+"gm82snd"    
+    directory_create(dir)    
+    file_rename(temp_directory+"\gm82\fmodex.dll",dir+"\fmodex.dll")
+    file_rename(temp_directory+"\gm82\GMFMODSimple.dll",dir+"\GMFMODSimple.dll")
     
-    __gm82core_setdir(temp_directory+"\gm82")
+    __gm82core_setdir(dir)
     
     __gm82snd_define("FMODinit",ty_real,ty_real)
+    __gm82snd_define("FMODfree")
     __gm82snd_define("FMODUpdate")
     __gm82snd_define("FMODUpdateTakeOverWhileLocked")
     __gm82snd_define("FMODUpdateTakeOverDone")
@@ -91,6 +99,12 @@
     __gm82snd_map("__passw","")
     __gm82snd_map("__3dlist",ds_list_create())
     __gm82snd_map("__globlist",ds_list_create())
+
+
+#define __gm82snd_deinit
+    __gm82snd_call("FMODAllStop")
+    __gm82snd_call("FMODfree")
+    external_free("GMFMODSimple.dll")
 
 
 #define __gm82snd_instantiate
@@ -405,7 +419,7 @@
 #define sound_add_included
 //(fname,kind,preload)
     var fname;
-    fname=temp_directory+"\gm82\sound"+argument0
+    fname=temp_directory+"\gm82\sound\"+argument0
     export_include_file_location(argument0,fname)
     return sound_add(fname,argument1,argument2)
 
