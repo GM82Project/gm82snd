@@ -169,6 +169,9 @@ sound_kind_pan(kind,pan)
 sound_kind_pitch(kind,pitch)
 sound_kind_stop(kind)
 sound_kind_effect(kind,effect)
+sound_kind_list(kind)
+    Returns a ds_list with the names of each sound loaded of this kind.
+    Remember to destroy the list once you're done with it.
 
 
 [microphone functions]
