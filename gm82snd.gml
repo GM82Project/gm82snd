@@ -4,12 +4,14 @@
 
     call=__gm82snd_map("__dll_"+argument0)
 
-    if (argument_count=1) return external_call(call)
-    if (argument_count=2) return external_call(call,argument[1])
-    if (argument_count=3) return external_call(call,argument[1],argument[2])
-    if (argument_count=4) return external_call(call,argument[1],argument[2],argument[3])
-    if (argument_count=5) return external_call(call,argument[1],argument[2],argument[3],argument[4])
-    if (argument_count=6) return external_call(call,argument[1],argument[2],argument[3],argument[4],argument[5])
+    switch (argument_count) {
+        case 1: return external_call(call)
+        case 2: return external_call(call,argument[1])
+        case 3: return external_call(call,argument[1],argument[2])
+        case 4: return external_call(call,argument[1],argument[2],argument[3])
+        case 5: return external_call(call,argument[1],argument[2],argument[3],argument[4])
+        case 6: return external_call(call,argument[1],argument[2],argument[3],argument[4],argument[5])
+    }
 
 
 #define __gm82snd_define
@@ -17,13 +19,15 @@
     var dll,call;
     
     dll="GMFMODSimple.dll"
-    if (argument_count=1) call=external_define(dll,argument0,1,0,0)
-    if (argument_count=2) call=external_define(dll,argument0,1,0,1,argument[1])
-    if (argument_count=3) call=external_define(dll,argument0,1,0,2,argument[1],argument[2])
-    if (argument_count=4) call=external_define(dll,argument0,1,0,3,argument[1],argument[2],argument[3])
-    if (argument_count=5) call=external_define(dll,argument0,1,0,4,argument[1],argument[2],argument[3],argument[4])
-    if (argument_count=6) call=external_define(dll,argument0,1,0,5,argument[1],argument[2],argument[3],argument[4],argument[5])
-
+    switch (argument_count) {
+        case 1: call=external_define(dll,argument[0],1,0,0) break
+        case 2: call=external_define(dll,argument[0],1,0,1,argument[1]) break
+        case 3: call=external_define(dll,argument[0],1,0,2,argument[1],argument[2]) break
+        case 4: call=external_define(dll,argument[0],1,0,3,argument[1],argument[2],argument[3]) break
+        case 5: call=external_define(dll,argument[0],1,0,4,argument[1],argument[2],argument[3],argument[4]) break
+        case 6: call=external_define(dll,argument[0],1,0,5,argument[1],argument[2],argument[3],argument[4],argument[5]) break
+    }
+    
     __gm82snd_map("__dll_"+argument0,call)
 
 
