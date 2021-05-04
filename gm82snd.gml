@@ -370,7 +370,14 @@
 
 #define sound_add
 //(fname,kind,preload)
-    var snd,name,kind;
+    var snd,name,kind,loaded;    
+    
+    name=filename_change_ext(filename_name(argument0),"")    
+    loaded=__gm82snd_isloaded(name)
+    if (loaded!=0) {
+        sound_replace(name,argument0,argument1,argument2)
+        return name
+    }
     
     kind=median(0,round(argument1),3)
 
@@ -380,7 +387,6 @@
     } else
         snd=0
     
-    name=filename_change_ext(filename_name(argument0),"")
     ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
     
     __gm82snd_map(snd,name)
