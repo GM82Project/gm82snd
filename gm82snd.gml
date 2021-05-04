@@ -101,7 +101,10 @@
     __gm82snd_map("__bginst",0)
     __gm82snd_map("__bgtempo",1)
     __gm82snd_map("__passw","")
-    __gm82snd_map("__3dlist",ds_list_create())
+    __gm82snd_map("__kindlist0",ds_list_create())
+    __gm82snd_map("__kindlist1",ds_list_create())
+    __gm82snd_map("__kindlist2",ds_list_create())
+    __gm82snd_map("__kindlist3",ds_list_create())
     __gm82snd_map("__globlist",ds_list_create())
 
 
@@ -249,7 +252,7 @@
     
     //i've inlined all of the map readers in this function for performance concerns.
     
-    list3d=ds_map_find_value(__gm82snd_mapid,"__3dlist")
+    list3d=ds_map_find_value(__gm82snd_mapid,"__kindlist2")
     length=ds_list_size(list3d)
     for (j=0;j<length;j+=1) {
         name=ds_list_find_value(list3d,j)
@@ -378,10 +381,7 @@
         snd=0
     
     name=filename_change_ext(filename_name(argument0),"")
-
-    if (kind=2) {
-        ds_list_add(__gm82snd_map("__3dlist"),name)
-    }
+    ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
     
     __gm82snd_map(snd,name)
     __gm82snd_map(name+"__fmodid",snd)
@@ -461,9 +461,12 @@
             ds_map_delete(__gm82snd_mapid,name+"__loaded")
             ds_map_delete(__gm82snd_mapid,snd)
         }
-        list=__gm82snd_map("__3dlist")
-        i=ds_list_find_index(list,name)
-        if (i!=-1) ds_list_delete(list,i)
+        
+        for (i=0;i<4;i+=1) {
+            list=__gm82snd_map("__kindlist"+string(i))
+            j=ds_list_find_index(list,name)
+            if (j!=-1) ds_list_delete(list,j)
+        }
         
         ds_list_destroy(__gm82snd_instlist(name))
         
@@ -839,7 +842,7 @@
 
 #define sound_replace
 //sound_replace(index,fname,kind,preload)
-    var name,loaded,snd,kind,list;
+    var name,loaded,snd,kind,list,i;
     name=string(argument0)
     
     loaded=__gm82snd_isloaded(name)
@@ -851,17 +854,15 @@
             ds_map_delete(__gm82snd_mapid,snd)
         }
         
-        list=__gm82snd_map("__3dlist")
-        
-        if (__gm82snd_map(name+"__kind")==2) {
-            ds_list_delete(list,ds_list_find_index(list,name))
+        for (i=0;i<4;i+=1) {
+            list=__gm82snd_map("__kindlist"+string(i))
+            j=ds_list_find_index(list,name)
+            if (j!=-1) ds_list_delete(list,j)
         }
         
-        kind=argument3 mod 2
+        kind=median(0,round(argument1),3)
         
-        if (kind=2) {
-            ds_list_add(__gm82snd_map("__3dlist"),name)
-        }
+        ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
         
         if (argument3) {
             snd=__gm82snd_call("FMODSoundAdd",argument1,0,kind)
