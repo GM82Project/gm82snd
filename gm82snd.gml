@@ -293,6 +293,20 @@
     }
 
 
+#define sound_kind_list
+//(kind):list
+    var lr,i,kind,list,l;
+    
+    lr=ds_list_create()
+    kind=median(0,round(argument0),3)
+    list=ds_map_find_value(__gm82snd_mapid,"__kindlist"+string(kind))
+    l=ds_list_size(list)
+    for (i=0;i<l;i+=1) {
+        ds_list_add(lr,ds_list_find_value(list,i))
+    }
+    return lr
+
+
 #define sound_3d_set_sound_cone
 //(snd,x,y,z,anglein,angleout,voloutside) 
     var name,load,mindist,maxdist;
