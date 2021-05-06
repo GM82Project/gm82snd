@@ -82,6 +82,9 @@ sound_add_included(fname,kind,preload)
 sound_add_directory(dir,extension,kind,preload)
     Adds every sound of a specific extension from a folder. Returns how many
     sounds were added.
+/!\ Caution: this function uses file_find. If you're trying to find folders
+    to load, make sure you create a list beforehand, and then navigate the list
+    outside of a file find loop. Otherwise, errors will occur.
 
 sound_password(string)
     Sets the password for encrypting or decrypting sound files. Setting a
