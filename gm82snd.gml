@@ -577,7 +577,7 @@
     if (snd)
         return __gm82snd_call("FMODSoundGetLength",snd)/1000
         
-    show_error("Sound does not exist: "+name,0)
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
