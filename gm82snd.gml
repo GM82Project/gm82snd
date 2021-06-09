@@ -424,8 +424,10 @@
     
     dir=argument0
 
+    if (!string_pos(":",dir)) dir=working_directory+dir
+
     if (string_char_at(dir,string_length(dir))!="\")
-    dir+="\"
+        dir+="\"
     
     count=0    
     if (directory_exists(dir)) {
