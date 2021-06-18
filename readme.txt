@@ -12,6 +12,13 @@ Read on about the distinction between sounds and instances, and also how to
 properly use sound kinds.
 
 
+[FMOD compatibility]
+
+A set of direct FMOD function calls is included to enable compatibility for
+games that already implement the script or extension versions of GMFMOD.
+They're not fully implemented, but they should let most games start up.
+
+
 [sounds vs. sound instances]
 
 The first important distinction to have is that just like GM:Studio, every time
