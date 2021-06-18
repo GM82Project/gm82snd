@@ -132,7 +132,10 @@
     
     if (snd) {
         kind=sound_get_kind(name)
-        if (kind==1) sound_stop(__gm82snd_map("__bginst"))
+        if (kind==1) {
+            inst=__gm82snd_map("__bginst")
+            if (inst) sound_stop(inst)
+        }
 
         flags=0
 
