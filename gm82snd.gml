@@ -565,8 +565,10 @@
     name=string(argument0)
     
     if (is_real(argument0)) {
-        snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-        return __gm82snd_map(__gm82snd_map(snd)+"__kind")
+        if (argument0) {
+            snd=__gm82snd_call("FMODInstanceGetSound",argument0)
+            return __gm82snd_map(__gm82snd_map(snd)+"__kind")
+        }
     } else {
         if (__gm82snd_map(argument0+"__loaded"))!=0 
         return __gm82snd_map(name+"__kind")
@@ -580,8 +582,9 @@
 //(index)
     var snd;    
     
-    if (is_real(argument0)) snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-    else snd=__gm82snd_fmodid(argument0)
+    if (is_real(argument0)) {
+        if (argument0) snd=__gm82snd_call("FMODInstanceGetSound",argument0)
+    } else snd=__gm82snd_fmodid(argument0)
     
     if (snd)
         return __gm82snd_call("FMODSoundGetLength",snd)/1000
@@ -595,8 +598,10 @@
     var snd,name; 
     
     if (is_real(argument0)) {
-        snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-        name=__gm82snd_map(snd)
+        if (argument0) {
+            snd=__gm82snd_call("FMODInstanceGetSound",argument0)
+            name=__gm82snd_map(snd)
+        }
     } else {
         name=argument0
     }
@@ -616,8 +621,10 @@
     var snd;
     
     if (is_real(argument0)) {
-        snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-        return __gm82snd_map(__gm82snd_map(snd)+"__loaded")
+        if (argument0) {
+            snd=__gm82snd_call("FMODInstanceGetSound",argument0)
+            return __gm82snd_map(__gm82snd_map(snd)+"__loaded")
+        }
     } else {
         loaded=__gm82snd_map(argument0+"__loaded")
         if (loaded!=0) return !!loaded
@@ -631,8 +638,7 @@
 //(index)
     var snd;
     
-    if (is_real(argument0)) {
-        //todo: add safety
+    if (is_real(argument0)) if (argument0) {
         return __gm82snd_call("FMODInstanceGetPosition",argument0)
     }    
     
@@ -643,8 +649,7 @@
 //(index,pos)
     var snd;
     
-    if (is_real(argument0)) {
-        //todo: add safety
+    if (is_real(argument0)) if (argument0) {
         return __gm82snd_call("FMODInstanceSetPosition",argument0,median(0,argument1,1))
     }    
     
@@ -661,7 +666,7 @@
 //(index)
     var snd;  
     
-    if (is_real(argument0)) return __gm82snd_call("FMODInstanceIsPlaying",argument0)
+    if (is_real(argument0)) if (argument0) return __gm82snd_call("FMODInstanceIsPlaying",argument0)
     
     snd=__gm82snd_fmodid(argument0)    
     if (snd) 
@@ -766,7 +771,7 @@
     if (loaded!=0) {
         __gm82snd_map(name+"__pan",pan)
         return 0
-    } else if (is_real(argument0)) {
+    } else if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetPan",argument0,pan)
         return 0
     }
@@ -797,7 +802,7 @@
             }
         }
         return 0
-    } else if (is_real(argument0)) {
+    } else if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetPaused",argument0,1)
         return 0
     }
@@ -830,7 +835,7 @@
     if (loaded!=0) {
         __gm82snd_map(name+"__pitch",argument1)
         return 0
-    } else if (is_real(argument0)) {
+    } else if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetPitch",argument0,argument1)
         return 0
     }
@@ -950,7 +955,7 @@
             }
         }
         return 0
-    } else if (is_real(argument0)) {
+    } else if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetPaused",argument0,0)
         return 0
     }
@@ -990,7 +995,7 @@
             __gm82snd_stopallof(name)
         }
         return 0
-    } else if (is_real(argument0)) {
+    } else if (is_real(argument0)) if (argument0) {
         snd=__gm82snd_call("FMODInstanceGetSound",argument0)
         __gm82snd_call("FMODInstanceStop",argument0)        
         ds_list_delete(__gm82snd_instlist(__gm82snd_map(snd)),argument0)
@@ -1025,7 +1030,7 @@
         if (loaded) __gm82snd_call("FMODSoundSetMaxVolume",__gm82snd_fmodid(name),vol)
         __gm82snd_map(name+"__volume",vol)
         return 0
-    } else if (is_real(argument0)) {
+    } else if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetVolume",argument0,vol)
         return 0
     }
@@ -1044,7 +1049,7 @@
         //sound id
         show_error("Error in function sound_effect_set("+name+"): Sound effects can only be applied to sound instances.",0)
         return 0
-    } else if (is_real(argument0)) {
+    } else if (is_real(argument0)) if (argument0) {
         ef=0
         switch (argument1) {
             case 1: ef=12 break
