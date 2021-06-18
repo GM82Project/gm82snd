@@ -13,8 +13,13 @@
         case 6: ret=external_call(call,argument[1],argument[2],argument[3],argument[4],argument[5]) break
     }
 
-    error=external_call(global.__gm82snd_errorcheck)
-    if (error) show_error("FMOD error in function "+argument0+":"+chr(13)+chr(13)+__gm82snd_geterrorstr(error),0)
+    if (global.__gm82snd_checkerrors) {
+        error=external_call(global.__gm82snd_errorcheck)
+        if (error) {
+            if (error=36) return 0 //deleted instance errors arent useful
+            show_error("FMOD error in function "+argument0+":"+chr(13)+chr(13)+__gm82snd_geterrorstr(error),0)
+        }
+    }
     return ret
 
 #define __gm82snd_define
@@ -50,6 +55,8 @@
     directory_create(dir)    
     file_rename(temp_directory+"\gm82\fmodex.dll",dir+"\fmodex.dll")
     file_rename(temp_directory+"\gm82\GMFMODSimple.dll",dir+"\GMFMODSimple.dll")
+    
+    global.__gm82snd_checkerrors=true
     
     __gm82core_setdir(dir)
     
@@ -242,6 +249,7 @@
     l=ds_list_size(list)
     for (i=0;i<l;i+=2) {
         inst=ds_list_find_value(list,i)
+        global.__gm82snd_checkerrors=false
         if (!__gm82snd_call("FMODInstanceIsPlaying",inst)) {
             __gm82snd_call("FMODInstanceStop",inst)
             ds_list_delete(list,i)
@@ -251,6 +259,7 @@
             i-=2
             l-=2
         }
+        global.__gm82snd_checkerrors=true
     }
 
 
