@@ -16,7 +16,7 @@
     if (global.__gm82snd_checkerrors) {
         error=external_call(global.__gm82snd_errorcheck)
         if (error) {
-            if (error=36) return 0 //deleted instance errors arent useful
+            if (error=36 || error=11) return 0 //deleted instance errors arent useful
             show_error("FMOD error in function "+argument0+":"+chr(13)+chr(13)+__gm82snd_geterrorstr(error),0)
         }
     }
@@ -26,7 +26,7 @@
 //(func,args,...)
     var dll,call;
     
-    dll="GMFMODSimple.dll"
+    dll=temp_directory+"\gm82\GMFMODSimple.dll"
     switch (argument_count) {
         case 1: call=external_define(dll,argument[0],1,0,0) break
         case 2: call=external_define(dll,argument[0],1,0,1,argument[1]) break
@@ -48,17 +48,18 @@
     var p,dir;
     object_event_add(__gm82core_object,ev_step,ev_step_end,"__gm82snd_update()")
 
-    //move gmfmod to a common location so that it doesn't leave a million copies behind
+    //move fmod to a common location so that it doesn't leave a copy behind every time you run the game
     directory_create(temp_directory+"\gm82\sound")     
     p=string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))    
     dir=string_copy(temp_directory,1,p+19)+"gm82snd"    
     directory_create(dir)    
     file_rename(temp_directory+"\gm82\fmodex.dll",dir+"\fmodex.dll")
-    file_rename(temp_directory+"\gm82\GMFMODSimple.dll",dir+"\GMFMODSimple.dll")
+    //poke it so that gmfmod can find it
+    //this is a valid function and will put fmodex in the link list
+    //this means it can be anywhere and it'll be found for further function defs
+    external_define(dir+"\fmodex.dll","FMOD_Debug_GetLevel",dll_cdecl,ty_real,0)
     
     global.__gm82snd_checkerrors=true
-    
-    __gm82core_setdir(dir)
     
     __gm82snd_define("FMODinit",ty_real,ty_real)
     __gm82snd_define("FMODfree")
@@ -161,8 +162,6 @@
 
     __gm82snd_call("FMODinit",64,0)
 
-    __gm82core_setdir(working_directory)
-
     __gm82snd_map("__bginst",0)
     __gm82snd_map("__bgtempo",1)
     __gm82snd_map("__passw","")
@@ -176,7 +175,6 @@
 #define __gm82snd_deinit
     __gm82snd_call("FMODAllStop")
     __gm82snd_call("FMODfree")
-    external_free("GMFMODSimple.dll")
 
 
 #define __gm82snd_instantiate
@@ -495,7 +493,7 @@
     
     dir=argument0
 
-    if (!string_pos(":",dir)) dir=working_directory+dir
+    if (!string_pos(":",dir)) dir=working_directory+"\"+dir
 
     if (string_char_at(dir,string_length(dir))!="\")
         dir+="\"
