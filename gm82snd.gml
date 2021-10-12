@@ -123,6 +123,7 @@
     __gm82snd_define("FMODGetNumInstances")
     __gm82snd_define("FMODGetTagData",ty_string)
     __gm82snd_define("FMODGetTagName",ty_string)
+    __gm82snd_define("FMODGetNumInstances")
 
     __gm82snd_define("FMODInstanceGetLoopCount",ty_real)
     __gm82snd_define("FMODInstanceGetMuted",ty_real)
@@ -360,6 +361,10 @@
             __gm82snd_call("FMODInstanceSetPitch",inst,1-(point_distance(0,0,sx+vx,sy+vy+sz+vz)-point_distance(0,0,sx,sy+sz))/spdmax)
         }
     }
+
+
+#define sound_get_count
+    return __gm82snd_call("FMODGetNumInstances")
 
 
 #define sound_kind_list
