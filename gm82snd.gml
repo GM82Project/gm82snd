@@ -1165,6 +1165,12 @@
         i=__gm82snd_call("FMODGroupAddEffect",group,ef)
         //reverb's defaults are barely audible
         if (ef=17) sound_effect_options(i,1,0.7)
+        //echo's defaults are also terrible
+        if (ef=6) {
+            sound_effect_options(i,0,100)
+            sound_effect_options(i,1,0.8)
+            sound_effect_options(i,4,0.3)
+        }
         return i
     } else show_error("Error in function sound_kind_effect("+string(argument0)+"): invalid effect number "+string(argument1),0)
     return 0
