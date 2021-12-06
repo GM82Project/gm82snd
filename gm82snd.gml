@@ -182,10 +182,10 @@
 //(index,loop)
     var snd,kind,inst,pitch,pan,vol,flags,name,list,list2;
     name=string(argument0)
-    snd=__gm82snd_fmodid(name)
+    snd=__gm82snd_fmodid(argument0)
     if (!snd) {
         sound_restore(name)        
-        snd=__gm82snd_fmodid(name)
+        snd=__gm82snd_fmodid(argument0)
     }
     
     if (snd) {
@@ -552,7 +552,7 @@
     if (loaded!=0) {
         if (loaded=1) {
             __gm82snd_stopallof(name)
-            snd=__gm82snd_fmodid(name)
+            snd=__gm82snd_fmodid(argument0)
             __gm82snd_call("FMODSoundFree",snd)
             ds_map_delete(__gm82snd_mapid,name+"__loaded")
             ds_map_delete(__gm82snd_mapid,snd)
@@ -594,7 +594,7 @@
     if (loaded!=0) {
         if (loaded=1) {
             __gm82snd_stopallof(name)
-            snd=__gm82snd_fmodid(name)
+            snd=__gm82snd_fmodid(argument0)
             __gm82snd_call("FMODSoundFree",snd)
             __gm82snd_map(name+"__loaded",-1)
             __gm82snd_map(snd,"")
@@ -950,7 +950,7 @@
     if (loaded!=0) {
         if (loaded) {
             __gm82snd_stopallof(name)
-            snd=__gm82snd_fmodid(name)
+            snd=__gm82snd_fmodid(argument0)
             __gm82snd_call("FMODSoundFree",snd)
             ds_map_delete(__gm82snd_mapid,snd)
         }
@@ -1042,7 +1042,7 @@
         if (loaded) {
             a=median(0,argument1,1)
             b=median(a,argument2,1)
-            __gm82snd_call("FMODSoundSetLoopPoints",__gm82snd_fmodid(name),a,b)
+            __gm82snd_call("FMODSoundSetLoopPoints",__gm82snd_fmodid(argument0),a,b)
             return 1
         }
         return 0
@@ -1094,7 +1094,7 @@
     
     if (loaded!=0) {
         //sound id, set base volume
-        if (loaded) __gm82snd_call("FMODSoundSetMaxVolume",__gm82snd_fmodid(name),vol)
+        if (loaded) __gm82snd_call("FMODSoundSetMaxVolume",__gm82snd_fmodid(argument0),vol)
         __gm82snd_map(name+"__volume",vol)
         return 0
     } else if (is_real(argument0)) if (argument0) {
