@@ -16,7 +16,7 @@
     if (global.__gm82snd_checkerrors) {
         error=external_call(global.__gm82snd_errorcheck)
         if (error) {
-            if (error=36 || error=11) return 0 //deleted instance errors arent useful
+            if (error=36 || error=11) return ret //deleted instance errors arent useful
             show_error("FMOD error in function "+argument0+":"+chr(13)+chr(13)+__gm82snd_geterrorstr(error),0)
         }
     }
