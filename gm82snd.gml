@@ -80,6 +80,7 @@
     __gm82snd_define("FMODSoundSetMaxVolume",ty_real,ty_real)
     __gm82snd_define("FMODSoundGetLength",ty_real)
     __gm82snd_define("FMODSoundSetLoopPoints",ty_real,ty_real,ty_real)
+    __gm82snd_define("FMODSoundSetLoopCount",ty_real,ty_real)
 
     __gm82snd_define("FMODCreateSoundFromMicInput")
     __gm82snd_define("FMODRecordStart",ty_real)
@@ -118,6 +119,7 @@
     __gm82snd_define("FMODInstanceSetPosition",ty_real,ty_real)
     __gm82snd_define("FMODInstanceSetPan",ty_real,ty_real)      
     __gm82snd_define("FMODInstanceSetPitch",ty_real,ty_real)
+    __gm82snd_define("FMODInstanceSetLoopCount",ty_real,ty_real)    
     
     __gm82snd_define("FMODGetLastError")
     __gm82snd_define("FMODGetNumInstances")
@@ -1046,6 +1048,29 @@
             return 1
         }
         return 0
+    }
+    show_error("Sound does not exist: "+name,0)
+    return 0
+
+
+#define sound_set_loop_count
+//(index,count)
+    var snd,name,a;
+    name=string(argument0)
+    
+    loaded=__gm82snd_isloaded(name)
+    
+    a=max(0,round(argument1))
+    
+    if (loaded!=0) {
+        if (loaded) {
+            __gm82snd_call("FMODSoundSetLoopCount",__gm82snd_fmodid(argument0),a)
+            return 1
+        }
+        return 0
+    } else if (is_real(argument0)) if (argument0) {
+        __gm82snd_call("FMODInstanceSetLoopCount",argument0,a)
+        return 1
     }
     show_error("Sound does not exist: "+name,0)
     return 0
