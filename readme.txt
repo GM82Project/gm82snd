@@ -105,6 +105,9 @@ sound_encrypt(source,dest)
 
 [new functions]
 
+sound_get_count()
+    Returns the total number of currently playing sound instances.
+
 sound_pitch(index,pitch)
     Changes the pitch of a sound between 0.01 and 100 (default is 1).
 
@@ -126,6 +129,10 @@ sound_set_loop(index,loopstart,loopend)
     Sets the loop points of a sound (between 0 and 1). Use sound_get_length()
     if you need to use seconds for measurement.
 
+sound_set_loop_count(index,count)
+    Sets the number of times a sound should loop. Accepts both sound ids and
+    sound instances.
+
 sound_get_length(index)
     Returns the length of the sound in seconds.
 
@@ -139,6 +146,8 @@ an effect constructor so that you can use FmodEx sound effects.
 Currently, we only support applying effects to sound kinds due to memory leaks
 that would require manual upkeeping - do let me know if you require the ability
 to apply effects to sounds or instances.
+
+I plan to include an effect editor with the extension in the future.
 
 sound_kind_effect(kind,effect)
     Adds an effect to a sound kind and returns its id.
@@ -184,21 +193,6 @@ sound_kind_list(kind)
     Remember to destroy the list once you're done with it.
 
 
-[microphone functions]
-
-note: microphone functionality is currently not implemented. I'll look into
-adding it if there's demand... so let me know if you need it.
-
-sound_add_mic()
-    Adds a sound handle for recording from a microphone.
-
-sound_mic_start()
-    Starts recording the handle and returns a sound instance.
-
-sound_mic_stop()
-    Stops recording.
-
-
 [deprecated functions]
 
 sound_effect_chorus(...)
@@ -218,8 +212,6 @@ sound_set_search_directory(...)
 
 [notes]
 
+-> Created by renex and Floogle
 -> The Fmod license specifies you must display a Fmod logo in your games.
 -> Reach out directly to Firelight Technologies for discussing commercial use.
-
-
-- Created by renex & floogle -
