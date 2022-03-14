@@ -252,9 +252,12 @@
 //(key):value
 //(key,value)
     if (argument_count=1) {
-        return ds_map_find_value(__gm82snd_mapid,argument[0])
+        return ds_map_find_value(__gm82snd_mapid,argument0)
     } else {
-        ds_map_set(__gm82snd_mapid,argument[0],argument[1])
+        if (ds_map_exists(__gm82snd_mapid,argument0))
+            ds_map_replace(__gm82snd_mapid,argument0,argument1)
+        else
+            ds_map_add(__gm82snd_mapid,argument0,argument1)    
     }
 
 
