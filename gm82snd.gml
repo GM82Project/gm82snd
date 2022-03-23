@@ -97,6 +97,10 @@
     __gm82snd_define("FMODEffectGetParamValue",ty_real,ty_real)
     __gm82snd_define("FMODEffectSetActive",ty_real,ty_real)
     __gm82snd_define("FMODEffectSetBypass",ty_real,ty_real)
+    __gm82snd_define("FMODEffectGetParamDesc",ty_real,ty_real)
+    __gm82snd_define("FMODEffectGetParamName",ty_real,ty_real)
+    __gm82snd_define("FMODEffectGetParamLabel",ty_real,ty_real,ty_string)
+    __gm82snd_define("FMODEffectGetParamValueStr",ty_real,ty_real,ty_string)
     __gm82snd_define("FMODEffectSetParamValue",ty_real,ty_real,ty_real)
 
     __gm82snd_define("FMODGroupStop",ty_real)
@@ -1325,3 +1329,8 @@
     show_error("Error in function sound_effect_compressor: Please use sound_effect_set() instead!",0)
 #define sound_effect_equalizer
     show_error("Error in function sound_effect_equalizer: Please use sound_effect_set() instead!",0)
+
+#define sound_set_search_directory
+    return 0
+//
+//

@@ -3,6 +3,16 @@ global.__gm82snd_checkerrors=0
 return __gm82snd_call("FMODEffectFree",argument0)
 
 
+#define FMODGetTagData
+global.__gm82snd_checkerrors=0
+return __gm82snd_call("FMODGetTagData",argument0)
+
+
+#define FMODGetTagName
+global.__gm82snd_checkerrors=0
+return __gm82snd_call("FMODGetTagName",argument0)
+
+
 #define FMODEffectGetNumParams
 global.__gm82snd_checkerrors=0
 return __gm82snd_call("FMODEffectGetNumParams",argument0)
@@ -11,6 +21,26 @@ return __gm82snd_call("FMODEffectGetNumParams",argument0)
 #define FMODEffectGetParamValue
 global.__gm82snd_checkerrors=0
 return __gm82snd_call("FMODEffectGetParamValue",argument0,argument1)
+
+
+#define FMODEffectGetParamName
+global.__gm82snd_checkerrors=0
+return __gm82snd_call("FMODEffectGetParamName",argument0,argument1)
+
+
+#define FMODEffectGetParamDesc
+global.__gm82snd_checkerrors=0
+return __gm82snd_call("FMODEffectGetParamDesc",argument0,argument1)
+
+
+#define FMODEffectGetParamLabel
+global.__gm82snd_checkerrors=0
+return __gm82snd_call("FMODEffectGetParamLabel",argument0,argument1,argument2)
+
+
+#define FMODEffectGetParamValueStr
+global.__gm82snd_checkerrors=0
+return __gm82snd_call("FMODEffectGetParamValueStr",argument0,argument1,argument2)
 
 
 #define FMODEffectSetParamValue
