@@ -1,0 +1,2391 @@
+{
+	"name": "Game Maker 8.2 Sound",
+	"folder": "gm82",
+	"version": "1.2.4",
+	"author": "renex",
+	"date": "26/05/2022",
+	"license": "Free for noncommercial use. Check readme.txt.",
+	"description": "Part of the standard Game Maker 8.2 distribution. This extension package contains an advanced audio engine that gives you a lot more control over sounds in your games.",
+	"helpfile": "",
+	"hidden": false,
+	"dependencies": [
+		"Game Maker 8.2 Core"
+	],
+	"files": [
+		{
+			"filename": "fmod_compat.gml",
+			"origname": "fmod_compat.gml",
+			"kind": 2,
+			"init": "",
+			"final": "",
+			"functions": [
+				{
+					"name": "FMODAllStop",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODAllStop()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODCreateSoundFromMicInput",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODCreateSoundFromMicInput()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectFree",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectFree()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetActive",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetActive()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetBypass",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetBypass()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetNumParams",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetNumParams()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamDesc",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetParamDesc()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamLabel",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetParamLabel()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamMax",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetParamMax()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamMin",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetParamMin()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamName",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetParamName()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamValue",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetParamValue()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamValueStr",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectGetParamValueStr()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectSetActive",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectSetActive()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectSetBypass",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectSetBypass()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectSetParamValue",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEffectSetParamValue()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEncryptFile",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODEncryptFile()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODErrorStr",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODErrorStr()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetLastError",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGetLastError()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetNumInstances",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGetNumInstances()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetTagData",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGetTagData()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetTagName",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGetTagName()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupAddEffect",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupAddEffect()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupGetMuted",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupGetMuted()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupGetPaused",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupGetPaused()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupGetPitch",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupGetPitch()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupGetVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupGetVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupSetMuted",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupSetMuted()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupSetPan",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupSetPan()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupSetPaused",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupSetPaused()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupSetPitch",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupSetPitch()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupSetVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupSetVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupStop",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODGroupStop()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceAddEffect",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceAddEffect()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetLoopCount",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetLoopCount()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetMuted",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetMuted()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetNextTag",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetNextTag()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetPan",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetPan()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetPaused",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetPaused()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetPitch",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetPitch()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetPosition",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetPosition()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetSound",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetSound()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceGetVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceIsPlaying",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceIsPlaying()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetLoopCount",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSetLoopCount()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetLoopPoints",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSetLoopPoints()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetMuted",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSetMuted()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetPan",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSetPan()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetPause",
+					"extname": "FMODInstanceSetPaused",
+					"calltype": 2,
+					"helpline": "FMODInstanceSetPause()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetPaused",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSetPaused()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetPitch",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSetPitch()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetPosition",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSetPosition()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSetVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSoundGetLength",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceSoundGetLength()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceStop",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODInstanceStop()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODListenerSetNumber",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODListenerSetNumber()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODMasterSetVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODMasterSetVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODMicStart",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODMicStart()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODMicStop",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODMicStop()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSetPassword",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSetPassword()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundAdd",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundAdd()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundAddEffect",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundAddEffect()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundFree",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundFree()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundGetLength",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundGetLength()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundGetLoopCount",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundGetLoopCount()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundGetMaxVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundGetMaxVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundGetMusicChannelVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundGetMusicChannelVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundGetMusicNumChannels",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundGetMusicNumChannels()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundGetNumChannels",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundGetNumChannels()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundIsStreamed",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundIsStreamed()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundLoop",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundLoop()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundPlay",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundPlay()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSetEffects",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundSetEffects()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSetGroup",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundSetGroup()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSetLoopCount",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundSetLoopCount()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSetLoopPoints",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundSetLoopPoints()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSetMaxVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundSetMaxVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSetMusicChannelVolume",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODSoundSetMusicChannelVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODUpdateTakeOverDone",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODUpdateTakeOverDone()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODUpdateTakeOverWhileLocked",
+					"extname": "",
+					"calltype": 12,
+					"helpline": "FMODUpdateTakeOverWhileLocked()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				}
+			],
+			"constants": []
+		},
+		{
+			"filename": "fmod_nops.gml",
+			"origname": "C:\\Stuff\\github\\gm82snd\\fmod_nops.gml",
+			"kind": 2,
+			"init": "",
+			"final": "",
+			"functions": [
+				{
+					"name": "FMODBlockerAdd",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockerAdd()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockerGetEnabled",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockerGetEnabled()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockerGetStrength",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockerGetStrength()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockersAddGMObjects",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockersAddGMObjects()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockerSet3dOrientation",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockerSet3dOrientation()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockerSet3dPosition",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockerSet3dPosition()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockerSet3dScale",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockerSet3dScale()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockerSetEnabled",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockerSetEnabled()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockerSetStrength",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockerSetStrength()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockersFree",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockersFree()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODBlockersInit",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODBlockersInit()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetDefaultFr",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectGetDefaultFr()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetDefaultPan",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectGetDefaultPan()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetDefaultVol",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectGetDefaultVol()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamDesc",
+					"extname": "__gm82snd_nop",
+					"calltype": 2,
+					"helpline": "FMODEffectGetParamDesc()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamLabel",
+					"extname": "__gm82snd_nop",
+					"calltype": 2,
+					"helpline": "FMODEffectGetParamLabel()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamName",
+					"extname": "__gm82snd_nop",
+					"calltype": 2,
+					"helpline": "FMODEffectGetParamName()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetParamValueStr",
+					"extname": "__gm82snd_nop",
+					"calltype": 2,
+					"helpline": "FMODEffectGetParamValueStr()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectGetSpeakerActive",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectGetSpeakerActive()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectReset",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectReset()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectSetDefaultFr",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectSetDefaultFr()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectSetDefaultPan",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectSetDefaultPan()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectSetDefaultVol",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectSetDefaultVol()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODEffectSetSpeakerActive",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODEffectSetSpeakerActive()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODfree",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODfree()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetSnapshotEntry",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGetSnapshotEntry()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetSpectrumBuffer",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGetSpectrumBuffer()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetTagData",
+					"extname": "__gm82snd_nop",
+					"calltype": 2,
+					"helpline": "FMODGetTagData()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetTagName",
+					"extname": "__gm82snd_nop",
+					"calltype": 2,
+					"helpline": "FMODGetTagName()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGetWaveBuffer",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGetWaveBuffer()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupFadePan",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGroupFadePan()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupFadePitch",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGroupFadePitch()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupFadeVolume",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGroupFadeVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupGetSpectrumSnapshot",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGroupGetSpectrumSnapshot()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupGetSpectrumSnapshot2",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGroupGetSpectrumSnapshot2()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupGetWaveSnapshot",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGroupGetWaveSnapshot()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupGetWaveSnapshot2",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGroupGetWaveSnapshot2()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODGroupSetFrequency",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODGroupSetFrequency()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODinit",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODinit()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInit",
+					"extname": "__gm82snd_nop",
+					"calltype": 2,
+					"helpline": "FMODInit()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceAsyncOK",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceAsyncOK()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceFadeFrequency",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceFadeFrequency()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceFadePan",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceFadePan()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceFadeVolume",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceFadeVolume()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGet3DPanLevel",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGet3DPanLevel()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGet3DSpread",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGet3DSpread()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetAudibility",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGetAudibility()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetFrequency",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGetFrequency()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetMaxDist",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGetMaxDist()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetSpectrumSnapshot",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGetSpectrumSnapshot()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetSpectrumSnapshot2",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGetSpectrumSnapshot2()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetWaveSnapshot",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGetWaveSnapshot()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceGetWaveSnapshot2",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceGetWaveSnapshot2()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSet3dCone",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSet3dCone()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSet3dConeOrientation",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSet3dConeOrientation()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSet3dDopplerMax",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSet3dDopplerMax()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSet3dMinMaxDistance",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSet3dMinMaxDistance()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSet3DPanLevel",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSet3DPanLevel()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSet3dPosition",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSet3dPosition()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSet3DSpread",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSet3DSpread()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetFrequency",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSetFrequency()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODInstanceSetSpeakerMix",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODInstanceSetSpeakerMix()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODListenerHearsDistanceOnly",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODListenerHearsDistanceOnly()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODListenerSet3dPosition",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODListenerSet3dPosition()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODListenerSet3dPositionEx",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODListenerSet3dPositionEx()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODNormalizeSpectrumData",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODNormalizeSpectrumData()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODNormalizeWaveData",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODNormalizeWaveData()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODServerError",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODServerError()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSetDopplerFPS",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSetDopplerFPS()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSetWorldScale",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSetWorldScale()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSnapShotToDsList",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSnapShotToDsList()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundAddAsyncStream",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundAddAsyncStream()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundAsyncReady",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundAsyncReady()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundGetMaxDist",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundGetMaxDist()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundInstanciate",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundInstanciate()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundIs3d",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundIs3d()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundLoop3d",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundLoop3d()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundPlay3d",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundPlay3d()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSet3dCone",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundSet3dCone()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSet3dDopplerMax",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundSet3dDopplerMax()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSoundSet3dMinMaxDistance",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSoundSet3dMinMaxDistance()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODSpectrumSetSnapshotType",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODSpectrumSetSnapshotType()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "FMODUpdate",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "FMODUpdate()",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "LoadFMOD",
+					"extname": "__gm82snd_nop",
+					"calltype": 11,
+					"helpline": "LoadFMOD()",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				}
+			],
+			"constants": []
+		},
+		{
+			"filename": "gm82snd.gml",
+			"origname": "gm82snd.gml",
+			"kind": 2,
+			"init": "__gm82snd_init",
+			"final": "__gm82snd_deinit",
+			"functions": [
+				{
+					"name": "sound_3d_set_sound_cone",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_3d_set_sound_distance",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_3d_set_sound_position",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_3d_set_sound_velocity",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add_directory",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_directory(dir,extension,kind,preload)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add_included",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_included(fname,kind,preload)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_background_tempo",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_delete",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_discard",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_chorus",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_compressor",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_destroy",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_effect_destroy(effect)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_echo",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_equalizer",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_flanger",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_gargle",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_options",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_effect_options(sfxinst,option,value)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_reverb",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_set",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_encrypt",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_encrypt(fname,newfname)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_exists",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_fade",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_count",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_count()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_kind",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_length",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_length(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_name",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_pos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_pos(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_preload",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_global_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_isplaying",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_effect",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_effect(kind,effect)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_list",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_list(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_pan",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_pan(kind,pan)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_pause",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_pause(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_pitch",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_pitch(kind,pitch)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_resume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_resume(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_stop",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_stop(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_volume(kind,volume)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop_paused",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_loop_paused(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop_single",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_loop_single(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_name",
+					"extname": "sound_get_name",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_pan",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_password",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_password(string)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_pause",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_pause(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_pause_all",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_pause_all()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_pitch",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_pitch(sound,pitch)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_play",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_play_paused",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_play_paused(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_play_single",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_play_single(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_replace",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_restore",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_resume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_resume(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_resume_all",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_resume_all()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_set_loop",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_set_loop(index,start,end)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_set_loop_count",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_set_loop_count(index,count)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_set_pos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_set_pos(index,pos)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_set_search_directory",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_stop",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_stop_all",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_call",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_define",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_deinit",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_fmodid",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_geterrorstr",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_init",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_instantiate",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_instlist",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_map",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_setgroup",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_stopallof",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_update",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_update2d",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_update3d",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				}
+			],
+			"constants": [
+				{
+					"name": "__gm82snd_mapid",
+					"value": "ds_map_create()",
+					"hidden": true
+				},
+				{
+					"name": "se_lowpass",
+					"value": "3",
+					"hidden": false
+				},
+				{
+					"name": "se_highpass",
+					"value": "5",
+					"hidden": false
+				},
+				{
+					"name": "se_normalize",
+					"value": "6",
+					"hidden": false
+				},
+				{
+					"name": "se_pitchshift",
+					"value": "7",
+					"hidden": false
+				}
+			]
+		},
+		{
+			"filename": "fmodex.dll",
+			"origname": "C:\\Stuff\\github\\gm82snd\\fmodex.dll",
+			"kind": 4,
+			"init": "",
+			"final": "",
+			"functions": [],
+			"constants": []
+		},
+		{
+			"filename": "GMFMODSimple.dll",
+			"origname": "C:\\Stuff\\github\\gm82snd\\GMFMODSimple.dll",
+			"kind": 4,
+			"init": "",
+			"final": "",
+			"functions": [],
+			"constants": []
+		}
+	]
+}
