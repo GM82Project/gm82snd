@@ -185,77 +185,82 @@
 
 
 #define __gm82snd_instantiate
-//(index,loop)
+//(index,function,pause)
     var snd,kind,inst,pitch,pan,vol,flags,name,list,list2;
-    name=string(argument0)
-    snd=__gm82snd_fmodid(argument0)
-    if (!snd) {
-        sound_restore(name)        
-        snd=__gm82snd_fmodid(argument0)
+    
+    if (is_real(argument0)) {
+        show_error("sound does not exist: "+string(argument0),0)
+        return 0
     }
     
-    if (snd) {
-        kind=sound_get_kind(name)
-        if (kind==1) {
-            inst=__gm82snd_map("__bginst")
-            if (inst) sound_stop(inst)
-        }
-
-        flags=0
-
-        pitch=__gm82snd_map(name+"__pitch")
-        if (pitch!=0) flags=1
-
-        if (kind==1) {
-            flags=1
-            pitch*=__gm82snd_map("__bgtempo")
-        }
-
-        pan=__gm82snd_map(name+"__pan")
-        if (pan!=0) flags=1
-        
-        vol=1
-        if (kind==2) {
-            flags=1
-            vol=0
-        }
-        
-        if (flags) {
-            inst=__gm82snd_call(argument1,snd,1)
-            __gm82snd_call("FMODInstanceSetPitch",inst,pitch)
-            __gm82snd_call("FMODInstanceSetPan",inst,pan)
-            __gm82snd_call("FMODInstanceSetVolume",inst,vol)
-            if (!argument2) __gm82snd_call("FMODInstanceSetPaused",inst,0)  
-        } else {
-            inst=__gm82snd_call(argument1,snd,argument2)
-        }
-
-        list=__gm82snd_instlist(name)
-        ds_list_add(list,inst)
-        list2=__gm82snd_map("__globlist")
-        ds_list_add(list2,inst)
-        ds_list_add(list2,list)
-        if (kind==1) __gm82snd_map("__bginst",inst)
-        return inst
+    name=argument0
+    
+    snd=__gm82snd_fmodid(argument0)
+    if (!snd) {
+        show_error("Sound does not exist: "+name,0)
+        return 0
     }
-    show_error("Sound does not exist: "+name,0)
-    return 0
+    
+    kind=sound_get_kind(name)
+    if (kind==1) {
+        inst=__gm82snd_map("__bginst")
+        if (inst) sound_stop(inst)
+    }
+
+    flags=0
+   
+    pitch=__gm82snd_map(name+"__pitch")
+    if (pitch!=0) flags=1
+
+    if (kind==1) {
+        flags=1
+        pitch*=__gm82snd_map("__bgtempo")
+    }
+
+    pan=__gm82snd_map(name+"__pan")
+    if (pan!=0) flags=1
+    
+    vol=1
+    if (kind==2) {
+        flags=1
+        vol=0
+    }
+    
+    if (flags) {
+        inst=__gm82snd_call(argument1,snd,1)
+        __gm82snd_call("FMODInstanceSetPitch",inst,pitch)
+        __gm82snd_call("FMODInstanceSetPan",inst,pan)
+        __gm82snd_call("FMODInstanceSetVolume",inst,vol)
+        if (!argument2) __gm82snd_call("FMODInstanceSetPaused",inst,0)  
+    } else {
+        inst=__gm82snd_call(argument1,snd,argument2)
+    }
+
+    list=__gm82snd_instlist(name)
+    ds_list_add(list,inst)
+    list2=__gm82snd_map("__globlist")
+    ds_list_add(list2,inst)
+    ds_list_add(list2,list)
+        
+    if (kind==1) __gm82snd_map("__bginst",inst)
+    return inst
 
 
 #define __gm82snd_instlist
 //(name)
-    return __gm82snd_map(string(argument0)+"__instlist")
+    return __gm82snd_map(argument0+"__instlist")
 
 
-#define __gm82snd_isloaded
+#define sound_exists
 //(name)
-    return __gm82snd_map(string(argument0)+"__loaded")
+    if (is_real(argument0)) return 0
+    return !!ds_map_find_value(__gm82snd_mapid,argument0+"__fmodid")
     
 
 #define __gm82snd_map
 //(key):value
 //(key,value)
-    if (argument_count=1) {
+    if (argument_count==1) {
         return ds_map_find_value(__gm82snd_mapid,argument0)
     } else {
         if (ds_map_exists(__gm82snd_mapid,argument0))
@@ -271,10 +276,10 @@
 
     kind=argument1
 
-    if (kind=1) group=1 //music
-    if (kind=3) group=2 //mmplay
-    if (kind=2) group=3 //3d
-    if (kind=0) group=4 //regular sfx
+    if (kind==1) group=1 //music
+    if (kind==3) group=2 //mmplay
+    if (kind==2) group=3 //3d
+    if (kind==0) group=4 //regular sfx
 
     __gm82snd_call("FMODSoundSetGroup",argument0,group)
 
@@ -307,9 +312,9 @@
     
     list=__gm82snd_map("__globlist")
     l=ds_list_size(list)
-    for (i=0;i<l;i+=2) {
+    global.__gm82snd_checkerrors=false
+    i=0 while (i<l) {
         inst=ds_list_find_value(list,i)
-        global.__gm82snd_checkerrors=false
         if (!__gm82snd_call("FMODInstanceIsPlaying",inst)) {
             __gm82snd_call("FMODInstanceStop",inst)
             ds_list_delete(list,i)
@@ -319,8 +324,9 @@
             i-=2
             l-=2
         }
-        global.__gm82snd_checkerrors=true
+        i+=2
     }
+    global.__gm82snd_checkerrors=true
 
 
 #define __gm82snd_update3d
@@ -392,97 +398,79 @@
 
 #define sound_3d_set_sound_cone
 //(snd,x,y,z,anglein,angleout,voloutside) 
-    var name,load,mindist,maxdist;
-    name=string(argument0)
-    load=__gm82snd_isloaded(name)
+    var anglein,angleout,att;
     
-    if (load!=0) {
-        anglein=median(0,argument4,180)
-        angleout=median(anglein,argument5,180)
-        att=median(0,argument6/100,100)
-        __gm82snd_map(name+"__3dconex",argument1)
-        __gm82snd_map(name+"__3dconey",argument2)
-        __gm82snd_map(name+"__3dconez",argument3)
-        __gm82snd_map(name+"__3dconein",anglein)
-        __gm82snd_map(name+"__3dconeout",angleout)
-        __gm82snd_map(name+"__3dconevol",1/power(10,att/20))
+    if (is_real(argument0)) return 0
+
+    if (sound_exists(argument0)) {
+        __anglein=median(0,argument4,180)
+        __angleout=median(anglein,argument5,180)
+        __att=median(0,argument6/100,100)
+        __gm82snd_map(argument0+"__3dconex",argument1)
+        __gm82snd_map(argument0+"__3dconey",argument2)
+        __gm82snd_map(argument0+"__3dconez",argument3)
+        __gm82snd_map(argument0+"__3dconein",__anglein)
+        __gm82snd_map(argument0+"__3dconeout",__angleout)
+        __gm82snd_map(argument0+"__3dconevol",1/power(10,__att/20))
         __gm82snd_update3d()
     } else {
-        show_error("Sound does not exist: "+name,0)
+        show_error("Sound does not exist: "+string(argument0),0)
     }    
     
 
 
 #define sound_3d_set_sound_distance
 //(snd,mindist,maxdist)
-    var name,load,mindist,maxdist;
-    name=string(argument0)
-    load=__gm82snd_isloaded(name)
-    
-    if (load!=0) {
-        mindist=median(1,argument1,1000000000)
-        maxdist=median(mindist,argument2,1000000000)
-        __gm82snd_map(name+"__3dmin",mindist)
-        __gm82snd_map(name+"__3dmax",maxdist)
+    var __mindist,__maxdist;
+
+    if (sound_exists(argument0)) {
+        __mindist=median(1,argument1,1000000000)
+        __maxdist=median(mindist,argument2,1000000000)
+        __gm82snd_map(argument0+"__3dmin",__mindist)
+        __gm82snd_map(argument0+"__3dmax",__maxdist)
         __gm82snd_update3d()
     } else {
-        show_error("Sound does not exist: "+name,0)
+        show_error("Sound does not exist: "+string(argument0),0)
     }    
     
 
 #define sound_3d_set_sound_position
 //(snd,x,y,z)
-    var name,load,sx,sy,sz;
-    name=string(argument0)
-    load=__gm82snd_isloaded(name)
-    
-    if (load!=0) {
-        sx=argument1
-        sy=argument2
-        sz=argument3
-        __gm82snd_map(name+"__3dx",sx)
-        __gm82snd_map(name+"__3dy",sy)
-        __gm82snd_map(name+"__3dz",sz)
+    if (sound_exists(argument0)) {
+        __gm82snd_map(argument0+"__3dx",argument1)
+        __gm82snd_map(argument0+"__3dy",argument2)
+        __gm82snd_map(argument0+"__3dz",argument3)
     } else {
-        show_error("Sound does not exist: "+name,0)
+        show_error("Sound does not exist: "+string(argument0),0)
     }
     
 
 #define sound_3d_set_sound_velocity
 //(snd,x,y,z)
-    var name,load,sx,sy,sz;
-    name=string(argument0)
-    load=__gm82snd_isloaded(name)
-    
-    if (load!=0) {
-        sx=argument1
-        sy=argument2
-        sz=argument3
-        __gm82snd_map(name+"__3dvx",sx)
-        __gm82snd_map(name+"__3dvy",sy)
-        __gm82snd_map(name+"__3dvz",sz)
+    if (sound_exists(argument0)) {
+        __gm82snd_map(argument0+"__3dvx",argument1)
+        __gm82snd_map(argument0+"__3dvy",argument2)
+        __gm82snd_map(argument0+"__3dvz",argument3)
     } else {
-        show_error("Sound does not exist: "+name,0)
+        show_error("Sound does not exist: "+string(argument0),0)
     }
 
 #define sound_add
 //(fname,kind,preload)
-    var snd,name,kind,loaded;    
+    var snd,name,kind,load;    
     
     name=filename_change_ext(filename_name(argument0),"")    
-    loaded=__gm82snd_isloaded(name)
-    if (loaded!=0) {
+    if (sound_exists(argument0)) {
+        if (debug_mode) show_error("Debug warning: Sound '"+argument0+"' was overwritten.",0)
         sound_replace(name,argument0,argument1,argument2)
         return name
     }
     
     kind=median(0,round(argument1),3)
 
-    if (argument2) {
-        snd=__gm82snd_call("FMODSoundAdd",argument0,0,kind mod 2)
-        __gm82snd_setgroup(snd,kind)
-    } else
-        snd=0
+    //we always preload now, but preload==2 means "decode on load"
+    snd=__gm82snd_call("FMODSoundAdd",argument0,0,(kind mod 2) && (argument2!=2))
+    __gm82snd_setgroup(snd,kind)
     
     ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
     
@@ -546,71 +534,50 @@
 //(factor)
     var pitch;
 
-    pitch=median(0.01,argument0,100)
+    pitch=median(0,argument0,100)
     sound_pitch(__gm82snd_map("__bginst"),pitch)
     __gm82snd_map("__bgtempo",pitch)
 
 
 #define sound_delete
 //(index)
-    var snd,name,loaded;
-    name=string(argument0)
+    var snd;
+    snd=__gm82snd_fmodid(argument0)
     
-    loaded=__gm82snd_isloaded(name)
-    
-    if (loaded!=0) {
-        if (loaded=1) {
-            __gm82snd_stopallof(name)
-            snd=__gm82snd_fmodid(argument0)
-            __gm82snd_call("FMODSoundFree",snd)
-            ds_map_delete(__gm82snd_mapid,name+"__loaded")
-            ds_map_delete(__gm82snd_mapid,snd)
-        }
+    if (snd) {        
+        __gm82snd_stopallof(argument0)
+        __gm82snd_call("FMODSoundFree",snd)
+        ds_map_delete(__gm82snd_mapid,snd)    
         
         for (i=0;i<4;i+=1) {
             list=__gm82snd_map("__kindlist"+string(i))
-            j=ds_list_find_index(list,name)
+            j=ds_list_find_index(list,argument0)
             if (j!=-1) ds_list_delete(list,j)
         }
         
-        ds_list_destroy(__gm82snd_instlist(name))
+        ds_list_destroy(__gm82snd_instlist(argument0))
         
-        ds_map_delete(__gm82snd_mapid,name)
-        ds_map_delete(__gm82snd_mapid,name+"__fmodid")
-        ds_map_delete(__gm82snd_mapid,name+"__filename")
-        ds_map_delete(__gm82snd_mapid,name+"__kind")
-        ds_map_delete(__gm82snd_mapid,name+"__loaded")
-        ds_map_delete(__gm82snd_mapid,name+"__pitch")
-        ds_map_delete(__gm82snd_mapid,name+"__volume")
-        ds_map_delete(__gm82snd_mapid,name+"__3dmin")
-        ds_map_delete(__gm82snd_mapid,name+"__3dmax")
-        ds_map_delete(__gm82snd_mapid,name+"__3dconevol")
-        ds_map_delete(__gm82snd_mapid,name+"__instlist")
+        ds_map_delete(__gm82snd_mapid,snd)
+        ds_map_delete(__gm82snd_mapid,argument0+"__fmodid")
+        ds_map_delete(__gm82snd_mapid,argument0+"__filename")
+        ds_map_delete(__gm82snd_mapid,argument0+"__kind")
+        ds_map_delete(__gm82snd_mapid,argument0+"__loaded")
+        ds_map_delete(__gm82snd_mapid,argument0+"__pitch")
+        ds_map_delete(__gm82snd_mapid,argument0+"__volume")
+        ds_map_delete(__gm82snd_mapid,argument0+"__3dmin")
+        ds_map_delete(__gm82snd_mapid,argument0+"__3dmax")
+        ds_map_delete(__gm82snd_mapid,argument0+"__3dconevol")
+        ds_map_delete(__gm82snd_mapid,argument0+"__instlist")
         
         return 1
     }
-    show_error("Sound does not exist: "+name,0)
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
 #define sound_discard
 //(index)
-    var snd,name,loaded;
-    name=string(argument0)
-    
-    loaded=__gm82snd_isloaded(name)
-    
-    if (loaded!=0) {
-        if (loaded=1) {
-            __gm82snd_stopallof(name)
-            snd=__gm82snd_fmodid(argument0)
-            __gm82snd_call("FMODSoundFree",snd)
-            __gm82snd_map(name+"__loaded",-1)
-            __gm82snd_map(snd,"")
-        }
-        return 0
-    }
-    show_error("Sound does not exist: "+name,0)
+    //nop
     return 0
 
 
@@ -625,11 +592,6 @@
     } else show_error("File does not exist: "+name,0)
 
 
-#define sound_exists
-//(index)
-    return (__gm82snd_isloaded(argument0)!=0)
-
-
 #define sound_fade
 //(index,value,time)
     //todo: uugghhhg more internal state
@@ -640,13 +602,11 @@
     var snd,name;
     name=string(argument0)
     
-    if (is_real(argument0)) {
-        if (argument0) {
-            snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-            return __gm82snd_map(__gm82snd_map(snd)+"__kind")
-        }
-    } else {
-        if (__gm82snd_map(argument0+"__loaded"))!=0 
+    if (is_real(argument0)) if (argument0) {
+        snd=__gm82snd_call("FMODInstanceGetSound",argument0)
+        return __gm82snd_map(__gm82snd_map(snd)+"__kind")
+    }
+    if (sound_exists(argument0)) {
         return __gm82snd_map(name+"__kind")
     }
     
@@ -660,6 +620,10 @@
     
     if (is_real(argument0)) {
         if (argument0) snd=__gm82snd_call("FMODInstanceGetSound",argument0)
+        else {
+            show_error("Sound is null.",0)
+            return ""
+        }
     } else snd=__gm82snd_fmodid(argument0)
     
     if (snd)
@@ -671,65 +635,52 @@
 
 #define sound_get_name
 //(index)
-    var snd,name; 
+    var name; 
     
     if (is_real(argument0)) {
         if (argument0) {
-            snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-            name=__gm82snd_map(snd)
+            name=__gm82snd_map(__gm82snd_call("FMODInstanceGetSound",argument0))
+        } else {
+            show_error("Sound is null.",0)
+            return ""
         }
     } else {
         name=argument0
     }
     
-    loaded=__gm82snd_isloaded(name)
-    
-    if (loaded!=0) {
+    if (sound_exists(name)) {
         return filename_change_ext(__gm82snd_map(name+"__filename"),"")
     }
     
-    show_error("Sound does not exist: "+name,0)
-    return 0
+    show_error("Sound does not exist: "+string(name),0)
+    return ""
     
 
 #define sound_get_preload
 //(index)
-    var snd;
+    if (is_real(argument0)) if (argument0) {
+        return 1
+    }
     
-    if (is_real(argument0)) {
-        if (argument0) {
-            snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-            return __gm82snd_map(__gm82snd_map(snd)+"__loaded")
-        }
-    } else {
-        loaded=__gm82snd_map(argument0+"__loaded")
-        if (loaded!=0) return !!loaded
-    }    
-    
-    show_error("Sound does not exist: "+string(argument0),0)
-    return 0
+    return sound_exists(argument0)
 
 
 #define sound_get_pos
 //(index)
-    var snd;
-    
     if (is_real(argument0)) if (argument0) {
         return __gm82snd_call("FMODInstanceGetPosition",argument0)
     }    
     
-    show_error("Sound is not an instance: "+argument0,0)
+    show_error("Sound is not an instance: "+string(argument0),0)
     return 0
 
 #define sound_set_pos
 //(index,pos)
-    var snd;
-    
     if (is_real(argument0)) if (argument0) {
         return __gm82snd_call("FMODInstanceSetPosition",argument0,median(0,argument1,1))
     }    
     
-    show_error("Sound is not an instance.",0)
+    show_error("Sound is not an instance: "+string(argument0),0)
     return 0
     
 
@@ -740,91 +691,131 @@
 
 #define sound_isplaying
 //(index)
-    var snd;  
-    
     if (is_real(argument0)) if (argument0) return __gm82snd_call("FMODInstanceIsPlaying",argument0)
     
-    snd=__gm82snd_fmodid(argument0)    
-    if (snd) 
+    if (sound_exists(argument0)) 
         return !ds_list_empty(__gm82snd_instlist(argument0))
+    
+    show_error("Sound does not exist: "+string(argument0),0)
+    return 0
 
 
 #define sound_kind_pan
-    var kind,group;
+    var kind,group,pan;
 
     kind=argument0
+    pan=median(-1,argument1,1)
+    
+    if (kind==all) {
+        __gm82snd_call("FMODGroupSetPan",1,pan)
+        __gm82snd_call("FMODGroupSetPan",2,pan)
+        __gm82snd_call("FMODGroupSetPan",3,pan)
+        __gm82snd_call("FMODGroupSetPan",4,pan)
+    } else {
+        if (kind==1) group=1 //music
+        if (kind==3) group=2 //mmplay
+        if (kind==2) group=3 //3d
+        if (kind==0) group=4 //regular sfx
 
-    if (kind=1) group=1 //music
-    if (kind=3) group=2 //mmplay
-    if (kind=2) group=3 //3d
-    if (kind=0) group=4 //regular sfx
-
-    __gm82snd_call("FMODGroupSetPan",group,median(-1,argument1,1))
+        __gm82snd_call("FMODGroupSetPan",group,pan)
+    }
 
 #define sound_kind_pause
     var kind,group;
 
     kind=argument0
 
-    if (kind=1) group=1 //music
-    if (kind=3) group=2 //mmplay
-    if (kind=2) group=3 //3d
-    if (kind=0) group=4 //regular sfx
+    if (kind==all) {
+        __gm82snd_call("FMODGroupSetPaused",1,1)
+        __gm82snd_call("FMODGroupSetPaused",2,1)
+        __gm82snd_call("FMODGroupSetPaused",3,1)
+        __gm82snd_call("FMODGroupSetPaused",4,1)
+    } else {
+        if (kind==1) group=1 //music
+        if (kind==3) group=2 //mmplay
+        if (kind==2) group=3 //3d
+        if (kind==0) group=4 //regular sfx
 
-    __gm82snd_call("FMODGroupSetPaused",group,1)
-
+        __gm82snd_call("FMODGroupSetPaused",group,1)
+    }
 
 #define sound_kind_stop
     var kind,group;
 
     kind=argument0
 
-    if (kind=1) group=1 //music
-    if (kind=3) group=2 //mmplay
-    if (kind=2) group=3 //3d
-    if (kind=0) group=4 //regular sfx
+    if (kind==all) {
+        __gm82snd_call("FMODGroupStop",1)
+        __gm82snd_call("FMODGroupStop",2)
+        __gm82snd_call("FMODGroupStop",3)
+        __gm82snd_call("FMODGroupStop",4)
+    } else {
+        if (kind==1) group=1 //music
+        if (kind==3) group=2 //mmplay
+        if (kind==2) group=3 //3d
+        if (kind==0) group=4 //regular sfx
 
-    __gm82snd_call("FMODGroupStop",group)
-
+        __gm82snd_call("FMODGroupStop",group)
+    }
 
 #define sound_kind_pitch
-    var kind,group;
+    var kind,pitch,group;
 
     kind=argument0
+    pitch=median(0.01,argument1,100)
 
-    if (kind=1) group=1 //music
-    if (kind=3) group=2 //mmplay
-    if (kind=2) group=3 //3d
-    if (kind=0) group=4 //regular sfx
+    if (kind==all) {
+        __gm82snd_call("FMODGroupSetPitch",1,pitch)
+        __gm82snd_call("FMODGroupSetPitch",2,pitch)
+        __gm82snd_call("FMODGroupSetPitch",3,pitch)
+        __gm82snd_call("FMODGroupSetPitch",4,pitch)
+    } else {
+        if (kind==1) group=1 //music
+        if (kind==3) group=2 //mmplay
+        if (kind==2) group=3 //3d
+        if (kind==0) group=4 //regular sfx
 
-    __gm82snd_call("FMODGroupSetPitch",group,median(0.01,argument1,100))
-
+        __gm82snd_call("FMODGroupSetPitch",group,pitch)
+    }
 
 #define sound_kind_resume
     var kind,group;
 
     kind=argument0
+    
+    if (kind==all) {
+        __gm82snd_call("FMODGroupSetPaused",1,0)
+        __gm82snd_call("FMODGroupSetPaused",2,0)
+        __gm82snd_call("FMODGroupSetPaused",3,0)
+        __gm82snd_call("FMODGroupSetPaused",4,0)
+    } else {
+        if (kind==1) group=1 //music
+        if (kind==3) group=2 //mmplay
+        if (kind==2) group=3 //3d
+        if (kind==0) group=4 //regular sfx
 
-    if (kind=1) group=1 //music
-    if (kind=3) group=2 //mmplay
-    if (kind=2) group=3 //3d
-    if (kind=0) group=4 //regular sfx
-
-    __gm82snd_call("FMODGroupSetPaused",group,0)
-
+        __gm82snd_call("FMODGroupSetPaused",group,0)
+    }
 
 #define sound_kind_volume
-    var kind,group;
+    var kind,group,vol;
 
     kind=argument0
+    vol=median(0,argument1,1)
 
-    if (kind=1) group=1 //music
-    if (kind=3) group=2 //mmplay
-    if (kind=2) group=3 //3d
-    if (kind=0) group=4 //regular sfx
+    if (kind==all) {
+        __gm82snd_call("FMODGroupSetVolume",1,vol)
+        __gm82snd_call("FMODGroupSetVolume",2,vol)
+        __gm82snd_call("FMODGroupSetVolume",3,vol)
+        __gm82snd_call("FMODGroupSetVolume",4,vol)
+    } else {
+        if (kind==1) group=1 //music
+        if (kind==3) group=2 //mmplay
+        if (kind==2) group=3 //3d
+        if (kind==0) group=4 //regular sfx
 
-    __gm82snd_call("FMODGroupSetVolume",group,median(0,argument1,1))
-
+        __gm82snd_call("FMODGroupSetVolume",group,vol)
+    }
 
 #define sound_loop
 //(index)
@@ -838,21 +829,19 @@
 
 #define sound_pan
 //(index,value)
-    var snd,name,pan;
-    name=string(argument0)
+    var snd,pan;
     pan=median(-1,argument1,1)
     
-    loaded=__gm82snd_isloaded(name)
-    
-    if (loaded!=0) {
-        __gm82snd_map(name+"__pan",pan)
-        return 0
-    } else if (is_real(argument0)) if (argument0) {
+    if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetPan",argument0,pan)
         return 0
     }
+    if (sound_exists(argument0)) {
+        __gm82snd_map(argument0+"__pan",pan)
+        return 0
+    }
     
-    show_error("Sound does not exist: "+name,0)
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
@@ -864,59 +853,69 @@
 
 #define sound_pause
 //(index)
-    var snd,name,list,s,i;
-    name=string(argument0)
+    var list,i;
     
-    loaded=__gm82snd_isloaded(name)    
-    
-    if (loaded!=0) {
-        if (loaded) {
-            list=__gm82snd_instlist(name)
-            s=ds_list_size(list)
-            for (i=0;i<s;i+=1) {
-                __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(list,i),1)
-            }
-        }
-        return 0
-    } else if (is_real(argument0)) if (argument0) {
+    if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetPaused",argument0,1)
         return 0
     }
+    if (sound_exists(argument0)) {
+        list=__gm82snd_instlist(argument0)
+        i=ds_list_size(list)
+        repeat (i) {
+            i-=1
+            __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(list,i),1)                
+        }
+        return 0
+    }
     
-    show_error("Sound does not exist: "+name,0)
+    show_error("Sound does not exist: "+string(argument0),0)
+    return 0
+
+
+#define sound_resume
+//(index)
+    var list,i;
+    
+    if (is_real(argument0)) if (argument0) {
+        __gm82snd_call("FMODInstanceSetPaused",argument0,0)
+        return 0
+    }
+    if (sound_exists(argument0)) {
+        list=__gm82snd_instlist(argument0)
+        i=ds_list_size(list)
+        repeat (i) {
+            i-=1
+            __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(list,i),0)                
+        }
+        return 0
+    }
+    
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
 #define sound_pause_all
-    sound_kind_pause(0)
-    sound_kind_pause(1)
-    sound_kind_pause(2)
-    sound_kind_pause(3)
+    sound_kind_pause(all)
 
 
 #define sound_resume_all
-    sound_kind_resume(0)
-    sound_kind_resume(1)
-    sound_kind_resume(2)
-    sound_kind_resume(3)
+    sound_kind_resume(all)
 
 
 #define sound_pitch
 //(index,value)
-    var snd,name,loaded;
-    name=string(argument0)
-    
-    loaded=__gm82snd_isloaded(name)
-    
-    if (loaded!=0) {
-        __gm82snd_map(name+"__pitch",argument1)
-        return 0
-    } else if (is_real(argument0)) if (argument0) {
+    if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetPitch",argument0,argument1)
+        
         return 0
     }
+    if (sound_exists(argument0)) {
+        __gm82snd_map(argument0+"__pitch",argument1)
+        return 0
+    } 
     
-    show_error("Sound does not exist: "+name,0)
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
@@ -952,17 +951,14 @@
 
 #define sound_replace
 //sound_replace(index,fname,kind,preload)
-    var name,loaded,snd,kind,list,i;
+    var name,snd,kind,list,i;
     name=string(argument0)
     
-    loaded=__gm82snd_isloaded(name)
-    if (loaded!=0) {
-        if (loaded) {
-            __gm82snd_stopallof(name)
-            snd=__gm82snd_fmodid(argument0)
-            __gm82snd_call("FMODSoundFree",snd)
-            ds_map_delete(__gm82snd_mapid,snd)
-        }
+    if (sound_exists(argument0)) {        
+        __gm82snd_stopallof(name)
+        snd=__gm82snd_fmodid(argument0)
+        __gm82snd_call("FMODSoundFree",snd)
+        ds_map_delete(__gm82snd_mapid,snd)        
         
         for (i=0;i<4;i+=1) {
             list=__gm82snd_map("__kindlist"+string(i))
@@ -992,149 +988,106 @@
 
 #define sound_restore
 //(index)
-    var snd,name,loaded;
-    name=string(argument0)
-    
-    loaded=__gm82snd_isloaded(name)
-    
-    if (loaded!=0) {
-        if (loaded=-1) {
-            kind=__gm82snd_map(name+"__kind")
-            snd=__gm82snd_call("FMODSoundAdd",__gm82snd_map(name+"__filename"),0,kind mod 2)
-            
-            __gm82snd_setgroup(snd,kind)
-            __gm82snd_call("FMODSoundSetMaxVolume",snd,__gm82snd_map(name+"__volume"))
-            
-            __gm82snd_map(name+"__fmodid",snd)
-            __gm82snd_map(name+"__loaded",1)
-            __gm82snd_map(snd,name)
-        }
-        return 0
-    }
-    show_error("Sound does not exist: "+name,0)
-    return 0
-
-
-#define sound_resume
-//(index)
-    var snd,name,list,s,i;
-    name=string(argument0)
-    
-    loaded=__gm82snd_isloaded(name)    
-    
-    if (loaded!=0) {
-        if (loaded) {
-            list=__gm82snd_instlist(name)
-            s=ds_list_size(list)
-            for (i=0;i<s;i+=1) {
-                __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(list,i),0)
-            }
-        }
-        return 0
-    } else if (is_real(argument0)) if (argument0) {
-        __gm82snd_call("FMODInstanceSetPaused",argument0,0)
-        return 0
-    }
-    
-    show_error("Sound does not exist: "+name,0)
+    //nop
     return 0
 
 
 #define sound_set_loop
 //(index,loopstart,loopend)
-    var snd,name,a,b;
-    name=string(argument0)
+    var a,b;
     
-    loaded=__gm82snd_isloaded(name)
-    
-    if (loaded!=0) {
-        if (loaded) {
-            a=median(0,argument1,1)
-            b=median(a,argument2,1)
-            __gm82snd_call("FMODSoundSetLoopPoints",__gm82snd_fmodid(argument0),a,b)
-            return 1
-        }
+    if (sound_exists(argument0)) {
+        a=median(0,argument1,1)
+        b=median(a,argument2,1)
+        __gm82snd_call("FMODSoundSetLoopPoints",__gm82snd_fmodid(argument0),a,b)
         return 0
     }
-    show_error("Sound does not exist: "+name,0)
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
 #define sound_set_loop_count
 //(index,count)
-    var snd,name,a;
-    name=string(argument0)
-    
-    loaded=__gm82snd_isloaded(name)
+    var a;
     
     a=max(0,round(argument1))
     
-    if (loaded!=0) {
-        if (loaded) {
-            __gm82snd_call("FMODSoundSetLoopCount",__gm82snd_fmodid(argument0),a)
-            return 1
-        }
-        return 0
-    } else if (is_real(argument0)) if (argument0) {
+    if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetLoopCount",argument0,a)
-        return 1
+        return 0
     }
-    show_error("Sound does not exist: "+name,0)
+    if (sound_exists(argument0)) {
+        __gm82snd_call("FMODSoundSetLoopCount",__gm82snd_fmodid(argument0),a)
+        return 0
+    }
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
     
 
 #define sound_stop
 //(index)
-    var snd,name;
-    name=string(argument0)
+    var snd;
     
-    loaded=__gm82snd_isloaded(name)   
-    if (loaded!=0) {
-        if (loaded) {
-            __gm82snd_stopallof(name)
+    if (is_real(argument0)) if (argument0) {
+        if (__gm82snd_call("FMODInstanceIsPlaying",argument0)) {
+            ds_list_delete(
+                __gm82snd_instlist(
+                    __gm82snd_map(
+                        __gm82snd_call("FMODInstanceGetSound",argument0)
+                    )
+                ),argument0
+            )
+            __gm82snd_call("FMODInstanceStop",argument0)
         }
         return 0
-    } else if (is_real(argument0)) if (argument0) {
-        snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-        __gm82snd_call("FMODInstanceStop",argument0)        
-        ds_list_delete(__gm82snd_instlist(__gm82snd_map(snd)),argument0)
+    }
+    if (sound_exists(argument0)) {
+        __gm82snd_stopallof(argument0)
         return 0
     }
-    show_error("Sound does not exist: "+name,0)
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
 #define sound_stop_all
-//(index)
-    var key;
+//()
+    var list,i,l,il;
+    
     __gm82snd_call("FMODAllStop")
-    key=ds_map_find_first(__gm82snd_mapid)
-    repeat (ds_map_size(__gm82snd_mapid)) {
-        if (string_pos("__instlist",key))
-            ds_list_clear(ds_map_find_value(__gm82snd_mapid,key))
-        key=ds_map_find_next(__gm82snd_mapid,key)
+    
+    list=__gm82snd_map("__globlist")
+    l=ds_list_size(list)
+    
+    //get every active instance list, and clear them
+    i=0 repeat (l/2) {
+        //the inst list is the second entry in a pair 
+        il=ds_list_find_value(list,i+1)
+        ds_list_clear(il)
+        i+=2
     }
-    ds_list_clear(__gm82snd_map("__globlist"))
+    
+    //clear global instance list
+    ds_list_clear(list)
 
 
 #define sound_volume
 //(index,value)
-    var vol,name,loaded;
-    name=string(argument0)
+    var vol;
+
     vol=median(0,argument1,1)
-    loaded=__gm82snd_isloaded(name)
     
-    if (loaded!=0) {
-        //sound id, set base volume
-        if (loaded) __gm82snd_call("FMODSoundSetMaxVolume",__gm82snd_fmodid(argument0),vol)
-        __gm82snd_map(name+"__volume",vol)
-        return 0
-    } else if (is_real(argument0)) if (argument0) {
+    if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetVolume",argument0,vol)
         return 0
     }
+    if (sound_exists(argument0)) {
+        //sound id, set base volume
+        __gm82snd_call("FMODSoundSetMaxVolume",__gm82snd_fmodid(argument0),vol)
+        __gm82snd_map(argument0+"__volume",vol)
+        return 0
+    }
     
-    show_error("Sound does not exist: "+name,0)
+    show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
@@ -1175,14 +1128,14 @@
 
 #define sound_kind_effect
 //(kind,effect)
-    var kind,group,ef;
+    var kind,group,ef,i;
     kind=argument0
 
-    if (kind=1)   group=1 //music
-    if (kind=3)   group=2 //mmplay
-    if (kind=2)   group=3 //3d
-    if (kind=0)   group=4 //regular sfx
-    if (kind=all) group=0 //all
+    if (kind==1)   group=1 //music
+    if (kind==3)   group=2 //mmplay
+    if (kind==2)   group=3 //3d
+    if (kind==0)   group=4 //regular sfx
+    if (kind==all) group=0 //all
     
     ef=0
     switch (argument1) {
@@ -1201,9 +1154,9 @@
     if (ef) {
         i=__gm82snd_call("FMODGroupAddEffect",group,ef)
         //reverb's defaults are barely audible
-        if (ef=17) sound_effect_options(i,1,0.7)
+        if (ef==17) sound_effect_options(i,1,0.7)
         //echo's defaults are also terrible
-        if (ef=6) {
+        if (ef==6) {
             sound_effect_options(i,0,100)
             sound_effect_options(i,1,0.8)
             sound_effect_options(i,4,0.3)
