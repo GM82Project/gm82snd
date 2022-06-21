@@ -457,7 +457,12 @@
 
 #define sound_add
 //(fname,kind,preload)
-    var snd,name,kind,load;    
+    var snd,name,kind,load;
+
+    if (!file_exists(argument0)) {
+        show_error("File does not exist trying to add a sound: "+argument0,0)
+        return noone
+    }
     
     name=filename_change_ext(filename_name(argument0),"")    
     if (sound_exists(argument0)) {
@@ -589,7 +594,7 @@
         if (pass!="") {
             __gm82snd_call("FMODEncryptFile",argument0,argument1,pass)
         } else show_error("Sound password not set.",0)
-    } else show_error("File does not exist: "+name,0)
+    } else show_error("File does not exist trying to encrypt sound: "+name,0)
 
 
 #define sound_fade
