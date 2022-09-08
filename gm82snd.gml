@@ -822,7 +822,13 @@
         __gm82snd_call("FMODGroupSetVolume",group,vol)
     }
 
+
 #define sound_loop
+//(index)
+    return __gm82snd_instantiate(argument0,"FMODSoundLoop",0)
+
+
+#define sound_loop_ex
 //(index,[volume,pitch,pan])
     var snd;
     
