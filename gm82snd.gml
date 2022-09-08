@@ -1,26 +1,26 @@
 #define __gm82snd_call
 //(func,args,...)
-    var call,ret,error;
+    var __call,__ret,__error;
 
-    call=__gm82snd_map("__dll_"+argument0)
+    __call=__gm82snd_map("__dll_"+argument0)
 
     switch (argument_count) {
-        case 1: ret=external_call(call) break
-        case 2: ret=external_call(call,argument[1]) break
-        case 3: ret=external_call(call,argument[1],argument[2]) break
-        case 4: ret=external_call(call,argument[1],argument[2],argument[3]) break
-        case 5: ret=external_call(call,argument[1],argument[2],argument[3],argument[4]) break
-        case 6: ret=external_call(call,argument[1],argument[2],argument[3],argument[4],argument[5]) break
+        case 1: __ret=external_call(__call) break
+        case 2: __ret=external_call(__call,argument[1]) break
+        case 3: __ret=external_call(__call,argument[1],argument[2]) break
+        case 4: __ret=external_call(__call,argument[1],argument[2],argument[3]) break
+        case 5: __ret=external_call(__call,argument[1],argument[2],argument[3],argument[4]) break
+        case 6: __ret=external_call(__call,argument[1],argument[2],argument[3],argument[4],argument[5]) break
     }
 
     if (global.__gm82snd_checkerrors) {
-        error=external_call(global.__gm82snd_errorcheck)
-        if (error) {
-            if (error=36 || error=11) return ret //deleted instance errors arent useful
-            show_error("FMOD error in function "+argument0+":"+chr(13)+chr(13)+__gm82snd_geterrorstr(error),0)
+        __error=external_call(global.__gm82snd_errorcheck)
+        if (__error) {
+            if (__error=36 || __error=11) return __ret //deleted instance errors arent useful
+            show_error("FMOD error in function "+argument0+":"+chr(13)+chr(13)+__gm82snd_geterrorstr(__error),0)
         }
     }
-    return ret
+    return __ret
 
 #define __gm82snd_define
 //(func,args,...)
@@ -460,7 +460,7 @@
     var snd,name,kind,load;
 
     if (!file_exists(argument0)) {
-        show_error("File does not exist trying to add a sound: "+argument0,0)
+        show_error("File does not exist trying to add a sound: "+string(argument0),0)
         return noone
     }
     
