@@ -823,13 +823,35 @@
     }
 
 #define sound_loop
-//(index)
-    return __gm82snd_instantiate(argument0,"FMODSoundLoop",0)
+//(index,[volume,pitch,pan])
+    var snd;
+    
+    if (argument_count>1) {
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1)
+        sound_volume(snd,argument[1])
+        if (argument_count>2) sound_pitch(snd,argument[2])
+        if (argument_count>3) sound_pan(snd,argument[3])
+        sound_resume(snd)
+    } else {
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",0)
+    }
+    
+    return snd
 
 
 #define sound_loop_paused
-//(index)
-    return __gm82snd_instantiate(argument0,"FMODSoundLoop",1)
+//(index,[volume,pitch,pan])
+    var snd;
+    
+    snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1)
+        
+    if (argument_count>1) {
+        sound_volume(snd,argument[1])
+        if (argument_count>2) sound_pitch(snd,argument[2])
+        if (argument_count>3) sound_pan(snd,argument[3])
+    }
+    
+    return snd
 
 
 #define sound_pan
@@ -924,14 +946,36 @@
     return 0
 
 
-#define sound_play
-//(index)
-    return __gm82snd_instantiate(argument0,"FMODSoundPlay",0)
+#define sound_play_ex
+//(index,[volume,pitch,pan])
+    var snd;
+    
+    if (argument_count>1) {
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1)
+        sound_volume(snd,argument[1])
+        if (argument_count>2) sound_pitch(snd,argument[2])
+        if (argument_count>3) sound_pan(snd,argument[3])
+        sound_resume(snd)
+    } else {
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",0)
+    }
+    
+    return snd
 
 
 #define sound_play_paused
-//(index)
-    return __gm82snd_instantiate(argument0,"FMODSoundPlay",1)
+//(index,[volume,pitch,pan])
+    var snd;
+    
+    snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1)
+        
+    if (argument_count>1) {
+        sound_volume(snd,argument[1])
+        if (argument_count>2) sound_pitch(snd,argument[2])
+        if (argument_count>3) sound_pan(snd,argument[3])
+    }
+    
+    return snd
 
 
 #define sound_play_single
