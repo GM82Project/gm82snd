@@ -952,6 +952,11 @@
     return 0
 
 
+#define sound_play
+//(index)
+    return __gm82snd_instantiate(argument0,"FMODSoundPlay",0)
+
+
 #define sound_play_ex
 //(index,[volume,pitch,pan])
     var snd;
