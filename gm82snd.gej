@@ -744,7 +744,7 @@
 		},
 		{
 			"filename": "fmod_nops.gml",
-			"origname": "C:\\Stuff\\github\\gm82snd\\fmod_nops.gml",
+			"origname": "fmod_nops.gml",
 			"kind": 2,
 			"init": "",
 			"final": "",
@@ -2385,7 +2385,7 @@
 		},
 		{
 			"filename": "fmodex.dll",
-			"origname": "C:\\Stuff\\github\\gm82snd\\fmodex.dll",
+			"origname": "fmodex.dll",
 			"kind": 4,
 			"init": "",
 			"final": "",
@@ -2394,7 +2394,7 @@
 		},
 		{
 			"filename": "GMFMODSimple.dll",
-			"origname": "C:\\Stuff\\github\\gm82snd\\GMFMODSimple.dll",
+			"origname": "GMFMODSimple.dll",
 			"kind": 4,
 			"init": "",
 			"final": "",
