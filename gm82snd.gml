@@ -465,7 +465,7 @@
     }
     
     name=filename_change_ext(filename_name(argument0),"")    
-    if (sound_exists(argument0)) {
+    if (sound_exists(name)) {
         if (debug_mode) show_error("Debug warning: Sound '"+argument0+"' was overwritten.",0)
         sound_replace(name,argument0,argument1,argument2)
         return name
@@ -475,6 +475,44 @@
 
     //we always preload now, but preload==2 means "decode on load"
     snd=__gm82snd_call("FMODSoundAdd",argument0,0,(kind mod 2) && (argument2!=2))
+    __gm82snd_setgroup(snd,kind)
+    
+    ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
+    
+    __gm82snd_map(snd,name)
+    __gm82snd_map(name+"__fmodid",snd)
+    __gm82snd_map(name+"__filename",argument0)
+    __gm82snd_map(name+"__kind",kind)
+    __gm82snd_map(name+"__loaded",-1+2*!!argument2)
+    __gm82snd_map(name+"__pitch",1)
+    __gm82snd_map(name+"__volume",1)
+    __gm82snd_map(name+"__3dmin",1)
+    __gm82snd_map(name+"__3dmax",1000000000)
+    __gm82snd_map(name+"__3dconevol",1)
+    __gm82snd_map(name+"__instlist",ds_list_create())
+
+    return name
+
+#define sound_add_ext
+//(fname,kind,streamed,name)
+    var snd,name,kind,load;
+
+    if (!file_exists(argument0)) {
+        show_error("File does not exist trying to add a sound: "+string(argument0),0)
+        return noone
+    }
+    
+    name=argument3    
+    if (sound_exists(name)) {
+        if (debug_mode) show_error("Debug warning: Sound '"+argument0+"' was overwritten.",0)
+        sound_replace(name,argument0,argument1,argument2)
+        return name
+    }
+    
+    kind=median(0,round(argument1),3)
+
+    //we always preload now, but preload==2 means "decode on load"
+    snd=__gm82snd_call("FMODSoundAdd",argument0,0,argument2)
     __gm82snd_setgroup(snd,kind)
     
     ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
@@ -516,6 +554,30 @@
         file_find_close()                                    
     }                                       
     return count    
+
+
+#define sound_add_directory_ext
+//(dir,extension,kind,streamed,nameprefix)
+    var dir,fname,count,f;
+    
+    dir=argument0
+
+    if (!string_pos(":",dir)) dir=working_directory+"\"+dir
+
+    if (string_char_at(dir,string_length(dir))!="\")
+        dir+="\"
+    
+    count=0    
+    if (directory_exists(dir)) {
+        f=file_find_first(dir+"*"+argument1,0)
+        while (f!="") {
+            sound_add_ext(dir+f,argument2,argument3,argument4+filename_change_ext(f,""))
+            count+=1
+            f=file_find_next()
+        }           
+        file_find_close()                                    
+    }                                       
+    return count 
 
 
 #define sound_add_included

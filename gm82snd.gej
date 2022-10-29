@@ -3,7 +3,7 @@
 	"folder": "gm82",
 	"version": "1.2.5",
 	"author": "renex",
-	"date": "08/09/2022",
+	"date": "29/10/2022",
 	"license": "Free for noncommercial use. Check readme.txt.",
 	"description": "Part of the standard Game Maker 8.2 distribution. This extension package contains an advanced audio engine that gives you a lot more control over sounds in your games.",
 	"helpfile": "",
@@ -1591,6 +1591,35 @@
 					"extname": "",
 					"calltype": 2,
 					"helpline": "sound_add_directory(dir,extension,kind,preload)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add_directory_ext",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_directory_ext(dir,extension,kind,streamed,nameprefix)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add_ext",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_ext(fname,kind,streamed,name)",
 					"hidden": false,
 					"argtypes": [
 						2,
