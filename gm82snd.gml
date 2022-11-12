@@ -558,7 +558,7 @@
 
 #define sound_add_directory_ext
 //(dir,extension,kind,streamed,nameprefix)
-    var dir,fname,count,f;
+    var dir,fname,f,list,name;
     
     dir=argument0
 
@@ -567,17 +567,18 @@
     if (string_char_at(dir,string_length(dir))!="\")
         dir+="\"
     
-    count=0    
+    list=ds_list_create()
     if (directory_exists(dir)) {
         f=file_find_first(dir+"*"+argument1,0)
         while (f!="") {
-            sound_add_ext(dir+f,argument2,argument3,argument4+filename_change_ext(f,""))
-            count+=1
+            name=argument4+filename_change_ext(f,"")
+            sound_add_ext(dir+f,argument2,argument3,name)
+            ds_list_add(list,name)
             f=file_find_next()
         }           
         file_find_close()                                    
     }                                       
-    return count 
+    return list 
 
 
 #define sound_add_included
