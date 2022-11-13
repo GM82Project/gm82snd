@@ -1,9 +1,10 @@
 # gm82snd
-This is a replacement audio engine for Game Maker 8.1. Adding the extension completely replaces the builtin sound functions, bringing the audio engine near up to spec with GM:Studio.
+This is a replacement audio engine for Game Maker 8.2. Adding the extension completely replaces the builtin sound functions, bringing the audio engine near up to spec with GM:Studio.
 
 Features:
 
-- 23 different audio formats supported
+- many common audio formats are supported
+  - aif, wma, flac, it, midi, mod, mp3, ogg, s3m, wav, xm
 - stream music from files on disk
 - create and control individual sound instances
 - pitch, loop points, pause, seek, pan, etc
