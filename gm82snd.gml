@@ -168,7 +168,7 @@
     
     global.__gm82snd_errorcheck=ds_map_find_value(__gm82snd_mapid,"__dll_FMODGetLastError")
 
-    __gm82snd_call("FMODinit",64,0)
+    __gm82snd_call("FMODinit",256,false)
 
     __gm82snd_map("__bginst",0)
     __gm82snd_map("__bgtempo",1)
