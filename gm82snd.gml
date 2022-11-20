@@ -60,7 +60,6 @@
     external_define(dir+"\fmodex.dll","FMOD_Debug_GetLevel",dll_cdecl,ty_real,0)
     
     global.__gm82snd_checkerrors=true
-    global.__gm82snd_rotating_gc=0
     
     __gm82snd_define("FMODinit",ty_real,ty_real)
     __gm82snd_define("FMODfree")
@@ -313,24 +312,22 @@
     
     list=__gm82snd_map("__globlist")
     l=ds_list_size(list)
-    if (l) {
-        global.__gm82snd_checkerrors=false
-        global.__gm82snd_rotating_gc=(global.__gm82snd_rotating_gc+1) mod (l/2)
-        i=global.__gm82snd_rotating_gc*2 //i=0 while (i<l) {
-            inst=ds_list_find_value(list,i)
-            if (!__gm82snd_call("FMODInstanceIsPlaying",inst)) {
-                __gm82snd_call("FMODInstanceStop",inst)
-                ds_list_delete(list,i)
-                il=ds_list_find_value(list,i)
-                ds_list_delete(list,i)
-                ds_list_delete(il,ds_list_find_index(il,inst))
-                //i-=2
-                l-=2
-            }
-            //i+=2
-        //}
-        global.__gm82snd_checkerrors=true
+    global.__gm82snd_checkerrors=false
+    i=0 while (i<l) {
+        inst=ds_list_find_value(list,i)
+        if (!__gm82snd_call("FMODInstanceIsPlaying",inst)) {
+            __gm82snd_call("FMODInstanceStop",inst)
+            ds_list_delete(list,i)
+            il=ds_list_find_value(list,i)
+            ds_list_delete(list,i)
+            ds_list_delete(il,ds_list_find_index(il,inst))
+            i-=2
+            l-=2
+        }
+        i+=2
     }
+    global.__gm82snd_checkerrors=true
+
 
 #define __gm82snd_update3d
     var list3d,j,spd,spdmax,name,key,list,s,i,sx,sy,sz,mindist,maxdist,dir,vol,anglein,angleout,conevol;
