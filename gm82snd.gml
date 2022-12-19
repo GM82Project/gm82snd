@@ -185,7 +185,7 @@
 
 
 #define __gm82snd_instantiate
-//(index,function,pause)
+//(index,function,pause,stopbgs)
     var snd,kind,inst,pitch,pan,vol,flags,name,list,list2;
     
     if (is_real(argument0)) {
@@ -202,7 +202,7 @@
     }
     
     kind=sound_get_kind(name)
-    if (kind==1) {
+    if (kind==1 && argument3) {
         inst=__gm82snd_map("__bginst")
         if (inst) sound_stop(inst)
     }
@@ -888,7 +888,7 @@
 
 #define sound_loop
 //(index)
-    return __gm82snd_instantiate(argument0,"FMODSoundLoop",0)
+    return __gm82snd_instantiate(argument0,"FMODSoundLoop",0,1)
 
 
 #define sound_loop_ex
@@ -896,13 +896,30 @@
     var snd;
     
     if (argument_count>1) {
-        snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1)
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1,1)
         sound_volume(snd,argument[1])
         if (argument_count>2) sound_pitch(snd,argument[2])
         if (argument_count>3) sound_pan(snd,argument[3])
         sound_resume(snd)
     } else {
-        snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",0)
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",0,1)
+    }
+    
+    return snd
+
+
+#define sound_loop_ex_layer
+//(index,[volume,pitch,pan])
+    var snd;
+    
+    if (argument_count>1) {
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1,0)
+        sound_volume(snd,argument[1])
+        if (argument_count>2) sound_pitch(snd,argument[2])
+        if (argument_count>3) sound_pan(snd,argument[3])
+        sound_resume(snd)
+    } else {
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",0,0)
     }
     
     return snd
@@ -912,7 +929,7 @@
 //(index,[volume,pitch,pan])
     var snd;
     
-    snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1)
+    snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1,1)
         
     if (argument_count>1) {
         sound_volume(snd,argument[1])
