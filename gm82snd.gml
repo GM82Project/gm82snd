@@ -1034,7 +1034,7 @@
 
 #define sound_play
 //(index)
-    return __gm82snd_instantiate(argument0,"FMODSoundPlay",0)
+    return __gm82snd_instantiate(argument0,"FMODSoundPlay",0,1)
 
 
 #define sound_play_ex
@@ -1042,13 +1042,13 @@
     var snd;
     
     if (argument_count>1) {
-        snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1)
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1,1)
         sound_volume(snd,argument[1])
         if (argument_count>2) sound_pitch(snd,argument[2])
         if (argument_count>3) sound_pan(snd,argument[3])
         sound_resume(snd)
     } else {
-        snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",0)
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",0,1)
     }
     
     return snd
@@ -1058,7 +1058,7 @@
 //(index,[volume,pitch,pan])
     var snd;
     
-    snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1)
+    snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1,1)
         
     if (argument_count>1) {
         sound_volume(snd,argument[1])
@@ -1074,7 +1074,7 @@
     name=string(argument0)
     inst=__gm82snd_map(name+"__single")
     if (inst) __gm82snd_call("FMODInstanceStop",inst) 
-    inst=__gm82snd_instantiate(name,"FMODSoundPlay",0)
+    inst=__gm82snd_instantiate(name,"FMODSoundPlay",0,1)
     __gm82snd_map(name+"__single",inst)
     return inst
 
@@ -1084,7 +1084,7 @@
     name=string(argument0)
     inst=__gm82snd_map(name+"__single")
     if (inst) __gm82snd_call("FMODInstanceStop",inst) 
-    inst=__gm82snd_instantiate(name,"FMODSoundLoop",0)
+    inst=__gm82snd_instantiate(name,"FMODSoundLoop",0,1)
     __gm82snd_map(name+"__single",inst)
     return inst
 
