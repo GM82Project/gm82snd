@@ -591,38 +591,38 @@
 
 #define sound_create_pack
     ///(sourcedir,filename)
-    var dir,save,q,fn,size,mb,b;
+    var __dir,__save,__q,__fn,__size,__mb,__b;
     
-    dir=filename_dir(argument0)
-    save=argument1
+    __dir=filename_dir(argument0)
+    __save=argument1
 
-    q=ds_queue_create()
+    __q=ds_queue_create()
 
-    for (fn=file_find_first(dir+"\*.*",0);fn!="";fn=file_find_next()) {
-        ds_queue_enqueue(q,dir+"\"+fn)
+    for (__fn=file_find_first(__dir+"\*.*",0);__fn!="";__fn=file_find_next()) {
+        ds_queue_enqueue(__q,__dir+"\"+__fn)
     } file_find_close()
 
-    size=ds_queue_size(q)
+    __size=ds_queue_size(__q)
 
-    mb=buffer_create()
-    b=buffer_create()
+    __mb=buffer_create()
+    __b=buffer_create()
 
-    buffer_write_string(mb,"WASD1.0")
-    buffer_write_u32(mb,size)
+    buffer_write_string(__mb,"WASD1.0")
+    buffer_write_u32(__mb,__size)
 
-    repeat (size) {fn=ds_queue_dequeue(q)
-        buffer_load(b,fn)
-        buffer_deflate(b)
-        buffer_write_string(mb,filename_name(fn))
-        buffer_write_u32(mb,buffer_get_size(b))
-        buffer_copy(mb,b)
-        buffer_clear(b)
+    repeat (__size) {__fn=ds_queue_dequeue(__q)
+        buffer_load(__b,__fn)
+        buffer_deflate(__b)
+        buffer_write_string(__mb,filename_name(__fn))
+        buffer_write_u32(__mb,buffer_get_size(__b))
+        buffer_copy(__mb,__b)
+        buffer_clear(__b)
     }
 
-    buffer_save(mb,save)
-    buffer_destroy(mb)
-    buffer_destroy(b)
-    ds_queue_destroy(q)
+    buffer_save(__mb,__save)
+    buffer_destroy(__mb)
+    buffer_destroy(__b)
+    ds_queue_destroy(__q)
 
 
 #define sound_add_pack
