@@ -627,7 +627,7 @@
 
 #define sound_add_pack
     ///(pack)
-    var __fn,__mb,__retlist,__b,__count,__name,__length,__pos;
+    var __fn,__mb,__retlist,__b,__count,__name,__fname,__length,__pos;
 
     __fn=temp_directory+"\gm82\sound\wasd"
 
@@ -658,6 +658,35 @@
     }
 
     return __retlist
+
+
+#define sound_unpack_pack
+    ///(pack,dir)
+    var __dir,__mb,__retlist,__b,__count,__name,__fname,__length,__pos;
+
+    __dir=argument1+"\"
+    directory_create(__dir)
+
+    __mb=buffer_create()
+    buffer_load(__mb,argument0)
+
+    if (buffer_read_string(__mb)!="WASD1.0") {buffer_destroy(__mb) show_error("Error loading WASD pack: file "+argument0+"is not a valid WASD pack.",0) return noone}
+
+    __b=buffer_create()
+
+    __count=buffer_read_u32(__mb)
+
+    repeat (__count) {
+        __name=buffer_read_string(__mb)
+        __fname=__dir+"\"+__name
+        __length=buffer_read_u32(__mb)
+        __pos=buffer_get_pos(__mb)
+        buffer_copy_part(__b,__mb,__pos,__length)
+        buffer_set_pos(__mb,__pos+__length)
+        buffer_inflate(__b)
+        buffer_save(__b,__fname)
+        buffer_clear(__b)
+    }
 
 
 #define sound_add_mic

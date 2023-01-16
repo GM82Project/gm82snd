@@ -2279,6 +2279,18 @@
 					"returntype": 2
 				},
 				{
+					"name": "sound_unpack_pack",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_unpack_pack(pack,dir)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
 					"name": "sound_volume",
 					"extname": "",
 					"calltype": 2,
