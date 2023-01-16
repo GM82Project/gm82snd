@@ -1844,6 +1844,17 @@
 					"returntype": 2
 				},
 				{
+					"name": "sound_get_frequency",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_frequency(sound)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
 					"name": "sound_get_kind",
 					"extname": "",
 					"calltype": 2,

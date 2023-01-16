@@ -117,6 +117,7 @@
     __gm82snd_define("FMODInstanceStop",ty_real)
     __gm82snd_define("FMODInstanceIsPlaying",ty_real)
     __gm82snd_define("FMODInstanceGetPosition",ty_real)
+    __gm82snd_define("FMODInstanceGetFrequency",ty_real)
     __gm82snd_define("FMODInstanceGetSound",ty_real)
     __gm82snd_define("FMODInstanceSetVolume",ty_real,ty_real)
     __gm82snd_define("FMODInstanceSetPaused",ty_real,ty_real)
@@ -796,6 +797,29 @@
     
     if (snd)
         return __gm82snd_call("FMODSoundGetLength",snd)/1000
+        
+    show_error("Sound does not exist: "+string(argument0),0)
+    return 0
+
+
+#define sound_get_frequency
+//(index)
+    var snd,ret;    
+    
+    if (is_real(argument0)) {
+        if (argument0) {
+            return __gm82snd_call("FMODInstanceGetFrequency",argument0)
+        }
+        else {
+            show_error("Sound is null.",0)
+            return ""
+        }
+    } else if (sound_exists(argument0)) {        
+        snd=sound_play_paused(argument0)
+        ret=__gm82snd_call("FMODInstanceGetFrequency",snd)
+        sound_stop(snd)
+        return ret
+    }
         
     show_error("Sound does not exist: "+string(argument0),0)
     return 0
