@@ -166,6 +166,9 @@
     __gm82snd_define("FMODUpdateTakeOverDone")
     __gm82snd_define("FMODUpdateTakeOverWhileLocked")
     
+    //__gm82snd_define("FMODSoundAddBuffer",ty_real,ty_real)
+    //__gm82snd_define("FMODBufferSoundSemaphore")
+    
     global.__gm82snd_errorcheck=ds_map_find_value(__gm82snd_mapid,"__dll_FMODGetLastError")
 
     __gm82snd_call("FMODinit",256,false)
@@ -1257,12 +1260,25 @@
 
 
 #define sound_set_loop
-//(index,loopstart,loopend)
-    var a,b;
+//(index,loopstart,loopend,[unit])
+    var a,b,len;
     
     if (sound_exists(argument0)) {
-        a=median(0,argument1,1)
-        b=median(a,argument2,1)
+        a=argument1
+        b=argument2
+        if (argument_count==4) {
+            if (argument3==unit_seconds) {
+                len=sound_get_length(argument0)
+                a=argument2/len
+                b=argument3/len
+            } else if (argument1==unit_samples) {
+                len=sound_get_length(argument0)*sound_get_frequency(argument0)
+                a=argument2/len
+                b=argument3/len
+            }
+        }
+        a=median(0,a,1)
+        b=median(a,b,1)
         __gm82snd_call("FMODSoundSetLoopPoints",__gm82snd_fmodid(argument0),a,b)
         return 0
     }

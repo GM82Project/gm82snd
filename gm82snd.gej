@@ -2227,13 +2227,9 @@
 					"name": "sound_set_loop",
 					"extname": "",
 					"calltype": 2,
-					"helpline": "sound_set_loop(index,start,end)",
+					"helpline": "sound_set_loop(index,start,end,[unit])",
 					"hidden": false,
-					"argtypes": [
-						2,
-						2,
-						2
-					],
+					"argtypes": null,
 					"returntype": 2
 				},
 				{
@@ -2464,6 +2460,21 @@
 				{
 					"name": "se_pitchshift",
 					"value": "7",
+					"hidden": false
+				},
+				{
+					"name": "unit_samples",
+					"value": "1",
+					"hidden": false
+				},
+				{
+					"name": "unit_seconds",
+					"value": "2",
+					"hidden": false
+				},
+				{
+					"name": "unit_unitary",
+					"value": "0",
 					"hidden": false
 				}
 			]
