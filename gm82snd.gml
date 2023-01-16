@@ -589,6 +589,77 @@
     return sound_add(fname,argument1,argument2)
 
 
+#define sound_create_pack
+    ///(sourcedir,filename)
+    var dir,save,q,fn,size,mb,b;
+    
+    dir=filename_dir(argument0)
+    save=argument1
+
+    q=ds_queue_create()
+
+    for (fn=file_find_first(dir+"\*.*",0);fn!="";fn=file_find_next()) {
+        ds_queue_enqueue(q,dir+"\"+fn)
+    } file_find_close()
+
+    size=ds_queue_size(q)
+
+    mb=buffer_create()
+    b=buffer_create()
+
+    buffer_write_string(mb,"WASD1.0")
+    buffer_write_u32(mb,size)
+
+    repeat (size) {fn=ds_queue_dequeue(q)
+        buffer_load(b,fn)
+        buffer_deflate(b)
+        buffer_write_string(mb,filename_name(fn))
+        buffer_write_u32(mb,buffer_get_size(b))
+        buffer_copy(mb,b)
+        buffer_clear(b)
+    }
+
+    buffer_save(mb,save)
+    buffer_destroy(mb)
+    buffer_destroy(b)
+    ds_queue_destroy(q)
+
+
+#define sound_add_pack
+    ///(pack)
+    var __fn,__mb,__retlist,__b,__count,__name,__length,__pos;
+
+    __fn=temp_directory+"\gm82\sound\wasd"
+
+    __mb=buffer_create()
+    buffer_load(__mb,argument0)
+
+    if (buffer_read_string(__mb)!="WASD1.0") {buffer_destroy(__mb) show_error("Error loading WASD pack: file "+argument0+"is not a valid WASD pack.",0) return noone}
+
+    __retlist=ds_list_create()
+    __b=buffer_create()
+
+    __count=buffer_read_u32(__mb)
+
+    repeat (__count) {
+        __name=buffer_read_string(__mb)
+        __fname=__fn+filename_ext(__name)
+        __name=filename_remove_ext(__name)
+        __length=buffer_read_u32(__mb)
+        __pos=buffer_get_pos(__mb)
+        buffer_copy_part(__b,__mb,__pos,__length)
+        buffer_set_pos(__mb,__pos+__length)
+        buffer_inflate(__b)
+        buffer_save_temp(__b,__fname)
+        sound_add_ext(__fname,0,0,__name)
+        file_delete(__fname)
+        buffer_clear(__b)
+        ds_list_add(__retlist,__name)
+    }
+
+    return __retlist
+
+
 #define sound_add_mic
 //todo
 

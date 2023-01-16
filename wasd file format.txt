@@ -1,0 +1,13 @@
+WASD file format v1.0
+
+string "WASD1.0"
+u32 file_count
+
+repeat file_count {
+    string filename
+    u32 length
+    * buffer
+    inflate buffer {
+        wav file
+    }
+}
