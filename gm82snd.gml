@@ -1181,6 +1181,23 @@
     return snd
 
 
+#define sound_play_ex_layer
+//(index,[volume,pitch,pan])
+    var snd;
+    
+    if (argument_count>1) {
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1,0)
+        sound_volume(snd,argument[1])
+        if (argument_count>2) sound_pitch(snd,argument[2])
+        if (argument_count>3) sound_pan(snd,argument[3])
+        sound_resume(snd)
+    } else {
+        snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",0,0)
+    }
+    
+    return snd
+
+
 #define sound_play_paused
 //(index,[volume,pitch,pan])
     var snd;
