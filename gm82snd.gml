@@ -1035,6 +1035,29 @@
     return snd
 
 
+#define sound_loop_single_ex
+//(index,[volume,pitch,pan])
+    var snd;
+    
+    var inst,name;
+    name=string(argument0)
+    inst=__gm82snd_map(name+"__single")
+    if (inst) __gm82snd_call("FMODInstanceStop",inst) 
+    
+    if (argument_count>1) {
+        inst=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1,1)
+        sound_volume(inst,argument[1])
+        if (argument_count>2) sound_pitch(inst,argument[2])
+        if (argument_count>3) sound_pan(inst,argument[3])
+        sound_resume(inst)
+    } else {
+        inst=__gm82snd_instantiate(argument[0],"FMODSoundLoop",0,1)
+    }
+    
+    __gm82snd_map(name+"__single",inst)
+    return inst
+
+
 #define sound_loop_ex_layer
 //(index,[volume,pitch,pan])
     var snd;
@@ -1179,6 +1202,29 @@
     }
     
     return snd
+    
+    
+#define sound_play_single_ex
+//(index,[volume,pitch,pan])
+    var snd;
+    
+    var inst,name;
+    name=string(argument0)
+    inst=__gm82snd_map(name+"__single")
+    if (inst) __gm82snd_call("FMODInstanceStop",inst) 
+    
+    if (argument_count>1) {
+        inst=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1,1)
+        sound_volume(inst,argument[1])
+        if (argument_count>2) sound_pitch(inst,argument[2])
+        if (argument_count>3) sound_pan(inst,argument[3])
+        sound_resume(inst)
+    } else {
+        inst=__gm82snd_instantiate(argument[0],"FMODSoundPlay",0,1)
+    }
+    
+    __gm82snd_map(name+"__single",inst)
+    return inst
 
 
 #define sound_play_ex_layer
