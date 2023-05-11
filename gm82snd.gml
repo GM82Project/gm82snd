@@ -1284,27 +1284,26 @@
     var name,snd,kind,list,i;
     name=string(argument0)
     
-    if (sound_exists(argument0)) {        
+    if (sound_exists(name)) {        
         __gm82snd_stopallof(name)
-        snd=__gm82snd_fmodid(argument0)
+        snd=__gm82snd_fmodid(name)
         __gm82snd_call("FMODSoundFree",snd)
         ds_map_delete(__gm82snd_mapid,snd)        
         
-        for (i=0;i<4;i+=1) {
-            list=__gm82snd_map("__kindlist"+string(i))
-            j=ds_list_find_index(list,name)
-            if (j!=-1) ds_list_delete(list,j)
-        }
+        __oldkind=__gm82snd_map(name+"__kind")
         
-        kind=median(0,round(argument1),3)
+        list=__gm82snd_map("__kindlist"+string(__oldkind))
+        ds_list_delete(list,ds_list_find_index(list,name))
+        
+        kind=median(0,round(argument2),3)
+        
+        snd=__gm82snd_call("FMODSoundAdd",argument1,0,(kind mod 2) && (argument3!=2))
+        __gm82snd_setgroup(snd,kind)
         
         ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
         
-        if (argument3) {
-            snd=__gm82snd_call("FMODSoundAdd",argument1,0,kind)
-            __gm82snd_map(name+"__fmodid",snd)
-            __gm82snd_map(snd,name)
-        }
+        __gm82snd_map(snd,name)
+        __gm82snd_map(name+"__fmodid",snd)
         __gm82snd_map(name+"__kind",kind)
         __gm82snd_map(name+"__loaded",-1+2*!!argument3)
         __gm82snd_map(name+"__filename",argument1)
