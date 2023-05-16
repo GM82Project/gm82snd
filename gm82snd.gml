@@ -408,7 +408,7 @@
 
     if (sound_exists(argument0)) {
         __anglein=median(0,argument4,180)
-        __angleout=median(anglein,argument5,180)
+        __angleout=median(__anglein,argument5,180)
         __att=median(0,argument6/100,100)
         __gm82snd_map(argument0+"__3dconex",argument1)
         __gm82snd_map(argument0+"__3dconey",argument2)
@@ -429,7 +429,7 @@
 
     if (sound_exists(argument0)) {
         __mindist=median(1,argument1,1000000000)
-        __maxdist=median(mindist,argument2,1000000000)
+        __maxdist=median(__mindist,argument2,1000000000)
         __gm82snd_map(argument0+"__3dmin",__mindist)
         __gm82snd_map(argument0+"__3dmax",__maxdist)
         __gm82snd_update3d()
