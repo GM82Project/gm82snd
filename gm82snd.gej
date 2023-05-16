@@ -2517,7 +2517,7 @@
 		},
 		{
 			"filename": "GMFMODSimple.dll",
-			"origname": "GMFMODSimple.dll",
+			"origname": "build/Release/GMFMODSimple.dll",
 			"kind": 4,
 			"init": "",
 			"final": "",
