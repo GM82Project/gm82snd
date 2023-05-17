@@ -3,7 +3,7 @@
 	"folder": "gm82",
 	"version": "1.3.2",
 	"author": "renex",
-	"date": "25/04/2023",
+	"date": "17/05/2023",
 	"license": "Free for noncommercial use. Check readme.txt.",
 	"description": "Part of the standard Game Maker 8.2 distribution. This extension package contains an advanced audio engine that gives you a lot more control over sounds in your games.",
 	"helpfile": "",
@@ -2455,6 +2455,15 @@
 				},
 				{
 					"name": "__gm82snd_update3d",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "__gm82snd_update_3d_sound",
 					"extname": "",
 					"calltype": 2,
 					"helpline": "",

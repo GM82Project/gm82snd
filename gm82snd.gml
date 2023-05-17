@@ -334,12 +334,7 @@
 
 
 #define __gm82snd_update3d
-    var list3d,j,spd,spdmax,name,key,list,s,i,sx,sy,sz,mindist,maxdist,dir,vol,anglein,angleout,conevol;
-    
-    //speed of sound is 343 m/s
-    spdmax=343
-    
-    //i've inlined all of the map readers in this function for performance concerns.
+    var list3d,j,length,name,list,s,i;
     
     list3d=ds_map_find_value(__gm82snd_mapid,"__kindlist2")
     length=ds_list_size(list3d)
@@ -349,37 +344,48 @@
         s=ds_list_size(list)
 
         for (i=0;i<s;i+=1) {
-            inst=ds_list_find_value(list,i)
-            sx=ds_map_find_value(__gm82snd_mapid,name+"__3dx")
-            sy=ds_map_find_value(__gm82snd_mapid,name+"__3dy")
-            sz=ds_map_find_value(__gm82snd_mapid,name+"__3dz")
-
-            vx=ds_map_find_value(__gm82snd_mapid,name+"__3dvx")
-            vy=ds_map_find_value(__gm82snd_mapid,name+"__3dvy")
-            vz=ds_map_find_value(__gm82snd_mapid,name+"__3dvz")
-            
-            cx=ds_map_find_value(__gm82snd_mapid,name+"__3dconex")
-            cy=ds_map_find_value(__gm82snd_mapid,name+"__3dconey")
-            cz=ds_map_find_value(__gm82snd_mapid,name+"__3dconez")
-            
-            mindist=ds_map_find_value(__gm82snd_mapid,name+"__3dmin")
-            maxdist=ds_map_find_value(__gm82snd_mapid,name+"__3dmax")
-            anglein=ds_map_find_value(__gm82snd_mapid,name+"__3dconein")
-            angleout=ds_map_find_value(__gm82snd_mapid,name+"__3dconeout")
-            conevol=ds_map_find_value(__gm82snd_mapid,name+"__3dconevol")
-            
-            vol=mindist/median(mindist,point_distance_3d(0,0,0,sx,sy,sz),maxdist)
-            
-            if (conevol<1) {
-                dir=angle_difference_3d(cx,cy,cz,-sx,-sy,-sz)
-                vol*=lerp(1,conevol,median(0,(dir-anglein)/(angleout-anglein),1))
-            }      
-            
-            __gm82snd_call("FMODInstanceSetPan",inst,lengthdir_x(1,point_direction(0,0,sx,sy+sz)))
-            __gm82snd_call("FMODInstanceSetVolume",inst,vol)
-            __gm82snd_call("FMODInstanceSetPitch",inst,1-(point_distance(0,0,sx+vx,sy+vy+sz+vz)-point_distance(0,0,sx,sy+sz))/spdmax)
+            __gm82snd_update_3d_sound(name,ds_list_find_value(list,i))
         }
     }
+
+
+#define __gm82snd_update_3d_sound
+    ///(name,instance)
+    var name,inst,sx,sy,sz,vx,vy,vz,cx,cy,cz,mindist,maxdist,dir,vol,anglein,angleout,conevol;
+    
+    name=argument0
+    inst=argument1
+    
+    //i've inlined all of the map readers in this function for performance concerns.
+    
+    sx=ds_map_find_value(__gm82snd_mapid,name+"__3dx")
+    sy=ds_map_find_value(__gm82snd_mapid,name+"__3dy")
+    sz=ds_map_find_value(__gm82snd_mapid,name+"__3dz")
+
+    vx=ds_map_find_value(__gm82snd_mapid,name+"__3dvx")
+    vy=ds_map_find_value(__gm82snd_mapid,name+"__3dvy")
+    vz=ds_map_find_value(__gm82snd_mapid,name+"__3dvz")
+    
+    cx=ds_map_find_value(__gm82snd_mapid,name+"__3dconex")
+    cy=ds_map_find_value(__gm82snd_mapid,name+"__3dconey")
+    cz=ds_map_find_value(__gm82snd_mapid,name+"__3dconez")
+    
+    mindist=ds_map_find_value(__gm82snd_mapid,name+"__3dmin")
+    maxdist=ds_map_find_value(__gm82snd_mapid,name+"__3dmax")
+    anglein=ds_map_find_value(__gm82snd_mapid,name+"__3dconein")
+    angleout=ds_map_find_value(__gm82snd_mapid,name+"__3dconeout")
+    conevol=ds_map_find_value(__gm82snd_mapid,name+"__3dconevol")
+    
+    vol=mindist/median(mindist,point_distance_3d(0,0,0,sx,sy,sz),maxdist)
+    
+    if (conevol<1) {
+        dir=angle_difference_3d(cx,cy,cz,-sx,-sy,-sz)
+        vol*=lerp(1,conevol,median(0,(dir-anglein)/(angleout-anglein),1))
+    }      
+    
+    __gm82snd_call("FMODInstanceSetPan",inst,lengthdir_x(1,point_direction(0,0,sx,sy+sz)))
+    __gm82snd_call("FMODInstanceSetVolume",inst,vol)
+    __gm82snd_call("FMODInstanceSetPitch",inst,1-(point_distance(0,0,sx+vx,sy+vy+sz+vz)-point_distance(0,0,sx,sy+sz))/343) //speed of sound in directx is 343 m/s
 
 
 #define sound_get_count
@@ -844,7 +850,7 @@
     }
     
     if (sound_exists(name)) {
-        return filename_change_ext(__gm82snd_map(name+"__filename"),"")
+        return name
     }
     
     show_error("Sound does not exist: "+string(name),0)
