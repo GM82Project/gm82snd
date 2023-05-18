@@ -302,10 +302,6 @@
     
 
 #define __gm82snd_update
-    //this is to avoid getting deactivated by game logic
-    x=view_xview[0]+view_wview[0]/2
-    y=view_yview[0]+view_hview[0]/2
-
     __gm82snd_call("FMODUpdate")
     __gm82snd_update3d()
     __gm82snd_update2d()
