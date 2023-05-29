@@ -1869,11 +1869,9 @@
 					"name": "sound_get_length",
 					"extname": "",
 					"calltype": 2,
-					"helpline": "sound_get_length(index)",
+					"helpline": "sound_get_length(index,[unit])",
 					"hidden": false,
-					"argtypes": [
-						2
-					],
+					"argtypes": null,
 					"returntype": 2
 				},
 				{

@@ -789,8 +789,8 @@
 
 
 #define sound_get_length
-//(index)
-    var snd;    
+//(index,[unit])
+    var snd,len;    
     
     if (is_real(argument0)) {
         if (argument0) snd=__gm82snd_call("FMODInstanceGetSound",argument0)
@@ -800,8 +800,16 @@
         }
     } else snd=__gm82snd_fmodid(argument0)
     
-    if (snd)
-        return __gm82snd_call("FMODSoundGetLength",snd)/1000
+    if (snd) {
+        len=__gm82snd_call("FMODSoundGetLength",snd)/1000
+        if (argument_count==2) {
+            if (argument1==unit_samples)
+                len=ceil(len*sound_get_frequency(argument0))
+            if (argument1==unit_unitary)
+                show_error("sound_get_length() does not accept unit_unitary as the time unit.",0)
+        }
+        return len
+    }
         
     show_error("Sound does not exist: "+string(argument0),0)
     return 0
