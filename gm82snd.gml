@@ -820,9 +820,17 @@
             return ""
         }
     } else if (sound_exists(argument0)) {        
-        snd=sound_play_paused(argument0)
-        ret=__gm82snd_call("FMODInstanceGetFrequency",snd)
-        sound_stop(snd)
+        //only sound instances have frequency getters - we need to find one
+        //ideally, we want to reuse any existing instances for this check
+        list=__gm82snd_instlist(argument0)
+        if (ds_list_size(list)) {
+            snd=ds_list_find_value(list,0)
+            ret=__gm82snd_call("FMODInstanceGetFrequency",snd)
+        } else {
+            snd=__gm82snd_instantiate(argument0,"FMODSoundPlay",1,0)        
+            ret=__gm82snd_call("FMODInstanceGetFrequency",snd)
+            sound_stop(snd)
+        }
         return ret
     }
         
