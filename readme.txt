@@ -83,6 +83,10 @@ sound_volume
 
 [adding sounds]
 
+sound_add_ext(fname,kind,streamed,name)
+    Adds a sound, but specifying whether to stream it and defining its name
+    directly instead of using the filename.
+
 sound_add_included(fname,kind,preload)
     Adds a sound from one of the included files.
     
@@ -92,6 +96,25 @@ sound_add_directory(dir,extension,kind,preload)
 /!\ Caution: this function uses file_find. If you're trying to find folders
     to load, make sure you create a list beforehand, and then navigate the list
     outside of a file find loop. Otherwise, errors will occur.
+
+sound_add_directory_ext(dir,extension,kind,streamed,nameprefix)
+    This function allows you to specify whether sounds are meant to be streamed,
+    while also allowing you to define a prefix to be attached to the sound
+    names as they're loaded. Useful for when you have folders with identical
+    files and want to be able to differentiate them.
+
+sound_add_pack(filename)
+    Adds a whole pack of sound effects. Returns a ds_list with all loaded sound
+    ids as strings.
+
+sound_create_pack(sourcedir,filename)
+    Creates such packs from a directory. The resulting pack is compressed and
+    can only contain valid sound extensions, which can NOT be streamed.
+    Be careful not to pack invalid files - this will crash when trying to load
+    the pack in.
+
+sound_unpack_pack(pack,dir)
+    Extracts all files from a sound pack to the defined directory.
 
 sound_password(string)
     Sets the password for encrypting or decrypting sound files. Setting a
@@ -104,6 +127,33 @@ sound_encrypt(source,dest)
 
 
 [new functions]
+
+sound_set_pos(index,pos,[unit])
+    Sets the position of a sound instance. You can use one of the unit_
+    constants to define which time unit to use. By default, unitary is used.
+
+sound_get_pos(index,[unit])
+    Gets the current position of a sound instance. You can use one of the unit_
+    constants to define which time unit to get. By default, unitary is used.
+
+sound_get_frequency(sound)
+    Returns the sample rate of a sound id (44100, 48000 etc).
+
+sound_get_length(index,[unit])
+    Returns the length of a sound. By default, seconds are returned, but
+    unit_samples is also accepted.
+
+sound_pause(index)
+    Pauses a sound instance.
+
+sound_pause_all()
+    Pauses ALL sound.
+
+sound_resume(index)
+    Resumes playing an instance.
+
+sound_resume_all()
+    Resumes playing all sound.
 
 sound_get_count()
     Returns the total number of currently playing sound instances.
@@ -124,10 +174,32 @@ sound_play_single(index)
 sound_loop_single(index)
     Loops a single instance of the sound. Will only stop older instances that
     were created with one of the _single functions.
+
+sound_play_single_ex(index,[volume,pitch,pan])
+    Plays a single sound instance with initial properties. Will only stop older
+    instances that were created with one of the _single functions.
+
+sound_loop_single_ex(index,[volume,pitch,pan])
+    Loops a single sound instance with initial properties. Will only stop older
+    instances that were created with one of the _single functions.
+
+sound_play_ex(index,[volume,pitch,pan])
+    Plays a sound instance with initial properties.
+
+sound_loop_ex(index,[volume,pitch,pan])
+    Loops a sound instance with initial properties.
+
+sound_play_ex_layer(index,[volume,pitch,pan])
+    Plays a sound instance with initial properties, but allowing kind 1
+    (background music) to stack. Use this for dynamic music layering.
+
+sound_loop_ex_layer(index,[volume,pitch,pan])
+    Loops a sound instance with initial properties, but allowing kind 1
+    (background music) to stack. Use this for dynamic music layering.
     
-sound_set_loop(index,loopstart,loopend)
-    Sets the loop points of a sound (between 0 and 1). Use sound_get_length()
-    if you need to use seconds for measurement.
+sound_set_loop(index,start,end,[unit])
+    Sets the loop points of a sound (between 0 and 1). The unit argument
+    specifies what time unit to measure the loop points with.
 
 sound_set_loop_count(index,count)
     Sets the number of times a sound should loop. Accepts both sound ids and
