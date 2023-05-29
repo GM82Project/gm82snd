@@ -872,9 +872,21 @@
     return 0
 
 #define sound_set_pos
-//(index,pos)
+//(index,pos,[unit])
+    var pos;
     if (is_real(argument0)) if (argument0) {
-        return __gm82snd_call("FMODInstanceSetPosition",argument0,median(0,argument1,1))
+        pos=argument1
+        if (argument_count==3) {
+            if (argument2==unit_seconds) {
+                len=sound_get_length(argument0)
+                pos=argument1/len
+            } else if (argument2==unit_samples) {
+                len=sound_get_length(argument0)*sound_get_frequency(argument0)
+                pos=argument1/len
+            }
+        }
+        
+        return __gm82snd_call("FMODInstanceSetPosition",argument0,median(0,pos,1))
     }    
     
     show_error("Sound is not an instance: "+string(argument0),0)
@@ -1335,7 +1347,7 @@
                 len=sound_get_length(argument0)
                 a=argument2/len
                 b=argument3/len
-            } else if (argument1==unit_samples) {
+            } else if (argument3==unit_samples) {
                 len=sound_get_length(argument0)*sound_get_frequency(argument0)
                 a=argument2/len
                 b=argument3/len
