@@ -1889,11 +1889,9 @@
 					"name": "sound_get_pos",
 					"extname": "",
 					"calltype": 2,
-					"helpline": "sound_get_pos(index)",
+					"helpline": "sound_get_pos(index,[unit])",
 					"hidden": false,
-					"argtypes": [
-						2
-					],
+					"argtypes": null,
 					"returntype": 2
 				},
 				{

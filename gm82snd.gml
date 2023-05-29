@@ -879,9 +879,17 @@
 
 
 #define sound_get_pos
-//(index)
+//(index,[unit])
+    var pos;
     if (is_real(argument0)) if (argument0) {
-        return __gm82snd_call("FMODInstanceGetPosition",argument0)
+        pos=__gm82snd_call("FMODInstanceGetPosition",argument0)
+        if (argument_count==2) {
+            if (argument1==unit_samples)
+                pos=ceil(pos*sound_get_length(argument0)*sound_get_frequency(argument0))
+            if (argument1==unit_seconds)
+                pos*=sound_get_length(argument0)
+        }
+        return pos
     }    
     
     show_error("Sound is not an instance: "+string(argument0),0)
