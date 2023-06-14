@@ -544,11 +544,11 @@
     
     dir=argument0
 
-    if (!string_pos(":",dir)) dir=working_directory+"\"+dir
-
     if (string_char_at(dir,string_length(dir))!="\")
         dir+="\"
     
+    if (!string_pos(":",dir)) dir=working_directory+"\"+dir
+
     count=0    
     if (directory_exists(dir)) {
         f=file_find_first(dir+"*"+argument1,0)
