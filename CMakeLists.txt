@@ -13,6 +13,15 @@ target_include_directories(GMFMODSimple PRIVATE GMFMODSimpleGrix/source)
 target_link_directories(GMFMODSimple PRIVATE GMFMODSimpleGrix/source)
 target_link_libraries(GMFMODSimple fmodex_vc)
 
+set(UPX_PATH "" CACHE STRING "Path to upx.exe if applicable")
+if(NOT UPX_PATH STREQUAL "")
+	add_custom_command(
+		TARGET GMFMODSimple
+		POST_BUILD	
+		COMMAND ${UPX_PATH} --lzma ${CMAKE_BINARY_DIR}/$<CONFIG>/GMFMODSimple.dll
+	)
+endif()
+
 option(INSTALL_GEX "Install the generated .gex" OFF)
 
 set(GEX_URL https://raw.githubusercontent.com/GM82Project/gm82gex/main/gm82gex.py)
