@@ -713,6 +713,9 @@
     __gm82snd_map("__bgtempo",pitch)
 
 
+#define sound_background_instance
+    return __gm82snd_map("__bginst")
+
 #define sound_delete
 //(index)
     var snd;
@@ -983,7 +986,7 @@
         __gm82snd_call("FMODGroupStop",3)
         __gm82snd_call("FMODGroupStop",4)
     } else {
-        if (kind==1) group=1 //music
+        if (kind==1) {group=1 __gm82snd_map("__bginst",0)} //music
         if (kind==3) group=2 //mmplay
         if (kind==2) group=3 //3d
         if (kind==0) group=4 //regular sfx
@@ -1447,6 +1450,8 @@
             )
             __gm82snd_call("FMODInstanceStop",argument0)
         }
+        if (argument0==__gm82snd_map("__bginst"))
+            __gm82snd_map("__bginst",0)
         return 0
     }
     if (sound_exists(argument0)) {

@@ -3,7 +3,7 @@
 	"folder": "gm82",
 	"version": "1.3.2",
 	"author": "renex",
-	"date": "21/07/2023",
+	"date": "22/07/2023",
 	"license": "Free for noncommercial use. Check readme.txt.",
 	"description": "Part of the standard Game Maker 8.2 distribution. This extension package contains an advanced audio engine that gives you a lot more control over sounds in your games.",
 	"helpfile": "",
@@ -1652,6 +1652,15 @@
 					"argtypes": [
 						2
 					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_background_instance",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_background_instance()",
+					"hidden": false,
+					"argtypes": [],
 					"returntype": 2
 				},
 				{
