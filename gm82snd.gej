@@ -3,7 +3,7 @@
 	"folder": "gm82",
 	"version": "1.3.2",
 	"author": "renex",
-	"date": "29/05/2023",
+	"date": "21/07/2023",
 	"license": "Free for noncommercial use. Check readme.txt.",
 	"description": "Part of the standard Game Maker 8.2 distribution. This extension package contains an advanced audio engine that gives you a lot more control over sounds in your games.",
 	"helpfile": "",
@@ -1886,6 +1886,28 @@
 					"returntype": 2
 				},
 				{
+					"name": "sound_get_pan",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_pan(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_pitch",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_pitch(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
 					"name": "sound_get_pos",
 					"extname": "",
 					"calltype": 2,
@@ -1900,6 +1922,17 @@
 					"calltype": 2,
 					"helpline": "",
 					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_volume(index)",
+					"hidden": false,
 					"argtypes": [
 						2
 					],

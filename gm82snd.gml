@@ -1146,6 +1146,20 @@
     return 0
 
 
+#define sound_get_pan
+//(index)
+    if (is_real(argument0)) if (argument0) {
+        return __gm82snd_call("FMODInstanceGetPan",argument0)
+    }
+    if (sound_exists(argument0)) {
+        //sound id, get base volume
+        return __gm82snd_map(argument0+"__pan")
+    }
+    
+    show_error("Sound does not exist: "+string(argument0),0)
+    return 0
+
+
 #define sound_password
 //(string)
     __gm82snd_map("__passw",string(argument0))
@@ -1215,6 +1229,20 @@
         __gm82snd_map(argument0+"__pitch",argument1)
         return 0
     } 
+    
+    show_error("Sound does not exist: "+string(argument0),0)
+    return 0
+
+
+#define sound_get_pitch
+//(index)
+    if (is_real(argument0)) if (argument0) {
+        return __gm82snd_call("FMODInstanceGetPitch",argument0)
+    }
+    if (sound_exists(argument0)) {
+        //sound id, get base volume
+        return __gm82snd_map(argument0+"__pitch")
+    }
     
     show_error("Sound does not exist: "+string(argument0),0)
     return 0
@@ -1465,6 +1493,20 @@
         __gm82snd_call("FMODSoundSetMaxVolume",__gm82snd_fmodid(argument0),vol)
         __gm82snd_map(argument0+"__volume",vol)
         return 0
+    }
+    
+    show_error("Sound does not exist: "+string(argument0),0)
+    return 0
+
+
+#define sound_get_volume
+//(index)
+    if (is_real(argument0)) if (argument0) {
+        return __gm82snd_call("FMODInstanceGetVolume",argument0)
+    }
+    if (sound_exists(argument0)) {
+        //sound id, get base volume
+        return __gm82snd_map(argument0+"__volume")
     }
     
     show_error("Sound does not exist: "+string(argument0),0)
