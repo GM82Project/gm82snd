@@ -13,7 +13,7 @@ target_include_directories(GMFMODSimple PRIVATE GMFMODSimpleGrix/source)
 target_link_directories(GMFMODSimple PRIVATE GMFMODSimpleGrix/source)
 target_link_libraries(GMFMODSimple fmodex_vc)
 
-set(UPX_PATH "" CACHE STRING "Path to upx.exe if applicable")
+set(UPX_PATH "upx" CACHE STRING "Path to upx.exe if applicable")
 if(NOT UPX_PATH STREQUAL "")
 	add_custom_command(
 		TARGET GMFMODSimple
