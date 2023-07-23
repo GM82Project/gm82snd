@@ -51,8 +51,9 @@
     //move fmod to a common location so that it doesn't leave a copy behind every time you run the game
     directory_create(temp_directory+"\gm82\sound")     
     p=string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))    
-    dir=string_copy(temp_directory,1,p+19)+"gm82snd"    
-    directory_create(dir)    
+    dir=string_copy(temp_directory,1,p+19)+"gm82 dll cache"    
+    directory_create(dir)
+    file_delete(dir+"\fmodex.dll")
     file_rename(temp_directory+"\gm82\fmodex.dll",dir+"\fmodex.dll")
     //poke it so that gmfmod can find it
     //this is a valid function and will put fmodex in the link list
