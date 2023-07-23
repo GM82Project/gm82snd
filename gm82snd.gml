@@ -605,7 +605,8 @@
     __q=ds_queue_create()
 
     for (__fn=file_find_first(__dir+"\*.*",0);__fn!="";__fn=file_find_next()) {
-        ds_queue_enqueue(__q,__dir+"\"+__fn)
+        if (string_pos(string_lower(filename_ext(__fn)),".wav;.ogg;.mp3;.mid;.midi;.mod;.it;.s3m;.xm;.wma"))
+            ds_queue_enqueue(__q,__dir+"\"+__fn)
     } file_find_close()
 
     __size=ds_queue_size(__q)
@@ -715,6 +716,7 @@
 
 #define sound_background_instance
     return __gm82snd_map("__bginst")
+
 
 #define sound_delete
 //(index)
