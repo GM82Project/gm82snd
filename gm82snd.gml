@@ -26,7 +26,7 @@
 //(func,args,...)
     var dll,call;
     
-    dll=temp_directory+"\gm82\GMFMODSimple.dll"
+    dll=temp_directory+"\gm82\gm82snd.dll"
     switch (argument_count) {
         case 1: call=external_define(dll,argument[0],1,0,0) break
         case 2: call=external_define(dll,argument[0],1,0,1,argument[1]) break
