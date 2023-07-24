@@ -1383,8 +1383,8 @@
         
         kind=median(0,round(argument2),3)
         
-        if (!__gm82snd_supported(argument0)) {
-            show_error("Error adding sound: unsupported extension: "+string(argument0),0)
+        if (!__gm82snd_supported(argument1)) {
+            show_error("Error adding sound: unsupported extension: "+string(argument1),0)
             return 0
         }
         
