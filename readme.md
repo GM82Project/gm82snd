@@ -4,14 +4,14 @@ This is a replacement audio engine for Game Maker 8.2. Adding the extension comp
 Features:
 
 - many common audio formats are supported
-  - aif, wma, flac, it, midi, mod, mp3, ogg, s3m, wav, xm
+  - wav, ogg, mp3, midi, mod, it, s3m, xm, aif, flac, wma
 - stream music from files on disk
 - create and control individual sound instances
 - pitch, loop points, pause, seek, pan, etc
 - positional 3d sound
 - chainable sound effects
 
-Read the [included manual](readme.txt) for usage instructions.
+Read the [included manual](Game Maker 8.2 Sound.txt) for usage instructions.
 
 ### notes
 This extension requires [gm82core](https://github.com/omicronrex/gm82core).

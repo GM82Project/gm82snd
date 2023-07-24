@@ -89,6 +89,7 @@ sound_add_ext(fname,kind,streamed,name)
 
 sound_add_included(fname,kind,preload)
     Adds a sound from one of the included files.
+/!\ Caution: this function is rather slow. If possible, don't use it.
     
 sound_add_directory(dir,extension,kind,preload)
     Adds every sound of a specific extension from a folder. Returns how many
@@ -143,6 +144,12 @@ sound_get_length(index,[unit])
     Returns the length of a sound. By default, seconds are returned, but
     unit_samples is also accepted.
 
+sound_get_pan(index)
+    Returns the pan of a sound or instance.
+
+sound_get_volume(index)
+    Returns the volume of a sound or instance.
+
 sound_pause(index)
     Pauses a sound instance.
 
@@ -160,6 +167,9 @@ sound_get_count()
 
 sound_pitch(index,pitch)
     Changes the pitch of a sound between 0.01 and 100 (default is 1).
+
+sound_get_pitch(index)
+    Returns the pitch of an instance or sound.
 
 sound_play_paused(index)
     Creates a paused sound instance so you can set its parameters before play.
