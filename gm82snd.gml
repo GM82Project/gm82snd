@@ -39,6 +39,10 @@
     __gm82snd_map("__dll_"+argument0,call)
 
 
+#define __gm82snd_supported
+    return string_pos(string_lower(filename_ext(string(argument0))),".wav;.ogg;.mp3;.mid;.midi;.mod;.it;.s3m;.xm;.wma;.aif;.flac")
+
+
 #define __gm82snd_fmodid
 //(index)
     return __gm82snd_map(string(argument0)+"__fmodid")
@@ -479,6 +483,11 @@
     }
     
     kind=median(0,round(argument1),3)
+    
+    if (!__gm82snd_supported(argument0)) {
+        show_error("Error adding sound: unsupported extension: "+string(argument0),0)
+        return ""
+    }
 
     //we always preload now, but preload==2 means "decode on load"
     snd=__gm82snd_call("FMODSoundAdd",argument0,0,(kind mod 2) && (argument2!=2))
@@ -517,6 +526,11 @@
     }
     
     kind=median(0,round(argument1),3)
+
+    if (!__gm82snd_supported(argument0)) {
+        show_error("Error adding sound: unsupported extension: "+string(argument0),0)
+        return ""
+    }
 
     //we always preload now, but preload==2 means "decode on load"
     snd=__gm82snd_call("FMODSoundAdd",argument0,0,argument2)
@@ -606,7 +620,7 @@
     __q=ds_queue_create()
 
     for (__fn=file_find_first(__dir+"\*.*",0);__fn!="";__fn=file_find_next()) {
-        if (string_pos(string_lower(filename_ext(__fn)),".wav;.ogg;.mp3;.mid;.midi;.mod;.it;.s3m;.xm;.wma"))
+        if (__gm82snd_supported(__fn))
             ds_queue_enqueue(__q,__dir+"\"+__fn)
     } file_find_close()
 
@@ -1368,6 +1382,11 @@
         ds_list_delete(list,ds_list_find_index(list,name))
         
         kind=median(0,round(argument2),3)
+        
+        if (!__gm82snd_supported(argument0)) {
+            show_error("Error adding sound: unsupported extension: "+string(argument0),0)
+            return 0
+        }
         
         snd=__gm82snd_call("FMODSoundAdd",argument1,0,(kind mod 2) && (argument3!=2))
         __gm82snd_setgroup(snd,kind)
