@@ -1422,12 +1422,12 @@
         if (argument_count==4) {
             if (argument3==unit_seconds) {
                 len=sound_get_length(argument0)
-                a=argument2/len
-                b=argument3/len
+                a=argument1/len
+                b=argument2/len
             } else if (argument3==unit_samples) {
                 len=sound_get_length(argument0)*sound_get_frequency(argument0)
-                a=argument2/len
-                b=argument3/len
+                a=argument1/len
+                b=argument2/len
             }
         }
         a=median(0,a,1)
