@@ -50,7 +50,7 @@
 
 #define __gm82snd_init
     var p,dir;
-    object_event_add(__gm82core_object,ev_step,ev_step_end,"__gm82snd_update()")
+    object_event_add(gm82core_object,ev_step,ev_step_end,"__gm82snd_update()")
 
     //move fmod to a common location so that it doesn't leave a copy behind every time you run the game
     directory_create(temp_directory+"\gm82\sound")     
