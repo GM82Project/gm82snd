@@ -187,6 +187,8 @@
     __gm82snd_map("__kindlist3",ds_list_create())
     __gm82snd_map("__globlist",ds_list_create())
     
+    globalvar __gm82snd_mastervol;__gm82snd_mastervol=1
+    
 
 #define __gm82snd_deinit
     __gm82snd_call("FMODAllStop")
@@ -939,7 +941,8 @@
 
 #define sound_global_volume
 //(value)
-    __gm82snd_call("FMODMasterSetVolume",median(0,argument0,1))
+    __gm82snd_mastervol=median(0,argument0,1)
+    __gm82snd_call("FMODMasterSetVolume",__gm82snd_mastervol)
 
 
 #define sound_isplaying
@@ -1068,6 +1071,24 @@
         if (kind==0) group=4 //regular sfx
 
         __gm82snd_call("FMODGroupSetVolume",group,vol)
+    }
+
+
+#define sound_kind_get_volume
+//(kind)
+    var kind,group;
+
+    kind=argument0
+
+    if (kind==all) {
+        return __gm82snd_mastervol
+    } else {
+        if (kind==1) group=1 //music
+        if (kind==3) group=2 //mmplay
+        if (kind==2) group=3 //3d
+        if (kind==0) group=4 //regular sfx
+
+        return __gm82snd_call("FMODGroupGetVolume",group)
     }
 
 
