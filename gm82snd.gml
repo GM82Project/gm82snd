@@ -253,7 +253,7 @@
     ds_list_add(list2,inst)
     ds_list_add(list2,list)
         
-    if (kind==1) __gm82snd_map("__bginst",inst)
+    if (kind==1 && argument3) __gm82snd_map("__bginst",inst)
     return inst
 
 
