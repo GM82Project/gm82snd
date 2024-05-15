@@ -75,7 +75,6 @@
     __gm82snd_define("FMODMasterSetVolume",ty_real)
     __gm82snd_define("FMODSetPassword",ty_string)
     __gm82snd_define("FMODEncryptFile",ty_string,ty_string,ty_string)
-    __gm82snd_define("FMODGetLastError")
 
     __gm82snd_define("FMODSoundAdd",ty_string,ty_real,ty_real)
     __gm82snd_define("FMODSoundFree",ty_real)

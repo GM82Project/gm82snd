@@ -11,9 +11,7 @@ Features:
 - positional 3d sound
 - chainable sound effects
 
-Read the [included manual](Game Maker 8.2 Sound.txt) for usage instructions.
-
-### notes
-This extension requires [gm82core](https://github.com/omicronrex/gm82core).
+## Notes
+This extension requires the Game Maker 8.2 extension suite.
 
 Moreover, usage of this extension is bound by Firelight's licensing terms due to usage of legacy [FmodEx](https://www.fmod.com) technology.
