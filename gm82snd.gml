@@ -52,6 +52,8 @@
     var p,dir;
     object_event_add(gm82core_object,ev_step,ev_step_end,"__gm82snd_update()")
 
+    globalvar __gm82snd_version; __gm82snd_version=132
+
     //move fmod to a common location so that it doesn't leave a copy behind every time you run the game
     directory_create(temp_directory+"\gm82\sound")     
     p=string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))    
