@@ -3,7 +3,7 @@
 	"folder": "gm82",
 	"version": "1.3.2",
 	"author": "renex",
-	"date": "22/08/2023",
+	"date": "08/08/2024",
 	"license": "Free for noncommercial use. Check readme.txt.",
 	"description": "Part of the standard Game Maker 8.2 distribution. This extension package contains an advanced audio engine that gives you a lot more control over sounds in your games.",
 	"helpfile": "",
@@ -15,7 +15,7 @@
 	"files": [
 		{
 			"filename": "fmod_compat.gml",
-			"origname": "fmod_compat.gml",
+			"origname": "source\\fmod_compat.gml",
 			"kind": 2,
 			"init": "",
 			"final": "",
@@ -745,7 +745,7 @@
 		},
 		{
 			"filename": "fmod_nops.gml",
-			"origname": "fmod_nops.gml",
+			"origname": "source\\fmod_nops.gml",
 			"kind": 2,
 			"init": "",
 			"final": "",
@@ -1511,877 +1511,11 @@
 		},
 		{
 			"filename": "gm82snd.gml",
-			"origname": "gm82snd.gml",
+			"origname": "source\\gm82snd.gml",
 			"kind": 2,
 			"init": "__gm82snd_init",
 			"final": "__gm82snd_deinit",
 			"functions": [
-				{
-					"name": "sound_3d_set_sound_cone",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2,
-						2,
-						2,
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_3d_set_sound_distance",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_3d_set_sound_position",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_3d_set_sound_velocity",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_add",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_add_directory",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_add_directory(dir,extension,kind,preload)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_add_directory_ext",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_add_directory_ext(dir,extension,kind,streamed,nameprefix)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2,
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_add_ext",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_add_ext(fname,kind,streamed,name)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_add_included",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_add_included(fname,kind,preload)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_add_pack",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_add_pack(filename)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_background_instance",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_background_instance()",
-					"hidden": false,
-					"argtypes": [],
-					"returntype": 2
-				},
-				{
-					"name": "sound_background_tempo",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_create_pack",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_create_pack(sourcedir,filename)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_delete",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_discard",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_chorus",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_compressor",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_destroy",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_effect_destroy(effect)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_echo",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_equalizer",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_flanger",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_gargle",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_options",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_effect_options(sfxinst,option,value)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_reverb",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_effect_set",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_encrypt",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_encrypt(fname,newfname)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_exists",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_fade",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_count",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_get_count()",
-					"hidden": false,
-					"argtypes": [],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_frequency",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_get_frequency(sound)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_kind",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_length",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_get_length(index,[unit])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_name",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_pan",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_get_pan(index)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_pitch",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_get_pitch(index)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_pos",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_get_pos(index,[unit])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_preload",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_volume",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_get_volume(index)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_global_volume",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_isplaying",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_effect",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_effect(kind,effect)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_get_volume",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_get_volume(kind)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_list",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_list(kind)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_pan",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_pan(kind,pan)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_pause",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_pause(kind)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_pitch",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_pitch(kind,pitch)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_resume",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_resume(kind)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_stop",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_stop(kind)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_kind_volume",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_kind_volume(kind,volume)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_loop",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_loop_ex",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_loop_ex(index,[volume,pitch,pan])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_loop_ex_layer",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_loop_ex_layer(index,[volume,pitch,pan])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_loop_paused",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_loop_paused(index,[volume,pitch,pan])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_loop_single",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_loop_single(index)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_loop_single_ex",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_loop_single_ex(index,[volume,pitch,pan])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_name",
-					"extname": "sound_get_name",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_pan",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_password",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_password(string)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_pause",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_pause(index)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_pause_all",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_pause_all()",
-					"hidden": false,
-					"argtypes": [],
-					"returntype": 2
-				},
-				{
-					"name": "sound_pitch",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_pitch(sound,pitch)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_play",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_play_ex",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_play_ex(index,[volume,pitch,pan])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_play_ex_layer",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_play_ex_layer(index,[volume,pitch,pan])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_play_paused",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_play_paused(index,[volume,pitch,pan])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_play_single",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_play_single(index)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_play_single_ex",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_play_single_ex(index,[volume,pitch,pan])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_replace",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2,
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_restore",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_resume",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_resume(index)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_resume_all",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_resume_all()",
-					"hidden": false,
-					"argtypes": [],
-					"returntype": 2
-				},
-				{
-					"name": "sound_set_loop",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_set_loop(index,start,end,[unit])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_set_loop_count",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_set_loop_count(index,count)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_set_pos",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_set_pos(index,pos,[unit])",
-					"hidden": false,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_set_search_directory",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": null,
-					"returntype": 2
-				},
-				{
-					"name": "sound_stop",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_stop_all",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [],
-					"returntype": 2
-				},
-				{
-					"name": "sound_unpack_pack",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_unpack_pack(pack,dir)",
-					"hidden": false,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
-				{
-					"name": "sound_volume",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "",
-					"hidden": true,
-					"argtypes": [
-						2,
-						2
-					],
-					"returntype": 2
-				},
 				{
 					"name": "__gm82snd_call",
 					"extname": "",
@@ -2569,6 +1703,891 @@
 					"hidden": false
 				}
 			]
+		},
+		{
+			"filename": "newsound.gml",
+			"origname": "source\\newsound.gml",
+			"kind": 2,
+			"init": "",
+			"final": "",
+			"functions": [
+				{
+					"name": "sound_add_directory",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_directory(dir,extension,kind,preload)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add_directory_ext",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_directory_ext(dir,extension,kind,streamed,nameprefix)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add_ext",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_ext(fname,kind,streamed,name)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add_included",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_included(fname,kind,preload)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_background_instance",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_background_instance()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_destroy",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_effect_destroy(effect)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_options",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_effect_options(sfxinst,option,value)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_count",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_count()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_frequency",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_frequency(sound)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_length",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_length(index,[unit])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_pan",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_pan(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_pitch",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_pitch(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_pos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_pos(index,[unit])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_volume(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_effect",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_effect(kind,effect)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_get_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_get_volume(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_list",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_list(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_pan",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_pan(kind,pan)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_pause",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_pause(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_pitch",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_pitch(kind,pitch)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_resume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_resume(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_stop",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_stop(kind)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_kind_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_kind_volume(kind,volume)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop_ex",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_loop_ex(index,[volume,pitch,pan])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop_ex_layer",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_loop_ex_layer(index,[volume,pitch,pan])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop_paused",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_loop_paused(index,[volume,pitch,pan])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop_single",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_loop_single(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop_single_ex",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_loop_single_ex(index,[volume,pitch,pan])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_pause",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_pause(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_pause_all",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_pause_all()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_pitch",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_pitch(sound,pitch)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_play_ex",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_play_ex(index,[volume,pitch,pan])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_play_ex_layer",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_play_ex_layer(index,[volume,pitch,pan])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_play_paused",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_play_paused(index,[volume,pitch,pan])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_play_single",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_play_single(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_play_single_ex",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_play_single_ex(index,[volume,pitch,pan])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_resume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_resume(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_resume_all",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_resume_all()",
+					"hidden": false,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_set_loop",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_set_loop(index,start,end,[unit])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_set_loop_count",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_set_loop_count(index,count)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_set_pos",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_set_pos(index,pos,[unit])",
+					"hidden": false,
+					"argtypes": null,
+					"returntype": 2
+				}
+			],
+			"constants": []
+		},
+		{
+			"filename": "packs.gml",
+			"origname": "source\\packs.gml",
+			"kind": 2,
+			"init": "",
+			"final": "",
+			"functions": [
+				{
+					"name": "sound_add_pack",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_add_pack(filename)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_create_pack",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_create_pack(sourcedir,filename)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_encrypt",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_encrypt(fname,newfname)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_password",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_password(string)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_unpack_pack",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_unpack_pack(pack,dir)",
+					"hidden": false,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				}
+			],
+			"constants": []
+		},
+		{
+			"filename": "shims.gml",
+			"origname": "source\\shims.gml",
+			"kind": 2,
+			"init": "",
+			"final": "",
+			"functions": [
+				{
+					"name": "sound_3d_set_sound_cone",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_3d_set_sound_distance",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_3d_set_sound_position",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_3d_set_sound_velocity",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_add",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_background_tempo",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_delete",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_discard",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_chorus",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_compressor",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_echo",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_equalizer",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_flanger",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_gargle",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_reverb",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_effect_set",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_exists",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_fade",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_kind",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_name",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_preload",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_global_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_isplaying",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_loop",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_pan",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_play",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_replace",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2,
+						2,
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_restore",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_set_search_directory",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": null,
+					"returntype": 2
+				},
+				{
+					"name": "sound_stop",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2
+					],
+					"returntype": 2
+				},
+				{
+					"name": "sound_stop_all",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_volume",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "",
+					"hidden": true,
+					"argtypes": [
+						2,
+						2
+					],
+					"returntype": 2
+				}
+			],
+			"constants": []
 		},
 		{
 			"filename": "fmodex.dll",
