@@ -88,7 +88,8 @@ sound_add_ext(fname,kind,streamed,name)
     directly instead of using the filename.
 
 sound_add_included(fname,kind,preload)
-    Adds a sound from one of the included files.
+    Adds a sound from one of the included files. Note that the included file
+    should be set to "Don't export automatically".
 /!\ Caution: this function is rather slow. If possible, don't use it.
     
 sound_add_directory(dir,extension,kind,preload)
