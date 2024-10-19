@@ -16,7 +16,8 @@ dll name so not to potentially create problems.
 
 Cheers!
 
-v4.5. Added non-ASCII symbols filenames support. by elpoep
+//v4.5 renex fork (from v4.45g (Grix' fork from 4.44))
+v4.5.1 Added non-ASCII symbols filenames support. by elpoep
 
 **********************************************************/
 
@@ -1245,11 +1246,11 @@ export double FMODSoundAdd(const char *soundfile, double threed, double streamed
 	wchar_t* wname = new wchar_t[len];
 	MultiByteToWideChar(CP_UTF8, 0, soundfile, -1, wname, len);
 
-    DWORD flags = FMOD_LOOP_NORMAL | FMOD_2D | FMOD_SOFTWARE|FMOD_ACCURATETIME| FMOD_UNICODE| FMOD_CREATESAMPLE;
+    DWORD flags = FMOD_LOOP_NORMAL | FMOD_2D | FMOD_SOFTWARE|FMOD_ACCURATETIME| FMOD_UNICODE;
     if(threed)
 	{
         //MessageBoxA(GetActiveWindow(),soundfile,(LPCSTR)"3d",MB_ICONINFORMATION);
-		flags = FMOD_LOOP_NORMAL | FMOD_3D | FMOD_SOFTWARE | FMOD_3D_LINEARROLLOFF|FMOD_ACCURATETIME| FMOD_UNICODE| FMOD_CREATESAMPLE;
+		flags = FMOD_LOOP_NORMAL | FMOD_3D | FMOD_SOFTWARE | FMOD_3D_LINEARROLLOFF|FMOD_ACCURATETIME| FMOD_UNICODE;
 	}
 	else
 	{
@@ -1269,8 +1270,8 @@ export double FMODSoundAdd(const char *soundfile, double threed, double streamed
     if(mi == NULL) {FMODASSERT(FMOD_ERR_MEMORY);}
     mi->maxvolume = 1;
     strcpy(mi->file, (const char *)wname);
-    mi->threed =((const char *)wname);
-    mi->streamed =((const char *)wname);
+    mi->threed =(threed);
+    mi->streamed =(streamed);
 	//all other members set by GMEM_ZEROINIT
 	//MessageBoxA(GetActiveWindow(),"4","",0);
 
@@ -3486,6 +3487,38 @@ export double FMODSetResampler(double resamplemethod)
     if(resamplemethod<0) {{FMODASSERT(FMOD_ERR_INVALID_PARAM);}}
     samplemethod = (FMOD_DSP_RESAMPLER) (DWORD) resamplemethod;
     return (double)1;
+}
+
+export double FMODSoundAddBuffer(double buf_ptr,double length)
+{
+    if(!inited) {{FMODASSERT(FMOD_ERR_INITIALIZATION);}}
+    FMOD_SOUND *sound = NULL;
+    DWORD flags = FMOD_OPENUSER | FMOD_OPENRAW | FMOD_LOOP_NORMAL | FMOD_2D | FMOD_SOFTWARE;
+    FMOD_CREATESOUNDEXINFO exinfo;
+    memset(&exinfo, 0, sizeof(FMOD_CREATESOUNDEXINFO));
+    exinfo.cbsize           = sizeof(FMOD_CREATESOUNDEXINFO);
+    exinfo.numchannels      = 1;
+    exinfo.format           = FMOD_SOUND_FORMAT_PCM16;
+    exinfo.defaultfrequency = OUTPUTRATE;
+    exinfo.decodebuffersize = length/2;
+    exinfo.length           = length/2; 
+    exinfo.pcmreadcallback  = ReFillBuffer;
+    FMODASSERT(FMOD_System_CreateStream(mainsystem,0, flags, &exinfo, &sound));
+    gm_data = (void*)(int)buf_ptr;
+    gm_len = (int)length;
+    semaphore=0;
+	if(sound == NULL) {{FMODASSERT(FMOD_ERR_INVALID_HANDLE);}}
+    myinfo *mi = (myinfo *)GlobalAllocPtr(GMEM_FIXED|GMEM_ZEROINIT,(sizeof(myinfo)));
+	
+    if(mi == NULL) {FMODASSERT(FMOD_ERR_MEMORY);}
+    
+    mi->maxvolume = 1;
+    strcpy(mi->file,"buffer");
+    mi->streamed = 1;
+	
+    //all other members set by GMEM_ZEROINIT
+    FMODASSERT(FMOD_Sound_SetUserData(sound, (void *)mi));
+	return (double) (DWORD) sound;
 }
 */
 
