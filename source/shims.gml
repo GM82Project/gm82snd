@@ -1,15 +1,15 @@
 #define sound_play
-//(index)
+///sound_play(index)
     return __gm82snd_instantiate(argument0,"FMODSoundPlay",0,1)
 
 #define sound_loop
-//(index)
+///sound_loop(index)
     return __gm82snd_instantiate(argument0,"FMODSoundLoop",0,1)
 
 
 
 #define sound_stop
-//(index)
+///sound_stop(index)
     var snd;
     
     if (is_real(argument0)) if (argument0) {
@@ -36,7 +36,7 @@
 
 
 #define sound_stop_all
-//()
+///sound_stop_all()
     var list,i,l,il;
     
     __gm82snd_call("FMODAllStop")
@@ -57,7 +57,7 @@
 
 
 #define sound_pan
-//(index,value)
+///sound_pan(index,value)
     var snd,pan;
     pan=median(-1,argument1,1)
     
@@ -76,7 +76,7 @@
 
 
 #define sound_volume
-//(index,value)
+///sound_volume(index,value)
     var vol;
 
     vol=median(0,argument1,1)
@@ -138,19 +138,19 @@
 
 
 #define sound_restore
-//(index)
+///sound_restore(index)
     //nop
     return 0
 
 
 #define sound_global_volume
-//(value)
+///sound_global_volume(value)
     __gm82snd_mastervol=median(0,argument0,1)
     __gm82snd_call("FMODMasterSetVolume",__gm82snd_mastervol)
 
 
 #define sound_isplaying
-//(index)
+///sound_isplaying(index)
     if (is_real(argument0)) if (argument0) return __gm82snd_call("FMODInstanceIsPlaying",argument0)
     
     if (sound_exists(argument0)) 
@@ -161,7 +161,7 @@
 
 
 #define sound_get_name
-//(index)
+///sound_get_name(index)
     var name; 
     
     if (is_real(argument0)) {
@@ -184,7 +184,7 @@
     
 
 #define sound_get_preload
-//(index)
+///sound_get_preload(index)
     if (is_real(argument0)) if (argument0) {
         return 1
     }
@@ -193,12 +193,12 @@
 
 
 #define sound_fade
-//(index,value,time)
+///sound_fade(index,value,time)
     //todo: uugghhhg more internal state
 
 
 #define sound_get_kind
-//(ind)
+///sound_get_kind(ind)
     var snd,name;
     name=string(argument0)
     
@@ -215,7 +215,7 @@
 
 
 #define sound_delete
-//(index)
+///sound_delete(index)
     var snd;
     snd=__gm82snd_fmodid(argument0)
     
@@ -251,13 +251,13 @@
 
 
 #define sound_discard
-//(index)
+///sound_discard(index)
     //nop
     return 0
 
 
 #define sound_background_tempo
-//(factor)
+///sound_background_tempo(factor)
     var pitch;
 
     pitch=median(0,argument0,100)
