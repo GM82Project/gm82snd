@@ -126,7 +126,7 @@
 
 
 #define sound_encrypt
-    ///sound_encrypt(fname,newfname)
+    //sound_encrypt(fname,newfname)
     //fname: file to encrypt
     //newfname: filename to save encrypted file to
     //Encrypts a sound file using the password set using sound_password().
