@@ -216,7 +216,7 @@
 
 #define sound_delete
 ///sound_delete(index)
-    var snd;
+    var snd,i;
     snd=__gm82snd_fmodid(argument0)
     
     if (snd) {        
