@@ -12,6 +12,25 @@ Read on about the distinction between sounds and instances, and also how to
 properly use sound kinds.
 
 
+[Supported formats]
+
+- wav - Microsoft Wave Format
+- mp3 - MPEG Layer 3
+- ogg - Ogg Vorbis
+- flac - Free Lossless Audio Codec
+- mid/midi - Musical Instrument Digital Interface
+- mod - ProTracker Module
+- it - Impulse Tracker Module
+- s3m - Scream Tracker 3 Module
+- xm - FastTracker 2 Extended Module
+- wma - Windows Media Audio
+- aif - Audio Interchange Format
+
+Some other fringe formats are supported by FMOD but have certain quirks and so
+are not available for use with the shim functions of the extension. Invoke FMOD
+functions directly to use such formats.
+
+
 [FMOD compatibility]
 
 A set of direct FMOD function calls is included to enable compatibility for
@@ -45,10 +64,11 @@ careful. Streamed sounds also do not like seeking! Setting their position too
 fast can cause stuttering and other problems.
 
 Another thing to note is that streamed sounds are loaded very fast. Loading oggs
-without streaming can take several seconds.
+without streaming can take several seconds as they are decoded fully into ram.
 
-So bottom line - you can load short oggs as normal type if you need, but use
-mmplayer type for things like long voice lines that need to be streamed.
+So you can load short oggs as normal type if you need, but use mmplayer type
+for things like long voice lines that need to be streamed. Or just use the
+extended load functions and specify the correct streaming mode.
 
 
 [vanilla function list]
@@ -229,8 +249,6 @@ an effect constructor so that you can use FmodEx sound effects.
 Currently, we only support applying effects to sound kinds due to memory leaks
 that would require manual upkeeping - do let me know if you require the ability
 to apply effects to sounds or instances.
-
-I plan to include an effect editor with the extension in the future.
 
 sound_kind_effect(kind,effect)
     Adds an effect to a sound kind and returns its id.
