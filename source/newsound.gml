@@ -585,7 +585,7 @@
     
     name=argument3    
     if (sound_exists(name)) {
-        if (debug_mode) show_error("Debug warning: Sound '"+argument0+"' was overwritten.",0)
+        if (debug_mode) show_debug_message("warning: sound called '"+argument3+"' was overwritten with '"+argument0+"'.")
         sound_replace(name,argument0,argument1,argument2)
         return name
     }
