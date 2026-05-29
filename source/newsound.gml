@@ -270,7 +270,7 @@
     
     if (argument_count>1) {
         __snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1,1)
-        sound_volume(snd,argument[1])
+        sound_volume(__snd,argument[1])
         if (argument_count>2) sound_pitch(__snd,argument[2])
         if (argument_count>3) sound_pan(__snd,argument[3])
         sound_resume(__snd)
@@ -359,7 +359,7 @@
         return 0
     }
     if (sound_exists(argument0)) {
-        list=__gm82snd_instlist(argument0)
+        __list=__gm82snd_instlist(argument0)
         __i=ds_list_size(__list)
         repeat (__i) {
             __i-=1
@@ -509,7 +509,7 @@
     __name=string(argument0)
     __inst=__gm82snd_map(__name+"__single")
     if (__inst) __gm82snd_call("FMODInstanceStop",__inst) 
-    __inst=__gm82snd_instantiate(name,"FMODSoundPlay",0,1)
+    __inst=__gm82snd_instantiate(__name,"FMODSoundPlay",0,1)
     __gm82snd_map(__name+"__single",__inst)
     
     return __inst
