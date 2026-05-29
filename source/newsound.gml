@@ -69,6 +69,19 @@
     return 0
 
 
+#define sound_get_count
+    ///sound_get_count(index)
+    //Returns the number of active instances of a sound.
+    
+    if (is_real(argument0)) if (argument0) return __gm82snd_call("FMODInstanceIsPlaying",argument0)
+    
+    if (sound_exists(argument0)) 
+        return ds_list_size(__gm82snd_instlist(argument0))
+    
+    show_error("Sound does not exist: "+string(argument0),0)
+    return 0
+    
+    
 #define sound_get_pos
     ///sound_get_pos(index,[unit])
     //Returns the current play position of a sound, in the specified unit or seconds by default.

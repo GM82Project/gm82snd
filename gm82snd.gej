@@ -1,11 +1,11 @@
 {
 	"name": "Game Maker 8.2 Sound",
 	"folder": "gm82",
-	"version": "1.3.2",
+	"version": "1.3.3",
 	"author": "renex",
-	"date": "25/11/2025",
-	"license": "Free for noncommercial use. Check readme.txt.",
-	"description": "Part of the standard Game Maker 8.2 distribution. This extension package contains an advanced audio engine that gives you a lot more control over sounds in your games.",
+	"date": "29/05/2026",
+	"license": "Free for noncommercial use. Check license.",
+	"description": "Part of the standard Game Maker 8.2 distribution. This extension package contains an advanced audio engine that gives you more control over sounds in your games.",
 	"helpfile": "",
 	"hidden": false,
 	"dependencies": [
@@ -1798,6 +1798,17 @@
 					"helpline": "sound_get_count()",
 					"hidden": false,
 					"argtypes": [],
+					"returntype": 2
+				},
+				{
+					"name": "sound_get_count",
+					"extname": "",
+					"calltype": 2,
+					"helpline": "sound_get_count(index)",
+					"hidden": false,
+					"argtypes": [
+						2
+					],
 					"returntype": 2
 				},
 				{
