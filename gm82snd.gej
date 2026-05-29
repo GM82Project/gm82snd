@@ -1795,20 +1795,9 @@
 					"name": "sound_get_count",
 					"extname": "",
 					"calltype": 2,
-					"helpline": "sound_get_count()",
+					"helpline": "sound_get_count([index])",
 					"hidden": false,
-					"argtypes": [],
-					"returntype": 2
-				},
-				{
-					"name": "sound_get_count",
-					"extname": "",
-					"calltype": 2,
-					"helpline": "sound_get_count(index)",
-					"hidden": false,
-					"argtypes": [
-						2
-					],
+					"argtypes": null,
 					"returntype": 2
 				},
 				{
