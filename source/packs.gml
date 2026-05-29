@@ -119,7 +119,7 @@
 #define sound_password
     ///sound_password(string)
     //string: password
-    //Sets the password used to load encrypted files, and to encrypt files.
+    //Sets the password used to load encrypted files.
     
     __gm82snd_map("__passw",string(argument0))
     __gm82snd_call("FMODSetPassword",string(argument0))
@@ -130,11 +130,16 @@
     //fname: file to encrypt
     //newfname: filename to save encrypted file to
     //Encrypts a sound file using the password set using sound_password().
-    var pass;
+    
+    //note: this function is currently broken for unknown reasons.
+    
+    /*var pass;
     
     pass=__gm82snd_map("__passw")
     if (file_exists(argument0)) {
         if (pass!="") {
             __gm82snd_call("FMODEncryptFile",argument0,argument1,pass)
         } else show_error("Sound password not set.",0)
-    } else show_error("File does not exist trying to encrypt sound: "+name,0)
+    } else show_error("File does not exist trying to encrypt sound: "+name,0)*/
+//
+//

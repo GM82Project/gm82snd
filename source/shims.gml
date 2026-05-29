@@ -1,17 +1,101 @@
+#define sound_add
+    //(fname,kind,preload)
+    var __snd,__name,__kind;
+
+    if (!file_exists(argument0)) {
+        show_error("File does not exist trying to add a sound: "+string(argument0),0)
+        return noone
+    }
+
+    __name=filename_change_ext(filename_name(argument0),"")
+    if (sound_exists(__name)) {
+        if (debug_mode) show_error("Debug warning: Sound '"+argument0+"' was overwritten.",0)
+        sound_replace(__name,argument0,argument1,argument2)
+        return __name
+    }
+
+    __kind=median(0,round(argument1),3)
+
+    if (!__gm82snd_supported(argument0)) {
+        show_error("Error adding sound: unsupported extension: "+string(argument0),0)
+        return ""
+    }
+
+    //we always preload now, but preload==2 means "decode on load"
+    __snd=__gm82snd_call("FMODSoundAdd",argument0,0,(__kind mod 2) && (argument2!=2))
+    __gm82snd_setgroup(__snd,__kind)
+
+    ds_list_add(__gm82snd_map("__kindlist"+string(__kind)),__name)
+
+    __gm82snd_map(__snd,__name)
+    __gm82snd_map(__name+"__fmodid",__snd)
+    __gm82snd_map(__name+"__filename",argument0)
+    __gm82snd_map(__name+"__kind",__kind)
+    __gm82snd_map(__name+"__loaded",-1+2*!!argument2)
+    __gm82snd_map(__name+"__pitch",1)
+    __gm82snd_map(__name+"__volume",1)
+    __gm82snd_map(__name+"__3dmin",1)
+    __gm82snd_map(__name+"__3dmax",1000000000)
+    __gm82snd_map(__name+"__3dconevol",1)
+    __gm82snd_map(__name+"__instlist",ds_list_create())
+
+    return __name
+
+
+#define sound_replace
+    //(index,fname,kind,preload)
+    var __name,__snd,__kind,__list,__i;
+    __name=string(argument0)
+
+    if (sound_exists(__name)) {
+        __gm82snd_stopallof(__name)
+        snd=__gm82snd_fmodid(__name)
+        __gm82snd_call("FMODSoundFree",__snd)
+        ds_map_delete(__gm82snd_mapid,__snd)
+
+        __oldkind=__gm82snd_map(name+"__kind")
+
+        __list=__gm82snd_map("__kindlist"+string(__oldkind))
+        ds_list_delete(__list,ds_list_find_index(__list,__name))
+
+        __kind=median(0,round(argument2),3)
+
+        if (!__gm82snd_supported(argument1)) {
+            show_error("Error adding sound: unsupported extension: "+string(argument1),0)
+            return 0
+        }
+
+        __snd=__gm82snd_call("FMODSoundAdd",argument1,0,(__kind mod 2) && (argument3!=2))
+        __gm82snd_setgroup(__snd,__kind)
+
+        ds_list_add(__gm82snd_map("__kindlist"+string(__kind)),__name)
+
+        __gm82snd_map(__snd,__name)
+        __gm82snd_map(name+"__fmodid",__snd)
+        __gm82snd_map(name+"__kind",__kind)
+        __gm82snd_map(name+"__loaded",-1+2*!!argument3)
+        __gm82snd_map(name+"__filename",argument1)
+
+        return 1
+    }
+
+    show_error("Sound does not exist: "+name,0)
+    return 0
+
+
 #define sound_play
-///sound_play(index)
+    //(index)
     return __gm82snd_instantiate(argument0,"FMODSoundPlay",0,1)
 
+
 #define sound_loop
-///sound_loop(index)
+    //(index)
     return __gm82snd_instantiate(argument0,"FMODSoundLoop",0,1)
 
 
-
 #define sound_stop
-///sound_stop(index)
-    var snd;
-    
+    //(index)
+
     if (is_real(argument0)) if (argument0) {
         if (__gm82snd_call("FMODInstanceIsPlaying",argument0)) {
             ds_list_delete(
@@ -36,203 +120,149 @@
 
 
 #define sound_stop_all
-///sound_stop_all()
-    var list,i,l,il;
-    
+    //()
+    var __list,__i;
+
     __gm82snd_call("FMODAllStop")
-    
-    list=__gm82snd_map("__globlist")
-    l=ds_list_size(list)
-    
+
+    __list=__gm82snd_map("__globlist")
+
     //get every active instance list, and clear them
-    i=0 repeat (l/2) {
-        //the inst list is the second entry in a pair 
-        il=ds_list_find_value(list,i+1)
-        ds_list_clear(il)
-        i+=2
+    __i=1 repeat (ds_list_size(__list)/2) {
+        //the inst list is the second entry in each pair
+        ds_list_clear(ds_list_find_value(__list,__i))
+        __i+=2
     }
-    
+
     //clear global instance list
-    ds_list_clear(list)
+    ds_list_clear(__list)
 
 
 #define sound_pan
-///sound_pan(index,value)
-    var snd,pan;
-    pan=median(-1,argument1,1)
-    
+    //(index,value)
+    var __snd,__pan;
+    __pan=median(-1,argument1,1)
+
     if (is_real(argument0)) if (argument0) {
-        __gm82snd_call("FMODInstanceSetPan",argument0,pan)
+        __gm82snd_call("FMODInstanceSetPan",argument0,__pan)
         return 0
     }
     if (sound_exists(argument0)) {
-        __gm82snd_map(argument0+"__pan",pan)
+        __gm82snd_map(argument0+"__pan",__pan)
         return 0
     }
-    
+
     show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
 
 #define sound_volume
-///sound_volume(index,value)
-    var vol;
+    //(index,value)
+    var __vol;
 
-    vol=median(0,argument1,1)
-    
+    __vol=median(0,argument1,1)
+
     if (is_real(argument0)) if (argument0) {
-        __gm82snd_call("FMODInstanceSetVolume",argument0,vol)
+        __gm82snd_call("FMODInstanceSetVolume",argument0,__vol)
         return 0
     }
     if (sound_exists(argument0)) {
         //sound id, set base volume
-        __gm82snd_call("FMODSoundSetMaxVolume",__gm82snd_fmodid(argument0),vol)
-        __gm82snd_map(argument0+"__volume",vol)
+        __gm82snd_call("FMODSoundSetMaxVolume",__gm82snd_fmodid(argument0),__vol)
+        __gm82snd_map(argument0+"__volume",__vol)
         return 0
     }
-    
+
     show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
-#define sound_replace
-//sound_replace(index,fname,kind,preload)
-    var name,snd,kind,list,i;
-    name=string(argument0)
-    
-    if (sound_exists(name)) {        
-        __gm82snd_stopallof(name)
-        snd=__gm82snd_fmodid(name)
-        __gm82snd_call("FMODSoundFree",snd)
-        ds_map_delete(__gm82snd_mapid,snd)        
-        
-        __oldkind=__gm82snd_map(name+"__kind")
-        
-        list=__gm82snd_map("__kindlist"+string(__oldkind))
-        ds_list_delete(list,ds_list_find_index(list,name))
-        
-        kind=median(0,round(argument2),3)
-        
-        if (!__gm82snd_supported(argument1)) {
-            show_error("Error adding sound: unsupported extension: "+string(argument1),0)
-            return 0
-        }
-        
-        snd=__gm82snd_call("FMODSoundAdd",argument1,0,(kind mod 2) && (argument3!=2))
-        __gm82snd_setgroup(snd,kind)
-        
-        ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
-        
-        __gm82snd_map(snd,name)
-        __gm82snd_map(name+"__fmodid",snd)
-        __gm82snd_map(name+"__kind",kind)
-        __gm82snd_map(name+"__loaded",-1+2*!!argument3)
-        __gm82snd_map(name+"__filename",argument1)
-
-        return 1
-    }
-    
-    show_error("Sound does not exist: "+name,0)
-    return 0
-
-
-#define sound_restore
-///sound_restore(index)
-    //nop
-    return 0
-
-
 #define sound_global_volume
-///sound_global_volume(value)
+    //(value)
     __gm82snd_mastervol=median(0,argument0,1)
     __gm82snd_call("FMODMasterSetVolume",__gm82snd_mastervol)
 
 
 #define sound_isplaying
-///sound_isplaying(index)
+    //(index)
     if (is_real(argument0)) if (argument0) return __gm82snd_call("FMODInstanceIsPlaying",argument0)
-    
-    if (sound_exists(argument0)) 
+
+    if (sound_exists(argument0))
         return !ds_list_empty(__gm82snd_instlist(argument0))
-    
+
     show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
 #define sound_get_name
-///sound_get_name(index)
-    var name; 
-    
+    //(index)
+    var __name;
+
     if (is_real(argument0)) {
         if (argument0) {
-            name=__gm82snd_map(__gm82snd_call("FMODInstanceGetSound",argument0))
+            __name=__gm82snd_map(__gm82snd_call("FMODInstanceGetSound",argument0))
         } else {
             show_error("Sound is null.",0)
             return ""
         }
     } else {
-        name=argument0
+        __name=argument0
     }
-    
-    if (sound_exists(name)) {
-        return name
+
+    if (sound_exists(__name)) {
+        return __name
     }
-    
-    show_error("Sound does not exist: "+string(name),0)
+
+    show_error("Sound does not exist: "+string(__name),0)
     return ""
-    
+
 
 #define sound_get_preload
-///sound_get_preload(index)
-    if (is_real(argument0)) if (argument0) {
-        return 1
-    }
-    
+    //(index)
+    if (is_real(argument0)) return 0
+
     return sound_exists(argument0)
 
 
-#define sound_fade
-///sound_fade(index,value,time)
-    //todo: uugghhhg more internal state
-
-
 #define sound_get_kind
-///sound_get_kind(ind)
-    var snd,name;
-    name=string(argument0)
+    //(ind)
+    var __snd,__name;
     
     if (is_real(argument0)) if (argument0) {
-        snd=__gm82snd_call("FMODInstanceGetSound",argument0)
-        return __gm82snd_map(__gm82snd_map(snd)+"__kind")
-    }
-    if (sound_exists(argument0)) {
-        return __gm82snd_map(name+"__kind")
+        __snd=__gm82snd_call("FMODInstanceGetSound",argument0)
+        return __gm82snd_map(__gm82snd_map(__snd)+"__kind")
     }
     
-    show_error("Sound does not exist: "+name,0)
+    __name=string(argument0)
+    
+    if (sound_exists(argument0)) {
+        return __gm82snd_map(__name+"__kind")
+    }
+
+    show_error("Sound does not exist: "+__name,0)
     return 0
 
 
 #define sound_delete
-///sound_delete(index)
-    var snd,i;
-    snd=__gm82snd_fmodid(argument0)
-    
-    if (snd) {        
+    //(index)
+    var __snd,__i,__j;
+    __snd=__gm82snd_fmodid(argument0)
+
+    if (__snd) {
         __gm82snd_stopallof(argument0)
-        __gm82snd_call("FMODSoundFree",snd)
-        ds_map_delete(__gm82snd_mapid,snd)    
-        
-        for (i=0;i<4;i+=1) {
-            list=__gm82snd_map("__kindlist"+string(i))
-            j=ds_list_find_index(list,argument0)
-            if (j!=-1) ds_list_delete(list,j)
+        __gm82snd_call("FMODSoundFree",__snd)
+        ds_map_delete(__gm82snd_mapid,__snd)
+
+        for (__i=0;__i<4;__i+=1) {
+            __list=__gm82snd_map("__kindlist"+string(__i))
+            __j=ds_list_find_index(__list,argument0)
+            if (__j!=-1) ds_list_delete(__list,__j)
         }
-        
+
         ds_list_destroy(__gm82snd_instlist(argument0))
-        
-        ds_map_delete(__gm82snd_mapid,snd)
+
+        ds_map_delete(__gm82snd_mapid,__snd)
         ds_map_delete(__gm82snd_mapid,argument0+"__fmodid")
         ds_map_delete(__gm82snd_mapid,argument0+"__filename")
         ds_map_delete(__gm82snd_mapid,argument0+"__kind")
@@ -243,41 +273,33 @@
         ds_map_delete(__gm82snd_mapid,argument0+"__3dmax")
         ds_map_delete(__gm82snd_mapid,argument0+"__3dconevol")
         ds_map_delete(__gm82snd_mapid,argument0+"__instlist")
-        
+
         return 1
     }
     show_error("Sound does not exist: "+string(argument0),0)
     return 0
 
 
-#define sound_discard
-///sound_discard(index)
-    //nop
-    return 0
-
-
 #define sound_background_tempo
-///sound_background_tempo(factor)
-    var pitch;
+    //(factor)
+    var __pitch;
 
-    pitch=median(0,argument0,100)
-    sound_pitch(__gm82snd_map("__bginst"),pitch)
-    __gm82snd_map("__bgtempo",pitch)
+    __pitch=median(0.01,argument0,100)
+    sound_pitch(__gm82snd_map("__bginst"),__pitch)
+    __gm82snd_map("__bgtempo",__pitch)
 
 
 #define sound_exists
-    ///sound_exists(name)
-    //name: sound to check
-    //returns: if the sound exists
-    
+    //(name)
+
     if (is_real(argument0)) return 0
     return !!ds_map_find_value(__gm82snd_mapid,argument0+"__fmodid")
 
 
 #define sound_3d_set_sound_cone
-//(snd,x,y,z,anglein,angleout,voloutside) 
-    var anglein,angleout,att;
-    
+    //(snd,x,y,z,anglein,angleout,voloutside)
+    var __anglein,__angleout,__att;
+
     if (is_real(argument0)) return 0
 
     if (sound_exists(argument0)) {
@@ -293,12 +315,12 @@
         __gm82snd_update3d()
     } else {
         show_error("Sound does not exist: "+string(argument0),0)
-    }    
+    }
 
 
 
 #define sound_3d_set_sound_distance
-//(snd,mindist,maxdist)
+    //(snd,mindist,maxdist)
     var __mindist,__maxdist;
 
     if (sound_exists(argument0)) {
@@ -309,11 +331,11 @@
         __gm82snd_update3d()
     } else {
         show_error("Sound does not exist: "+string(argument0),0)
-    }    
-    
+    }
+
 
 #define sound_3d_set_sound_position
-//(snd,x,y,z)
+    //(snd,x,y,z)
     if (sound_exists(argument0)) {
         __gm82snd_map(argument0+"__3dx",argument1)
         __gm82snd_map(argument0+"__3dy",argument2)
@@ -321,10 +343,10 @@
     } else {
         show_error("Sound does not exist: "+string(argument0),0)
     }
-    
+
 
 #define sound_3d_set_sound_velocity
-//(snd,x,y,z)
+    //(snd,x,y,z)
     if (sound_exists(argument0)) {
         __gm82snd_map(argument0+"__3dvx",argument1)
         __gm82snd_map(argument0+"__3dvy",argument2)
@@ -333,74 +355,39 @@
         show_error("Sound does not exist: "+string(argument0),0)
     }
 
-#define sound_add
-//(fname,kind,preload)
-    var snd,name,kind,load;
 
-    if (!file_exists(argument0)) {
-        show_error("File does not exist trying to add a sound: "+string(argument0),0)
-        return noone
-    }
-    
-    name=filename_change_ext(filename_name(argument0),"")    
-    if (sound_exists(name)) {
-        if (debug_mode) show_error("Debug warning: Sound '"+argument0+"' was overwritten.",0)
-        sound_replace(name,argument0,argument1,argument2)
-        return name
-    }
-    
-    kind=median(0,round(argument1),3)
-    
-    if (!__gm82snd_supported(argument0)) {
-        show_error("Error adding sound: unsupported extension: "+string(argument0),0)
-        return ""
-    }
-
-    //we always preload now, but preload==2 means "decode on load"
-    snd=__gm82snd_call("FMODSoundAdd",argument0,0,(kind mod 2) && (argument2!=2))
-    __gm82snd_setgroup(snd,kind)
-    
-    ds_list_add(__gm82snd_map("__kindlist"+string(kind)),name)    
-    
-    __gm82snd_map(snd,name)
-    __gm82snd_map(name+"__fmodid",snd)
-    __gm82snd_map(name+"__filename",argument0)
-    __gm82snd_map(name+"__kind",kind)
-    __gm82snd_map(name+"__loaded",-1+2*!!argument2)
-    __gm82snd_map(name+"__pitch",1)
-    __gm82snd_map(name+"__volume",1)
-    __gm82snd_map(name+"__3dmin",1)
-    __gm82snd_map(name+"__3dmax",1000000000)
-    __gm82snd_map(name+"__3dconevol",1)
-    __gm82snd_map(name+"__instlist",ds_list_create())
-
-    return name
-
-
-#define sound_effect_chorus
-    show_error("Error in function sound_effect_chorus: Please use sound_effect_set() instead!",0)
-#define sound_effect_echo
-    show_error("Error in function sound_effect_echo: Please use sound_effect_set() instead!",0)
-#define sound_effect_flanger
-    show_error("Error in function sound_effect_flanger: Please use sound_effect_set() instead!",0)
-#define sound_effect_gargle
-    show_error("Error in function sound_effect_gargle: Please use sound_effect_set() instead!",0)
-#define sound_effect_reverb
-    show_error("Error in function sound_effect_reverb: Please use sound_effect_set() instead!",0)
-#define sound_effect_compressor
-    show_error("Error in function sound_effect_compressor: Please use sound_effect_set() instead!",0)
-#define sound_effect_equalizer
-    show_error("Error in function sound_effect_equalizer: Please use sound_effect_set() instead!",0)
-
+#define sound_restore
+    exit
+#define sound_discard
+    exit
 #define sound_set_search_directory
-    return 0
+    exit
 
+
+#define sound_fade
+    show_error("sound_fade is currently not implemented in the 8.2 Sound extension.",0)
+#define sound_effect_chorus
+    show_error("Effects on sound ids are unimplemented in the 8.2 Sound extension.",0)
+#define sound_effect_echo
+    show_error("Effects on sound ids are unimplemented in the 8.2 Sound extension.",0)
+#define sound_effect_flanger
+    show_error("Effects on sound ids are unimplemented in the 8.2 Sound extension.",0)
+#define sound_effect_gargle
+    show_error("Effects on sound ids are unimplemented in the 8.2 Sound extension.",0)
+#define sound_effect_reverb
+    show_error("Effects on sound ids are unimplemented in the 8.2 Sound extension.",0)
+#define sound_effect_compressor
+    show_error("Effects on sound ids are unimplemented in the 8.2 Sound extension.",0)
+#define sound_effect_equalizer
+    show_error("Effects on sound ids are unimplemented in the 8.2 Sound extension.",0)
 #define sound_effect_set
-//(sndinst,effect)
-    /*var name,loaded,ef;
+    show_error("Effects on sound ids are unimplemented in the 8.2 Sound extension.",0)
+
+
+/*var name,loaded,ef;
     name=string(argument0)
     loaded=__gm82snd_isloaded(name)
-    
+
     if (loaded!=0) {
         //sound id
         show_error("Error in function sound_effect_set("+name+"): Sound effects can only be applied to sound instances.",0)
@@ -425,6 +412,7 @@
         } else show_error("Error in function sound_effect_set("+name+"): invalid effect number "+string(argument0),0)
         return 0
     }
-    
+
     show_error("Sound does not exist: "+name,0)*/
-    return 0
+//
+//

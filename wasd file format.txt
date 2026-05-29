@@ -5,9 +5,7 @@ u32 file_count
 
 repeat file_count {
     string filename
-    u32 length
-    * buffer
-    inflate buffer {
-        wav file
+    u32 length {
+        file
     }
 }

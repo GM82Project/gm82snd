@@ -1,11 +1,16 @@
 #define sound_background_instance
+    ///sound_background_instance()
+    //Returns the instance id of the current background music.
+    
     return __gm82snd_map("__bginst")
 
 
 
 
 #define sound_get_length
-//(index,[unit])
+    ///sound_get_length(index,[unit])
+    //Returns the length of a sound, in the specified unit or seconds by default.
+    //Valid unit types are 'unit_seconds' and 'unit_samples'.
     var snd,len;    
     
     if (is_real(argument0)) {
@@ -32,7 +37,9 @@
 
 
 #define sound_get_frequency
-//(index)
+    ///sound_get_frequency(index)
+    //Returns the sample rate of the sound, in hertz.
+    
     var snd,ret;    
     
     if (is_real(argument0)) {
@@ -63,7 +70,10 @@
 
 
 #define sound_get_pos
-//(index,[unit])
+    ///sound_get_pos(index,[unit])
+    //Returns the current play position of a sound, in the specified unit or seconds by default.
+    //Valid unit types are 'unit_seconds', 'unit_samples' and 'unit_unitary'.
+    
     var pos;
     if (is_real(argument0)) if (argument0) {
         pos=__gm82snd_call("FMODInstanceGetPosition",argument0)
@@ -80,7 +90,11 @@
     return 0
 
 #define sound_set_pos
-//(index,pos,[unit])
+    ///sound_get_pos(index,pos,[unit])
+    //Sets the current play position of a sound, in the specified unit or seconds by default.
+    //Valid unit types are 'unit_seconds', 'unit_samples' and 'unit_unitary'.
+    //Note that for streamed sounds this will incur a small hitch in playback as the buffers are discarded.
+    
     var pos;
     if (is_real(argument0)) if (argument0) {
         pos=argument1

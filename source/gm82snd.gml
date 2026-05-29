@@ -1,20 +1,20 @@
 #define __gm82snd_init
-    var p,dir;
+    var __p,__dir;
     object_event_add(gm82core_object,ev_step,ev_step_end,"__gm82snd_update()")
 
     globalvar __gm82snd_version; __gm82snd_version=132
 
     //move fmod to a common location so that it doesn't leave a copy behind every time you run the game
     directory_create(temp_directory+"\gm82\sound")     
-    p=string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))    
-    dir=string_copy(temp_directory,1,p+19)+"gm82 dll cache"    
-    directory_create(dir)
-    file_delete(dir+"\fmodex.dll")
-    file_rename(temp_directory+"\gm82\fmodex.dll",dir+"\fmodex.dll")
+    __p=string_pos("\appdata\local\temp\gm_ttt_",string_lower(temp_directory))    
+    __dir=string_copy(temp_directory,1,__p+19)+"gm82 dll cache"    
+    directory_create(__dir)
+    file_delete(__dir+"\fmodex.dll")
+    file_rename(temp_directory+"\gm82\fmodex.dll",__dir+"\fmodex.dll")
     //poke it so that gmfmod can find it
     //this is a valid function and will put fmodex in the link list
     //this means it can be anywhere and it'll be found for further function defs
-    external_define(dir+"\fmodex.dll","FMOD_Debug_GetLevel",dll_cdecl,ty_real,0)
+    external_define(__dir+"\fmodex.dll","FMOD_Debug_GetLevel",dll_cdecl,ty_real,0)
     
     global.__gm82snd_checkerrors=true
     
@@ -170,19 +170,19 @@
 
 #define __gm82snd_define
     //(func,args...)
-    var dll,call;
+    var __dll,__call;
     
-    dll=temp_directory+"\gm82\gm82snd.dll"
+    __dll=temp_directory+"\gm82\gm82snd.dll"
     switch (argument_count) {
-        case 1: call=external_define(dll,argument[0],1,0,0) break
-        case 2: call=external_define(dll,argument[0],1,0,1,argument[1]) break
-        case 3: call=external_define(dll,argument[0],1,0,2,argument[1],argument[2]) break
-        case 4: call=external_define(dll,argument[0],1,0,3,argument[1],argument[2],argument[3]) break
-        case 5: call=external_define(dll,argument[0],1,0,4,argument[1],argument[2],argument[3],argument[4]) break
-        case 6: call=external_define(dll,argument[0],1,0,5,argument[1],argument[2],argument[3],argument[4],argument[5]) break
+        case 1: __call=external_define(__dll,argument[0],1,0,0) break
+        case 2: __call=external_define(__dll,argument[0],1,0,1,argument[1]) break
+        case 3: __call=external_define(__dll,argument[0],1,0,2,argument[1],argument[2]) break
+        case 4: __call=external_define(__dll,argument[0],1,0,3,argument[1],argument[2],argument[3]) break
+        case 5: __call=external_define(__dll,argument[0],1,0,4,argument[1],argument[2],argument[3],argument[4]) break
+        case 6: __call=external_define(__dll,argument[0],1,0,5,argument[1],argument[2],argument[3],argument[4],argument[5]) break
     }
     
-    __gm82snd_map("__dll_"+argument0,call)
+    __gm82snd_map("__dll_"+argument0,__call)
 
 
 #define __gm82snd_supported
@@ -197,64 +197,64 @@
 
 #define __gm82snd_instantiate
     //(index,function,pause,stopbgs)
-    var snd,kind,inst,pitch,pan,vol,flags,name,list,list2;
+    var __snd,__kind,__inst,__pitch,__pan,__vol,__flags,__name,__list;
     
     if (is_real(argument0)) {
         show_error("sound does not exist: "+string(argument0),0)
         return 0
     }
     
-    name=argument0
+    __name=argument0
     
-    snd=__gm82snd_fmodid(argument0)
-    if (!snd) {
-        show_error("Sound does not exist: "+name,0)
+    __snd=__gm82snd_fmodid(argument0)
+    if (!__snd) {
+        show_error("Sound does not exist: "+__name,0)
         return 0
     }
     
-    kind=sound_get_kind(name)
-    if (kind==1 && argument3) {
-        inst=__gm82snd_map("__bginst")
-        if (inst) sound_stop(inst)
+    __kind=sound_get_kind(__name)
+    if (__kind==1 && argument3) {
+        __inst=__gm82snd_map("__bginst")
+        if (__inst) sound_stop(__inst)
     }
 
-    flags=0
+    __flags=0
    
-    pitch=__gm82snd_map(name+"__pitch")
-    if (pitch!=0) flags=1
+    __pitch=__gm82snd_map(__name+"__pitch")
+    if (__pitch!=0) __flags=1
 
-    if (kind==1) {
-        flags=1
-        pitch*=__gm82snd_map("__bgtempo")
+    if (__kind==1) {
+        __flags=1
+        __pitch*=__gm82snd_map("__bgtempo")
     }
 
-    pan=__gm82snd_map(name+"__pan")
-    if (pan!=0) flags=1
+    __pan=__gm82snd_map(__name+"__pan")
+    if (__pan!=0) __flags=1
     
-    vol=1
-    if (kind==2) {
-        flags=1
-        vol=0
+    __vol=1
+    if (__kind==2) {
+        __flags=1
+        __vol=0
     }
     
-    if (flags) {
-        inst=__gm82snd_call(argument1,snd,1)
-        __gm82snd_call("FMODInstanceSetPitch",inst,pitch)
-        __gm82snd_call("FMODInstanceSetPan",inst,pan)
-        __gm82snd_call("FMODInstanceSetVolume",inst,vol)
-        if (!argument2) __gm82snd_call("FMODInstanceSetPaused",inst,0)  
+    if (__flags) {
+        __inst=__gm82snd_call(argument1,__snd,1)
+        __gm82snd_call("FMODInstanceSetPitch",__inst,__pitch)
+        __gm82snd_call("FMODInstanceSetPan",__inst,__pan)
+        __gm82snd_call("FMODInstanceSetVolume",__inst,__vol)
+        if (!argument2) __gm82snd_call("FMODInstanceSetPaused",__inst,0)  
     } else {
-        inst=__gm82snd_call(argument1,snd,argument2)
+        __inst=__gm82snd_call(argument1,__snd,argument2)
     }
 
-    list=__gm82snd_instlist(name)
-    ds_list_add(list,inst)
-    list2=__gm82snd_map("__globlist")
-    ds_list_add(list2,inst)
-    ds_list_add(list2,list)
+    __list=__gm82snd_instlist(__name)
+    ds_list_add(__list,__inst)
+    __list=__gm82snd_map("__globlist")
+    ds_list_add(__list,__inst)
+    ds_list_add(__list,__list)
         
-    if (kind==1 && argument3) __gm82snd_map("__bginst",inst)
-    return inst
+    if (__kind==1 && argument3) __gm82snd_map("__bginst",__inst)
+    return __inst
 
 
 #define __gm82snd_instlist
@@ -264,28 +264,28 @@
 
 #define __gm82snd_setgroup
 //(fmodid,group)
-    var kind,group;
+    var __kind,__group;
 
-    kind=argument1
+    __kind=argument1
 
-    if (kind==1) group=1 //music
-    if (kind==3) group=2 //mmplay
-    if (kind==2) group=3 //3d
-    if (kind==0) group=4 //regular sfx
+    if (__kind==1) __group=1 //music
+    if (__kind==3) __group=2 //mmplay
+    if (__kind==2) __group=3 //3d
+    if (__kind==0) __group=4 //regular sfx
 
-    __gm82snd_call("FMODSoundSetGroup",argument0,group)
+    __gm82snd_call("FMODSoundSetGroup",argument0,__group)
 
 
 #define __gm82snd_stopallof
 //(name)
-    var list,i,s;
+    var __list,__i,__s;
     
-    list=__gm82snd_instlist(argument0)
-    s=ds_list_size(list)
-    for (i=0;i<s;i+=1) {
-        __gm82snd_call("FMODInstanceStop",ds_list_find_value(list,i))
+    __list=__gm82snd_instlist(argument0)
+    __s=ds_list_size(__list)
+    for (__i=0;__i<__s;__i+=1) {
+        __gm82snd_call("FMODInstanceStop",ds_list_find_value(__list,__i))
     }
-    ds_list_clear(list)
+    ds_list_clear(__list)
     __gm82snd_update2d()
     
 
@@ -296,85 +296,84 @@
 
 
 #define __gm82snd_update2d
-    var list,i,l,inst,il,snd;
+    var __list,__i,__l,__inst,__il,__snd;
     
-    list=__gm82snd_map("__globlist")
-    l=ds_list_size(list)
+    __list=__gm82snd_map("__globlist")
+    __l=ds_list_size(__list)
     global.__gm82snd_checkerrors=false
-    i=0 while (i<l) {
-        inst=ds_list_find_value(list,i)
-        if (!__gm82snd_call("FMODInstanceIsPlaying",inst)) {
-            __gm82snd_call("FMODInstanceStop",inst)
-            ds_list_delete(list,i)
-            il=ds_list_find_value(list,i)
-            ds_list_delete(list,i)
-            ds_list_delete(il,ds_list_find_index(il,inst))
-            i-=2
-            l-=2
+    __i=0 while (__i<__l) {
+        __inst=ds_list_find_value(__list,__i)
+        if (!__gm82snd_call("FMODInstanceIsPlaying",__inst)) {
+            __gm82snd_call("FMODInstanceStop",__inst)
+            ds_list_delete(__list,__i)
+            __il=ds_list_find_value(__list,__i)
+            ds_list_delete(__list,__i)
+            ds_list_delete(__il,ds_list_find_index(__il,__inst))
+            __i-=2
+            __l-=2
         }
-        i+=2
+        __i+=2
     }
     global.__gm82snd_checkerrors=true
 
 
 #define __gm82snd_update3d
-    var list3d,j,length,name,list,s,i;
+    var __list3d,__j,__length,__name,__list,__s,__i;
     
-    list3d=ds_map_find_value(__gm82snd_mapid,"__kindlist2")
-    length=ds_list_size(list3d)
-    for (j=0;j<length;j+=1) {
-        name=ds_list_find_value(list3d,j)
-        list=ds_map_find_value(__gm82snd_mapid,name+"__instlist")
-        s=ds_list_size(list)
+    __list3d=ds_map_find_value(__gm82snd_mapid,"__kindlist2")
+    __length=ds_list_size(__list3d)
+    for (__j=0;__j<__length;__j+=1) {
+        __name=ds_list_find_value(__list3d,__j)
+        __list=ds_map_find_value(__gm82snd_mapid,__name+"__instlist")
+        __s=ds_list_size(__list)
 
-        for (i=0;i<s;i+=1) {
-            __gm82snd_update_3d_sound(name,ds_list_find_value(list,i))
+        for (__i=0;__i<__s;__i+=1) {
+            __gm82snd_update_3d_sound(__name,ds_list_find_value(__list,__i))
         }
     }
 
 
 #define __gm82snd_update_3d_sound
     //(name,instance)
-    var name,inst,sx,sy,sz,vx,vy,vz,cx,cy,cz,mindist,maxdist,dir,vol,anglein,angleout,conevol;
+    var __name,__inst,__sx,__sy,__sz,__vx,__vy,__vz,__cx,__cy,__cz,__mindist,__maxdist,__dir,__vol,__anglein,__angleout,__conevol;
     
-    name=argument0
-    inst=argument1
+    __name=argument0
+    __inst=argument1
     
     //i've inlined all of the map readers in this function for performance concerns.
     
-    sx=ds_map_find_value(__gm82snd_mapid,name+"__3dx")
-    sy=ds_map_find_value(__gm82snd_mapid,name+"__3dy")
-    sz=ds_map_find_value(__gm82snd_mapid,name+"__3dz")
-
-    vx=ds_map_find_value(__gm82snd_mapid,name+"__3dvx")
-    vy=ds_map_find_value(__gm82snd_mapid,name+"__3dvy")
-    vz=ds_map_find_value(__gm82snd_mapid,name+"__3dvz")
+    __sx=ds_map_find_value(__gm82snd_mapid,__name+"__3dx")
+    __sy=ds_map_find_value(__gm82snd_mapid,__name+"__3dy")
+    __sz=ds_map_find_value(__gm82snd_mapid,__name+"__3dz")
     
-    cx=ds_map_find_value(__gm82snd_mapid,name+"__3dconex")
-    cy=ds_map_find_value(__gm82snd_mapid,name+"__3dconey")
-    cz=ds_map_find_value(__gm82snd_mapid,name+"__3dconez")
+    __vx=ds_map_find_value(__gm82snd_mapid,__name+"__3dvx")
+    __vy=ds_map_find_value(__gm82snd_mapid,__name+"__3dvy")
+    __vz=ds_map_find_value(__gm82snd_mapid,__name+"__3dvz")
     
-    mindist=ds_map_find_value(__gm82snd_mapid,name+"__3dmin")
-    maxdist=ds_map_find_value(__gm82snd_mapid,name+"__3dmax")
-    anglein=ds_map_find_value(__gm82snd_mapid,name+"__3dconein")
-    angleout=ds_map_find_value(__gm82snd_mapid,name+"__3dconeout")
-    conevol=ds_map_find_value(__gm82snd_mapid,name+"__3dconevol")
+    __cx=ds_map_find_value(__gm82snd_mapid,__name+"__3dconex")
+    __cy=ds_map_find_value(__gm82snd_mapid,__name+"__3dconey")
+    __cz=ds_map_find_value(__gm82snd_mapid,__name+"__3dconez")
     
-    vol=mindist/median(mindist,point_distance_3d(0,0,0,sx,sy,sz),maxdist)
+    __mindist=ds_map_find_value(__gm82snd_mapid,__name+"__3dmin")
+    __maxdist=ds_map_find_value(__gm82snd_mapid,__name+"__3dmax")
+    __anglein=ds_map_find_value(__gm82snd_mapid,__name+"__3dconein")
+    __angleout=ds_map_find_value(__gm82snd_mapid,__name+"__3dconeout")
+    __conevol=ds_map_find_value(__gm82snd_mapid,__name+"__3dconevol")
     
-    if (conevol<1) {
-        dir=angle_difference_3d(cx,cy,cz,-sx,-sy,-sz)
-        vol*=lerp(1,conevol,median(0,(dir-anglein)/(angleout-anglein),1))
+    __vol=__mindist/median(__mindist,point_distance_3d(0,0,0,__sx,__sy,__sz),__maxdist)
+    
+    if (__conevol<1) {
+        __dir=angle_difference_3d(__cx,__cy,__cz,-__sx,-__sy,-__sz)
+        __vol*=lerp(1,__conevol,median(0,(__dir-__anglein)/(__angleout-__anglein),1))
     }      
     
-    __gm82snd_call("FMODInstanceSetPan",inst,lengthdir_x(1,point_direction(0,0,sx,sy+sz)))
-    __gm82snd_call("FMODInstanceSetVolume",inst,vol)
-    __gm82snd_call("FMODInstanceSetPitch",inst,1-(point_distance(0,0,sx+vx,sy+vy+sz+vz)-point_distance(0,0,sx,sy+sz))/343) //speed of sound in directx is 343 m/s
+    __gm82snd_call("FMODInstanceSetPan",__inst,lengthdir_x(1,point_direction(0,0,__sx,__sy+__sz)))
+    __gm82snd_call("FMODInstanceSetVolume",__inst,__vol)                                                   //speed of sound in directx is 343 m/s
+    __gm82snd_call("FMODInstanceSetPitch",__inst,1-(point_distance(0,0,__sx+__vx,__sy+__vy+__sz+__vz)-point_distance(0,0,__sx,__sy+__sz))/343) 
 
 
 #define __gm82snd_geterrorstr
-    switch (argument0)
-    {
+    switch (argument0) {
         case  1: return "Tried to call lock a second time before unlock was called. ";
         case  2: return "Tried to call a function on a data type that does not allow this type of functionality (ie calling Sound::lock on a streaming sound). ";
         case  3: return "Neither NTSCSI nor ASPI could be initialised. ";
