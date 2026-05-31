@@ -69,7 +69,7 @@
 
 #define sound_get_count
     ///sound_get_count([index])
-    //Returns the number of active instances of a sound, or all sounds.
+    //Returns the number of active instances of a sound, or all sounds if no arguments are passed.
     
     if (argument_count==0) return __gm82snd_call("FMODGetNumInstances")
     
@@ -106,7 +106,7 @@
     ///sound_get_pos(index,pos,[unit])
     //Sets the current play position of a sound, in the specified unit or seconds by default.
     //Valid unit types are 'unit_seconds', 'unit_samples' and 'unit_unitary'.
-    //Note that for streamed sounds this will incur a small hitch in playback as the buffers are discarded.
+    //Note that for streamed sounds this will incur a short pause while disk-seeking.
     
     var __pos;
     if (is_real(argument0)) if (argument0) {
@@ -129,6 +129,12 @@
     
 
 #define sound_kind_pan
+    ///sound_kind_pan(kind,pan)
+    //Changes the stereo panning for all sounds of a kind.
+    //Kind 0 = sound effects
+    //Kind 1 = Background music
+    //Kind 2 = 3D sounds
+    //Kind 3 = Streamed sound effects
     var __kind,__group,__pan;
 
     __kind=argument0
@@ -149,6 +155,12 @@
     }
 
 #define sound_kind_pause
+    ///sound_kind_pause(kind)
+    //Pauses all sounds of a kind.
+    //Kind 0 = sound effects
+    //Kind 1 = Background music
+    //Kind 2 = 3D sounds
+    //Kind 3 = Streamed sound effects
     var __kind,__group;
 
     __kind=argument0
@@ -168,6 +180,12 @@
     }
 
 #define sound_kind_stop
+    ///sound_kind_stop(kind)
+    //Stops all sounds of a kind.
+    //Kind 0 = sound effects
+    //Kind 1 = Background music
+    //Kind 2 = 3D sounds
+    //Kind 3 = Streamed sound effects
     var __kind,__group;
 
     __kind=argument0
@@ -187,6 +205,12 @@
     }
 
 #define sound_kind_pitch
+    ///sound_kind_pitch(kind,pitch)
+    //Changes the pitch value of all sounds of a kind.
+    //Kind 0 = sound effects
+    //Kind 1 = Background music
+    //Kind 2 = 3D sounds
+    //Kind 3 = Streamed sound effects
     var __kind,__pitch,__group;
 
     __kind=argument0
@@ -207,6 +231,12 @@
     }
 
 #define sound_kind_resume
+    ///sound_kind_resume(kind)
+    //Resumes all paused sounds of a kind.
+    //Kind 0 = sound effects
+    //Kind 1 = Background music
+    //Kind 2 = 3D sounds
+    //Kind 3 = Streamed sound effects
     var __kind,__group;
 
     __kind=argument0
@@ -226,6 +256,12 @@
     }
 
 #define sound_kind_volume
+    ///sound_kind_volume(kind,volume)
+    //Changes the volume value of all sounds of a kind.
+    //Kind 0 = sound effects
+    //Kind 1 = Background music
+    //Kind 2 = 3D sounds
+    //Kind 3 = Streamed sound effects
     var __kind,__group,__vol;
 
     __kind=argument0
@@ -247,7 +283,12 @@
 
 
 #define sound_kind_get_volume
-//(kind)
+    ///sound_kind_get_volume(kind)
+    //Returns the volume value for a kind of sounds.
+    //Kind 0 = sound effects
+    //Kind 1 = Background music
+    //Kind 2 = 3D sounds
+    //Kind 3 = Streamed sound effects
     var __kind,__group;
 
     __kind=argument0
@@ -265,7 +306,8 @@
 
 
 #define sound_loop_ex
-//(index,[volume,pitch,pan])
+    ///sound_loop_ex(index,[volume,pitch,pan])
+    //Loops a sound, with more options.
     var __snd;
     
     if (argument_count>1) {
@@ -282,7 +324,8 @@
 
 
 #define sound_loop_single_ex
-//(index,[volume,pitch,pan])
+    ///sound_loop_single_ex(index,[volume,pitch,pan])
+    //Loops a sound, with more options, while ensuring there's only ever one active instance of the sound.
     var __snd;
     
     var __inst,__name;
@@ -305,7 +348,8 @@
 
 
 #define sound_loop_ex_layer
-//(index,[volume,pitch,pan])
+    ///sound_loop_ex_layer(index,[volume,pitch,pan])
+    //Loops a sound, with more options, while allowing for multiple instances of Background Music kind of sounds.
     var __snd;
     
     if (argument_count>1) {
@@ -322,7 +366,8 @@
 
 
 #define sound_loop_paused
-//(index,[volume,pitch,pan])
+    ///sound_loop_paused(index,[volume,pitch,pan])
+    //Loops a sound, but returns a paused instance so that it can be further manipulated before it's played.
     var __snd;
     
     __snd=__gm82snd_instantiate(argument[0],"FMODSoundLoop",1,1)
@@ -337,7 +382,8 @@
 
 
 #define sound_get_pan
-//(index)
+    ///sound_get_pan(index)
+    //Returns the currently configured default pan value of a sound.
     if (is_real(argument0)) if (argument0) {
         return __gm82snd_call("FMODInstanceGetPan",argument0)
     }
@@ -351,7 +397,8 @@
 
 
 #define sound_pause
-//(index)
+    ///sound_pause(index)
+    //Pauses a sound.
     var __list,__i;
     
     if (is_real(argument0)) if (argument0) {
@@ -373,7 +420,8 @@
 
 
 #define sound_resume
-//(index)
+    ///sound_resume(index)
+    //Resumes a sound.
     var __list,__i;
     
     if (is_real(argument0)) if (argument0) {
@@ -395,15 +443,20 @@
 
 
 #define sound_pause_all
+    ///sound_pause_all()
+    //Pauses all sounds.
     sound_kind_pause(all)
 
 
 #define sound_resume_all
+    ///sound_resume_all()
+    //Resumes all sounds.
     sound_kind_resume(all)
 
 
 #define sound_pitch
-//(index,value)
+    ///sound_pitch(index,value)
+    //Changes the pitch value of a sound or an instance.    
     if (is_real(argument0)) if (argument0) {
         __gm82snd_call("FMODInstanceSetPitch",argument0,argument1)
         
@@ -419,7 +472,8 @@
 
 
 #define sound_get_pitch
-//(index)
+    ///sound_get_pitch(index)
+    //Returns the currently configured default pitch value of a sound.
     if (is_real(argument0)) if (argument0) {
         return __gm82snd_call("FMODInstanceGetPitch",argument0)
     }
@@ -433,7 +487,8 @@
 
 
 #define sound_play_ex
-//(index,[volume,pitch,pan])
+    ///sound_play_ex(index,[volume,pitch,pan])
+    //Plays a sound, with more options.
     var __snd;
     
     if (argument_count>1) {
@@ -450,7 +505,8 @@
     
     
 #define sound_play_single_ex
-//(index,[volume,pitch,pan])
+    ///sound_play_single_ex(index,[volume,pitch,pan])
+    //Plays a sound while ensuring there's only ever one active instance of the sound.
     var __snd,__inst,__name;
     
     __name=string(argument0)
@@ -472,7 +528,8 @@
 
 
 #define sound_play_ex_layer
-//(index,[volume,pitch,pan])
+    ///sound_play_ex_layer(index,[volume,pitch,pan])
+    //Plays a sound while allowing for multiple instances of Background Music kind of sounds.
     var __snd;
     
     if (argument_count>1) {
@@ -489,7 +546,8 @@
 
 
 #define sound_play_paused
-//(index,[volume,pitch,pan])
+    ///sound_play_paused(index,[volume,pitch,pan])
+    //Plays a sound, but returns a paused instance so that it can be further manipulated before it's played.
     var __snd;
     
     __snd=__gm82snd_instantiate(argument[0],"FMODSoundPlay",1,1)
@@ -504,6 +562,8 @@
 
 
 #define sound_play_single
+    ///sound_play_single(index)
+    //Plays a sound while ensuring there's only ever one active instance of the sound.
     var __inst,__name;
     
     __name=string(argument0)
@@ -516,6 +576,8 @@
 
 
 #define sound_loop_single
+    ///sound_play_single(index)
+    //Loops a sound while ensuring there's only ever one active instance of the sound.
     var __inst,__name;
     
     __name=string(argument0)
@@ -528,7 +590,9 @@
 
 
 #define sound_set_loop
-//(index,loopstart,loopend,[unit])
+    ///sound_set_loop(index,start,end,[unit])
+    //Changes the loop points of a sound index.
+    //Valid unit types are 'unit_seconds', 'unit_samples' and 'unit_unitary'.
     var __a,__b,__len;
     
     if (sound_exists(argument0)) {
@@ -555,7 +619,8 @@
 
 
 #define sound_set_loop_count
-//(index,count)
+    ///sound_set_loop_count(index,count)
+    //Changes the number of times a sound loops. Set to 0 for infinite loop.
     var __a;
     
     __a=max(0,round(argument1))
@@ -573,7 +638,8 @@
     
 
 #define sound_get_volume
-//(index)
+///sound_get_volume(index)
+    //Returns the currently configured default volume value of a sound.
     if (is_real(argument0)) if (argument0) {
         return __gm82snd_call("FMODInstanceGetVolume",argument0)
     }
@@ -587,7 +653,8 @@
 
 
 #define sound_kind_list
-//(kind):list
+    ///sound_kind_list(kind)
+    //Returns a ds_list containing all active sounds of a kind.
     var __lr,__i,__kind,__list,__l;
     
     __lr=ds_list_create()
@@ -601,7 +668,8 @@
 
 
 #define sound_add_ext
-//(fname,kind,streamed,name)
+    ///sound_add_ext(fname,kind,streamed,name)
+    //Adds a sound with more options.
     var __snd,__name,__kind,__load;
 
     if (!file_exists(argument0)) {
@@ -645,7 +713,9 @@
 
 
 #define sound_add_directory
-//(dir,extension,kind,preload)
+    ///sound_add_directory(dir,extension,kind,preload)
+    //Adds compatible sounds from a directory on disk.
+    //Returns the number of sounds added.
     var __dir,__fname,__count,__f;
     
     __dir=argument0
@@ -669,7 +739,9 @@
 
 
 #define sound_add_directory_ext
-//(dir,extension,kind,streamed,nameprefix)
+    ///sound_add_directory_ext(dir,extension,kind,streamed,nameprefix)
+    //Adds compatible sounds from a directory on disk with more options.
+    //Returns a ds_list with the names of the sounds added.
     var __dir,__fname,__f,__list,__name;
     
     __dir=argument0
@@ -694,7 +766,8 @@
 
 
 #define sound_add_included
-//(fname,kind,preload)
+    ///sound_add_included(fname,kind,preload)
+    //Adds a sound from an included file.
     var __fname;
     __fname=temp_directory+"\gm82\sound\"+argument0
     export_include_file_location(argument0,__fname)
@@ -702,7 +775,9 @@
 
 
 #define sound_kind_effect
-//(kind,effect)
+    ///sound_kind_effect(kind,effect)
+    //Applies an effect to a sound kind. use the se_ constants.
+    //Returns the id of the effect.
     var __kind,__group,__ef,__i;
     __kind=argument0
 
@@ -742,12 +817,14 @@
 
 
 #define sound_effect_options
-//(sfxinst,option,value)
+    ///sound_effect_options(sfxinst,option,value)
+    //Changes the properties of an effect. Check the FmodEx documentation for what parameters to change.
     __gm82snd_call("FMODEffectSetParamValue",argument0,argument1,argument2)
 
 
 #define sound_effect_destroy
-//(effect)
+    ///sound_effect_destroy(effect)
+    //Destroys an effect.
     if (argument0) {
         __gm82snd_call("FMODEffectFree",argument0)
         return 1
