@@ -576,7 +576,7 @@
 
 
 #define sound_loop_single
-    ///sound_play_single(index)
+    ///sound_loop_single(index)
     //Loops a sound while ensuring there's only ever one active instance of the sound.
     var __inst,__name;
     
@@ -591,7 +591,7 @@
 
 #define sound_set_loop
     ///sound_set_loop(index,start,end,[unit])
-    //Changes the loop points of a sound index.
+    //Changes the loop points of a sound index, in seconds by default.
     //Valid unit types are 'unit_seconds', 'unit_samples' and 'unit_unitary'.
     var __a,__b,__len;
     
