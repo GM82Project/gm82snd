@@ -49,7 +49,7 @@
 
     if (sound_exists(__name)) {
         __gm82snd_stopallof(__name)
-        snd=__gm82snd_fmodid(__name)
+        __snd=__gm82snd_fmodid(__name)
         __gm82snd_call("FMODSoundFree",__snd)
         ds_map_delete(__gm82snd_mapid,__snd)
 
