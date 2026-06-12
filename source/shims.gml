@@ -53,7 +53,7 @@
         __gm82snd_call("FMODSoundFree",__snd)
         ds_map_delete(__gm82snd_mapid,__snd)
 
-        __oldkind=__gm82snd_map(name+"__kind")
+        __oldkind=__gm82snd_map(__name+"__kind")
 
         __list=__gm82snd_map("__kindlist"+string(__oldkind))
         ds_list_delete(__list,ds_list_find_index(__list,__name))
