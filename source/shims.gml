@@ -71,10 +71,10 @@
         ds_list_add(__gm82snd_map("__kindlist"+string(__kind)),__name)
 
         __gm82snd_map(__snd,__name)
-        __gm82snd_map(name+"__fmodid",__snd)
-        __gm82snd_map(name+"__kind",__kind)
-        __gm82snd_map(name+"__loaded",-1+2*!!argument3)
-        __gm82snd_map(name+"__filename",argument1)
+        __gm82snd_map(__name+"__fmodid",__snd)
+        __gm82snd_map(__name+"__kind",__kind)
+        __gm82snd_map(__name+"__loaded",-1+2*!!argument3)
+        __gm82snd_map(__name+"__filename",argument1)
 
         return 1
     }
