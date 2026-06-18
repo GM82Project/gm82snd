@@ -43,24 +43,12 @@
     if (is_real(argument0)) {
         if (argument0) {
             return __gm82snd_call("FMODInstanceGetFrequency",argument0)
-        }
-        else {
+        } else {
             show_error("Sound is null.",0)
             return ""
         }
     } else if (sound_exists(argument0)) {        
-        //only sound instances have frequency getters - we need to find one
-        //ideally, we want to reuse any existing instances for this check
-        __list=__gm82snd_instlist(argument0)
-        if (ds_list_size(__list)) {
-            __snd=ds_list_find_value(__list,0)
-            __ret=__gm82snd_call("FMODInstanceGetFrequency",__snd)
-        } else {
-            __snd=__gm82snd_instantiate(argument0,"FMODSoundPlay",1,0)        
-            __ret=__gm82snd_call("FMODInstanceGetFrequency",__snd)
-            sound_stop(__snd)
-        }
-        return __ret
+        return __gm82snd_map(argument0+"__freq")
     }
         
     show_error("Sound does not exist: "+string(argument0),0)
@@ -655,16 +643,14 @@
 #define sound_kind_list
     ///sound_kind_list(kind)
     //Returns a ds_list containing all active sounds of a kind.
-    var __lr,__i,__kind,__list,__l;
+    var __list,__kind;
     
-    __lr=ds_list_create()
+    __list=ds_list_create()
     __kind=median(0,round(argument0),3)
-    __list=ds_map_find_value(__gm82snd_mapid,"__kindlist"+string(__kind))
-    __l=ds_list_size(__list)
-    for (__i=0;__i<__l;__i+=1) {
-        ds_list_add(lr,ds_list_find_value(__list,__i))
-    }
-    return __lr
+    
+    ds_list_copy(__list,ds_map_find_value(__gm82snd_mapid,"__kindlist"+string(__kind)))
+    
+    return __list
 
 
 #define sound_add_ext

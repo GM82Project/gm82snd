@@ -1,6 +1,6 @@
 #define sound_add
     //(fname,kind,preload)
-    var __snd,__name,__kind;
+    var __snd,__name,__kind,__inst;
 
     if (!file_exists(argument0)) {
         show_error("File does not exist trying to add a sound: "+string(argument0),0)
@@ -26,7 +26,7 @@
     __gm82snd_setgroup(__snd,__kind)
 
     ds_list_add(__gm82snd_map("__kindlist"+string(__kind)),__name)
-
+    
     __gm82snd_map(__snd,__name)
     __gm82snd_map(__name+"__fmodid",__snd)
     __gm82snd_map(__name+"__filename",argument0)
@@ -38,13 +38,17 @@
     __gm82snd_map(__name+"__3dmax",1000000000)
     __gm82snd_map(__name+"__3dconevol",1)
     __gm82snd_map(__name+"__instlist",ds_list_create())
+    
+    __inst=__gm82snd_instantiate(__name,"FMODSoundPlay",1,0)        
+    __gm82snd_map(__name+"__freq",__gm82snd_call("FMODInstanceGetFrequency",__inst))
+    __gm82snd_stopallof(__name)
 
     return __name
 
 
 #define sound_replace
     //(index,fname,kind,preload)
-    var __name,__snd,__kind,__list,__i;
+    var __name,__snd,__kind,__list,__i,__inst;
     __name=string(argument0)
 
     if (sound_exists(__name)) {
@@ -69,12 +73,16 @@
         __gm82snd_setgroup(__snd,__kind)
 
         ds_list_add(__gm82snd_map("__kindlist"+string(__kind)),__name)
-
+        
         __gm82snd_map(__snd,__name)
         __gm82snd_map(__name+"__fmodid",__snd)
         __gm82snd_map(__name+"__kind",__kind)
         __gm82snd_map(__name+"__loaded",-1+2*!!argument3)
         __gm82snd_map(__name+"__filename",argument1)
+        
+        __inst=__gm82snd_instantiate(__name,"FMODSoundPlay",1,0)        
+        __gm82snd_map(__name+"__freq",__gm82snd_call("FMODInstanceGetFrequency",__inst))
+        __gm82snd_stopallof(__name)
 
         return 1
     }
@@ -273,6 +281,7 @@
         ds_map_delete(__gm82snd_mapid,argument0+"__3dmax")
         ds_map_delete(__gm82snd_mapid,argument0+"__3dconevol")
         ds_map_delete(__gm82snd_mapid,argument0+"__instlist")
+        ds_map_delete(__gm82snd_mapid,argument0+"__freq")
 
         return 1
     }
