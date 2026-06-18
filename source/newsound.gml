@@ -69,7 +69,28 @@
     show_error("Sound does not exist: "+string(argument0),0)
     return 0
     
+
+#define sound_get_instance_list
+    ///sound_get_instance_list(index)
+    //Returns a dslist containing all active instances of a sound. Please delete the list after use.
     
+    var __list,__snd;
+    
+    if (is_real(argument0)) {
+        if (argument0) {
+            __snd=__gm82snd_map(__gm82snd_call("FMODInstanceGetSound",argument0))
+        } else {
+            show_error("Sound is null.",0)
+            return -1
+        }
+    } else __snd=argument0
+    
+    __list=ds_list_create()
+    ds_list_copy(__list,__gm82snd_instlist(__snd))
+    
+    return __list
+
+
 #define sound_get_pos
     ///sound_get_pos(index,[unit])
     //Returns the current play position of a sound, in the specified unit or seconds by default.
