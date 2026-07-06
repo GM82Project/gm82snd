@@ -419,7 +419,7 @@
         __i=ds_list_size(__list)
         repeat (__i) {
             __i-=1
-            __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(list,__i),1)                
+            __gm82snd_call("FMODInstanceSetPaused",ds_list_find_value(__list,__i),1)                
         }
         return 0
     }
