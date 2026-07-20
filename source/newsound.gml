@@ -600,30 +600,41 @@
 
 #define sound_set_loop
     ///sound_set_loop(index,start,end,[unit])
-    //Changes the loop points of a sound index, in seconds by default.
+    //Changes the loop points of a sound or instance, in seconds by default.
     //Valid unit types are 'unit_seconds', 'unit_samples' and 'unit_unitary'.
-    var __a,__b,__len;
+    var __snd,__a,__b,__len;
     
-    if (sound_exists(argument0)) {
+    __snd=argument0
+    if (is_real(argument0)) if (argument0) {
+        __snd=__gm82snd_map(__gm82snd_call("FMODInstanceGetSound",argument0))
+    } 
+    
+    if (sound_exists(__snd)) {
         __a=argument1
         __b=argument2
         if (argument_count==4) {
             if (argument3==unit_seconds) {
-                __len=sound_get_length(argument0)
+                __len=sound_get_length(__snd)
                 __a=argument1/__len
                 __b=argument2/__len
             } else if (argument3==unit_samples) {
-                __len=sound_get_length(argument0)*sound_get_frequency(argument0)
+                __len=sound_get_length(__snd)*sound_get_frequency(__snd)
                 __a=argument1/__len
                 __b=argument2/__len
             }
         }
         __a=median(0,__a,1)
         __b=median(__a,__b,1)
-        __gm82snd_call("FMODSoundSetLoopPoints",__gm82snd_fmodid(argument0),__a,__b)
+        if (is_real(argument0)) if (argument0) {
+            __gm82snd_call("FMODInstanceSetLoopPoints",argument0,__a,__b)
+            return 0
+        }
+        
+        __gm82snd_call("FMODSoundSetLoopPoints",__gm82snd_fmodid(__snd),__a,__b)
+        
         return 0
     }
-    show_error("Sound does not exist: "+string(argument0),0)
+    show_error("Error in function sound_set_loop: Sound does not exist: "+string(argument0),0)
     return 0
 
 
