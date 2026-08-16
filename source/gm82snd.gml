@@ -197,7 +197,7 @@
 
 #define __gm82snd_instantiate
     //(index,function,pause,stopbgs)
-    var __snd,__kind,__inst,__pitch,__pan,__vol,__flags,__name,__list;
+    var __snd,__kind,__inst,__pitch,__pan,__vol,__flags,__name,__list,__list2;
     
     if (is_real(argument0)) {
         show_error("sound does not exist: "+string(argument0),0)
@@ -249,9 +249,9 @@
 
     __list=__gm82snd_instlist(__name)
     ds_list_add(__list,__inst)
-    __list=__gm82snd_map("__globlist")
-    ds_list_add(__list,__inst)
-    ds_list_add(__list,__list)
+    __list2=__gm82snd_map("__globlist")
+    ds_list_add(__list2,__inst)
+    ds_list_add(__list2,__list)
         
     if (__kind==1 && argument3) __gm82snd_map("__bginst",__inst)
     return __inst
