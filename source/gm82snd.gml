@@ -3,6 +3,11 @@
     object_event_add(gm82core_object,ev_step,ev_step_end,"__gm82snd_update()")
 
     globalvar __gm82snd_version; __gm82snd_version=132
+    
+    globalvar gm82audio_version;
+    if (gm82audio_version) {
+        show_error("8.2 Sound and 8.2 Audio cannot be used together. Please remove one of the extensions.",1)
+    }
 
     //move fmod to a common location so that it doesn't leave a copy behind every time you run the game
     directory_create(temp_directory+"\gm82\sound")     
